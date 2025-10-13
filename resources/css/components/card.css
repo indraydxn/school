@@ -1,0 +1,3 @@
+.card {
+  @apply relative flex  min-w-[1px] flex-col break-words rounded-xl bg-white text-gray-500 border border-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:shadow-none print:border;
+}

@@ -1,0 +1,9 @@
+@import 'simplebar/dist/simplebar.min.css';
+
+.simplebar-scrollbar:before{
+    @apply bg-gray-300/80 dark:bg-gray-400
+}
+
+.simplebar-content-wrapper{
+    @apply outline-hidden
+}
