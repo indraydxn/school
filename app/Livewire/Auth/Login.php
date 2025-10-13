@@ -39,50 +39,43 @@ class Login extends Component
             return;
         }
 
-        try {
-            $user = User::where('email', $this->email)->first();
+        $user = User::where('email', $this->email)->first();
 
-            if (!$user) {
-                $this->addError('email', 'Email tidak terdaftar!');
-                return;
-            }
-
-            if ($user->status != 1) {
-                $this->addError('email', 'Akun Anda tidak aktif!');
-                return;
-            }
-
-            $credentials = [
-                'email'    => $this->email,
-                'password' => $this->password,
-            ];
-
-            if (Auth::attempt($credentials)) {
-                session()->regenerate();
-
-                Auth::user()->update([
-                    'login_terakhir' => now(),
-                ]);
-
-                if (Auth::user()->hasRole('admin')) {
-                    noty()->success('Anda berhasil login!');
-                    return redirect()
-                    ->route('admin.dashboard');
-                } else {
-                    Auth::logout();
-                    noty()->error('Anda tidak memiliki akses ke halaman admin');
-                    return redirect()
-                    ->route('login');
-                }
-            }
-
-            $this->addError('password', 'Password salah!');
-
-            $this->reset('password');
-
-        } catch (\Exception $e) {
-            noty()->error('Terjadi kesalahan saat login!');
+        if (!$user) {
+            noty()->error('Email tidak terdaftar!');
+            return redirect()->route('login');
         }
+
+        if ($user->status != 1) {
+            noty()->error('Akun Anda tidak aktif!');
+            return redirect()->route('login');
+        }
+
+        $credentials = [
+            'email'    => $this->email,
+            'password' => $this->password,
+        ];
+
+        if (Auth::attempt($credentials)) {
+            session()->regenerate();
+
+            Auth::user()->update([
+                'login_terakhir' => now(),
+            ]);
+
+            if (Auth::user()->hasRole('admin')) {
+                noty()->success('Anda berhasil login!');
+                return redirect()->route('admin.dashboard');
+            } else {
+                Auth::logout();
+                noty()->error('Anda tidak memiliki akses ke halaman admin');
+                return redirect()->route('login');
+            }
+        }
+
+        $this->addError('password', 'Password salah!');
+
+        $this->reset('password');
     }
 
     public function logout()
@@ -90,9 +83,9 @@ class Login extends Component
         Auth::logout();
         session()->invalidate();
         session()->regenerateToken();
-        noty()->success('Anda berhasil logout!', ['theme => neon']);
-        return redirect()
-        ->route('login');
+
+        noty()->success('Anda berhasil logout!');
+        return redirect()->route('login');
     }
 
     public function render()
