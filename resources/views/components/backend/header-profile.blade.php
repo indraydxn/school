@@ -3,9 +3,9 @@
     {{-- Toggle --}}
     <button @click="isShowPopper = !isShowPopper" x-ref="popperRef" class="w-full overflow-hidden gap-2 flex items-center relative px-3 py-2 rounded-lg border border-gray-200 hover:bg-gray-100/50 hover:text-gray-800 focus:bg-gray-100/50 focus:text-gray-80">
         <img class="rounded-full size-5" src="{{ asset('images/user.png') }}" alt="avatar" />
-        <div class="flex gap-0.5 justify-between items-center lg:max-w-38 max-w-32">
+        <div class="flex gap-0.5 justify-between items-center lg:w-38 w-32">
             <p class="font-bold text-gray-800 dark:text-gray-300 truncate tracking-wider">
-                Nama Lengkap Anda Disini
+                {{ auth()->user()->nama_lengkap }}
             </p>
             <i class="fa-regular fa-angles-up-down"></i>
         </div>
@@ -33,7 +33,7 @@
                 </a>
 
                 {{-- Logout --}}
-                <form action="" method="POST" class="w-full">
+                <form action="{{ route('logout') }}" method="POST" class="w-full">
                     @csrf
                     <button type="submit" class="w-full flex items-center gap-3 py-2 px-3 rounded-lg text-white  bg-error hover:bg-error-focus focus:bg-error-focus" >
                         <i class="fa-light fa-sign-out"></i>

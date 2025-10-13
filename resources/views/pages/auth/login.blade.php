@@ -17,26 +17,27 @@
                 </div>
 
             </div>
-            <form action="" method="POST" class="mt-10">
-                @csrf
+            <form wire:submit="login" class="mt-10 space-y-3">
 
                 {{-- Email --}}
-                <div class="space-y-2">
+                <div class=" flex flex-col gap-2">
                     <label class="relative flex">
-                        <input type="email" id="email" name="email" autocomplete="off" placeholder="Masukkan Email" required autofocus value="{{ old('email') }}" class="w-full px-4 py-2 font-medium border rounded-lg placeholder:font-medium dark:text-gray-300 form-input peer bg-gray-100/50 pl-9 focus:border-primary placeholder:text-gray-400 dark:bg-gray-700/70 dark:border-gray-700/70 dark:focus:border-primary dark:placeholder:text-gray-500"/>
+                        <input type="email" wire:model="email" name="email" id="email" autocomplete="off" placeholder="Masukkan Email" required autofocus class="border-2 border-transparent text-base w-full px-4 py-2 font-medium rounded-lg placeholder:font-medium dark:text-gray-300 form-input peer bg-gray-100/50 pl-10 focus:border-primary placeholder:text-gray-400 dark:bg-gray-700/70 dark:border-gray-700/70 dark:focus:border-primary dark:placeholder:text-gray-500"/>
                         <span class="absolute flex items-center justify-center w-10 h-full text-gray-400 pointer-events-none peer-focus:text-primary dark:text-gray-500 dark:peer-focus:text-primary">
                             <i class="transition-colors duration-200 fa-jelly fa-envelope text-md"></i>
                         </span>
                     </label>
                     @error('email')
-                        <p class="mt-1 text-xs text-error dark:text-error">{{ $message }}</p>
-                    @enderror
+                    <span class="text-xs text-error dark:text-error font-medium">
+                        {{ $message }}
+                    </span>
+                @enderror
                 </div>
 
                 {{-- Password --}}
-                <div class="mt-4 space-y-2">
+                <div class=" flex flex-col gap-2">
                     <label class="relative flex">
-                        <input type="password" id="password" name="password" autocomplete="off" placeholder="Masukkan Password" required class="w-full px-4 py-2 font-medium border rounded-lg placeholder:font-medium dark:text-gray-300 form-input peer bg-gray-100/50 pl-9 focus:border-primary placeholder:text-gray-400 dark:bg-gray-700/70 dark:border-gray-700/70 dark:focus:border-primary dark:placeholder:text-gray-500" />
+                        <input type="password" wire:model="password" name="password" id="password" autocomplete="off" placeholder="Masukkan Password" required class="border-2 border-transparent text-base w-full px-4 py-2 font-medium rounded-lg placeholder:font-medium dark:text-gray-300 form-input peer bg-gray-100/50 pl-10 focus:border-primary placeholder:text-gray-400 dark:bg-gray-700/70 dark:border-gray-700/70 dark:focus:border-primary dark:placeholder:text-gray-500" />
                         <span class="absolute flex items-center justify-center w-10 h-full text-gray-400 pointer-events-none peer-focus:text-primary dark:text-gray-500 dark:peer-focus:text-primary">
                             <i class="transition-colors duration-200 fa-jelly fa-key text-md"></i>
                         </span>
@@ -52,16 +53,24 @@
                         </button>
                     </label>
                     @error('password')
-                        <p class="mt-1 text-xs text-error dark:text-error">
-                            {{ $message }}
-                        </p>
+                    <span class="text-xs text-error dark:text-error font-medium">
+                        {{ $message }}
+                    </span>
                     @enderror
                 </div>
 
                 {{-- Submit --}}
-                <button class="w-full h-10 mt-10 font-bold text-white btn bg-primary hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-primary dark:hover:bg-primary-focus dark:focus:bg-primary-focus dark:active:bg-primary/90">
-                    Masuk
+                <button type="submit" wire:loading.attr="disabled" class="text-base w-full h-10 mt-2 font-bold text-white btn bg-primary hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-primary dark:hover:bg-primary-focus dark:focus:bg-primary-focus dark:active:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <span wire:loading.remove>Masuk</span>
+                    <span wire:loading class="flex items-center justify-center gap-2">
+                        Memproses...
+                        <i class="fa-duotone fa-spinner-third animate-spin"></i>
+                    </span>
                 </button>
+
+                @error('general')
+                    <p class="mt-4 text-xs text-error dark:text-error">{{ $message }}</p>
+                @enderror
 
             </form>
         </div>

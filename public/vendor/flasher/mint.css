@@ -1,0 +1,48 @@
+.noty_theme__mint.noty_bar {
+  margin: 4px 0;
+  overflow: hidden;
+  border-radius: 10px;
+  position: relative;
+}
+
+.noty_theme__mint.noty_bar .noty_body {
+  padding: 10px;
+  font-size: 14px;
+  letter-spacing: 0.050em;
+}
+
+.noty_theme__mint.noty_bar .noty_buttons {
+  padding: 10px;
+}
+
+.noty_theme__mint.noty_type__alert,
+.noty_theme__mint.noty_type__notification {
+  background-color: #fff;
+  border-bottom: 1px solid #D1D1D1;
+  color: #2F2F2F;
+}
+
+.noty_theme__mint.noty_type__warning {
+  background-color: #f59e0b;
+  border-bottom: 1px solid #d18a10;
+  color: #fff;
+}
+
+.noty_theme__mint.noty_type__error {
+  background-color: #ef4444;
+  border-bottom: 1px solid #c93b3b;
+  color: #fff;
+}
+
+.noty_theme__mint.noty_type__info,
+.noty_theme__mint.noty_type__information {
+  background-color: #3b82f6;
+  border-bottom: 1px solid #3972cc;
+  color: #fff;
+}
+
+.noty_theme__mint.noty_type__success {
+  background-color: #10b981;
+  border-bottom: 1px solid #158661;
+  color: #fff;
+}
