@@ -51,7 +51,7 @@
             {{-- Content --}}
             <main class="flex flex-col px-3 pb-3 bg-white not-lg:w-full transition-all duration-300 main-content lg:fixed lg:inset-0 dark:bg-gray-900">
                 <div class="w-full h-full overflow-hidden flex flex-col bg-gray-100 border border-gray-200 rounded-xl dark:bg-gray-800 dark:border-gray-700">
-                    <div class="flex-1 h-full flex flex-col overflow-y-auto [&::-webkit-scrollbar]:w-0 lg:p-6 md:p-5 p-4">
+                    <div class="flex-1 h-full flex flex-col overflow-y-auto [&::-webkit-scrollbar]:w-0 gap-4 lg:p-6 md:p-5 p-4">
                         {{ $slot }}
                     </div>
                 </div>
