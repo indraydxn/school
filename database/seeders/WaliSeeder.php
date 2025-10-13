@@ -3,14 +3,16 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Models\Siswa;
+use App\Models\Wali;
 
 class WaliSeeder extends Seeder
 {
     public function run(): void
     {
-        $user  = DB::table('users')->where('email', 'wali@sekolah.com')->first();  //GUNAKAN MODEL
-        $siswa = DB::table('siswa')->first();                                      //GUNAKAN MODEL
+        $user  = User::where('email', 'wali@sekolah.com')->first();
+        $siswa = Siswa::first();
 
         if ($user && $siswa) {
             $walis = [
@@ -25,7 +27,7 @@ class WaliSeeder extends Seeder
                 ],
             ];
 
-            DB::table('wali_siswa')->insert($walis); //GUNAKAN MODEL
+            Wali::insert($walis);
         }
     }
 }

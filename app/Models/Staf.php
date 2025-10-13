@@ -31,4 +31,13 @@ class Staf extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public static function countGuru()
+    {
+        return self::whereHas('user', function($query) {
+            $query->whereHas('roles', function($q) {
+                $q->where('name', 'guru');
+            });
+        })->count();
+    }
 }

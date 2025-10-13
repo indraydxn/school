@@ -3,13 +3,14 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Models\Siswa;
 
 class SiswaSeeder extends Seeder
 {
     public function run(): void
     {
-        $user = DB::table('users')->where('email', 'siswa@sekolah.com')->first(); //GUNAKAN MODEL
+        $user = User::where('email', 'siswa@sekolah.com')->first();
 
         if ($user) {
             $siswas = [
@@ -23,7 +24,7 @@ class SiswaSeeder extends Seeder
                 ],
             ];
 
-            DB::table('siswa')->insert($siswas); //GUNAKAN MODEL
+            Siswa::insert($siswas);
         }
     }
 }

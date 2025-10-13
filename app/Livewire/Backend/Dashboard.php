@@ -21,7 +21,7 @@ class Dashboard extends Component
         return view('pages.backend.dashboard', [
             "jmlUser"  => User::count(),
             "jmlSiswa" => Siswa::count(),
-            "jmlGuru"  => Staf::count(),
+            "jmlGuru"  => Staf::countGuru(),
             "jmlWali"  => Wali::count()
         ]);
     }

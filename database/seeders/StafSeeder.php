@@ -3,14 +3,15 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Models\Staf;
 
 class StafSeeder extends Seeder
 {
     public function run(): void
     {
-        $admin      = DB::table('users')->where('email', 'admin@sekolah.com')->first(); ///GUNAKAN MODEL
-        $guru       = DB::table('users')->where('email', 'guru@sekolah.com')->first(); ///GUNAKAN MODEL
+        $admin      = User::where('email', 'admin@sekolah.com')->first();
+        $guru       = User::where('email', 'guru@sekolah.com')->first();
 
         $stafs = [];
 
@@ -42,6 +43,6 @@ class StafSeeder extends Seeder
             ];
         }
 
-        DB::table('staf')->insert($stafs); //GUNAKAN MODEL
+        Staf::insert($stafs);
     }
 }
