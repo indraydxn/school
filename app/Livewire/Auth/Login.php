@@ -24,12 +24,12 @@ class Login extends Component
             'password' => $this->password,
         ], [
             'email'    => 'required|email',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:6',
         ], [
             'email.required'    => 'Email wajib diisi.',
             'email.email'       => 'Format email tidak valid.',
             'password.required' => 'Password wajib diisi.',
-            'password.min'      => 'Password minimal 8 karakter.',
+            'password.min'      => 'Password minimal 6 karakter.',
         ]);
 
         if ($validator->fails()) {
