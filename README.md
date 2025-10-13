@@ -121,9 +121,10 @@ Buka browser dan akses `http://localhost:8000` untuk masuk ke aplikasi.
 
 Setelah seeding, Anda dapat login dengan akun berikut (sesuaikan dengan data seeder):
 
-- **Admin**: email: admin@school.com, password: password
-- **Guru**: email: guru@school.com, password: password
-- **Siswa**: email: siswa@school.com, password: password
+- **Admin**     : email: admin@sekolah.com, password: admin123
+- **Guru**      : email: guru@sekolah.com,  password: guru123
+- **Siswa**     : email: siswa@sekolah.com, password: siswa123
+- **Wali Siswa**: email: wali@sekolah.com,  password: wali123
 
 ## Testing
 
