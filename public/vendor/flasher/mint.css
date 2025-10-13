@@ -25,25 +25,25 @@
 
 .noty_theme__mint.noty_type__warning {
   background-color: #f59e0b;
-  border-bottom: 1px solid #d18a10;
+  border-bottom: 1px solid d97706;
   color: #fff;
 }
 
 .noty_theme__mint.noty_type__error {
   background-color: #ef4444;
-  border-bottom: 1px solid #c93b3b;
+  border-bottom: 1px solid #dc2626;
   color: #fff;
 }
 
 .noty_theme__mint.noty_type__info,
 .noty_theme__mint.noty_type__information {
-  background-color: #3b82f6;
-  border-bottom: 1px solid #3972cc;
+  background-color: #0ea5e9;
+  border-bottom: 1px solid #0284c7;
   color: #fff;
 }
 
 .noty_theme__mint.noty_type__success {
   background-color: #10b981;
-  border-bottom: 1px solid #158661;
+  border-bottom: 1px solid #059669;
   color: #fff;
 }

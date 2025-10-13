@@ -1,0 +1,29 @@
+<template x-teleport="#x-teleport-target">
+    <div @keydown.window.escape="showModal = false" x-show="showModal" role="dialog" class="fixed inset-0 z-100 flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5" >
+        <div @click="showModal = false" x-show="showModal" x-transition:enter="ease-out" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute inset-0 bg-slate-900/60 transition-opacity duration-300"></div>
+        <div x-show="showModal" x-transition:enter="easy-out" x-transition:enter-start="opacity-0 [transform:translate3d(0,1rem,0)]" x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave="easy-in" x-transition:leave-start="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave-end="opacity-0 [transform:translate3d(0,1rem,0)]" class="relative flex items-center justify-center max-w-md rounded-xl bg-white p-6 text-center transition-all duration-300" >
+            <div class="">
+                <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-error/10 text-error">
+                    <i class="fa-duotone fa-sign-out text-2xl"></i>
+                </div>
+                <h3 class="mt-4 text-xl font-extrabold text-slate-800 tracking-wide dark:text-navy-50">
+                    Konfirmasi
+                </h3>
+                <p class="text-slate-600 dark:text-navy-200 tracking-wide">
+                    Apakah Anda yakin ingin keluar dari akun Anda?
+                </p>
+                <div class="mt-6 flex justify-center space-x-3">
+                    <button @click="showModal = false" type="button" class="btn bg-gray-100 font-bold text-slate-800 hover:bg-gray-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
+                        Batal
+                    </button>
+                    <form method="POST" action="{{ route('logout') }}" class="inline">
+                        @csrf
+                        <button type="submit" class="btn bg-error font-bold text-white hover:bg-error-focus focus:bg-error-focus active:bg-error-focus/90">
+                            Ya, Keluar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

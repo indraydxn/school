@@ -73,7 +73,7 @@ class Login extends Component
             }
         }
 
-        $this->addError('password', 'Password salah!');
+        noty()->error('Password salah!');
 
         $this->reset('password');
     }
