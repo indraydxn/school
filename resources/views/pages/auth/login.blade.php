@@ -11,7 +11,7 @@
                     <h2 class="text-2xl font-extrabold tracking-wide text-gray-600 dark:text-gray-200">
                         Selamat Datang
                     </h2>
-                    <p class="tracking-wide text-gray-400">
+                    <p class="text-base tracking-wide text-gray-400">
                         Silahkan Masuk
                     </p>
                 </div>
@@ -31,7 +31,7 @@
                     <span class="text-xs text-error dark:text-error font-medium">
                         {{ $message }}
                     </span>
-                @enderror
+                    @enderror
                 </div>
 
                 {{-- Password --}}
@@ -67,10 +67,6 @@
                         <i class="fa-duotone fa-spinner-third animate-spin"></i>
                     </span>
                 </button>
-
-                @error('general')
-                    <p class="mt-4 text-xs text-error dark:text-error">{{ $message }}</p>
-                @enderror
 
             </form>
         </div>

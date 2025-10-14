@@ -9,11 +9,11 @@ Route::get('/', function () {
 
 // Login
 Route::get('login', App\Livewire\Auth\Login::class)->name('login');
-Route::post('logout', [App\Livewire\Auth\Login::class, 'logout'])->name('logout');
 
 // Admin
 Route::middleware('auth', 'role:admin')->prefix('admin')->name('admin.')->group(function () {
-        
+    Route::post('logout', [App\Livewire\Auth\Login::class, 'logout'])->name('logout');
+
     // Dashboard
     Route::get('dashboard', App\Livewire\Backend\Dashboard::class)->name('dashboard');
 
