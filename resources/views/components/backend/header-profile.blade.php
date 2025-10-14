@@ -13,7 +13,7 @@
 
     {{-- Content --}}
     <div :class="isShowPopper && 'show'" class="popper-root fixed" x-ref="popperRoot">
-        <div class="popper-box w-48 lg:w-50 mx-1 rounded-xl border border-slate-150 bg-white shadow-soft">
+        <div class="popper-box w-48 lg:w-50 mx-1 rounded-lg border border-slate-150 bg-white shadow-soft">
             <div class="p-1.5 space-y-1.5 w-full">
 
                 {{-- Profile --}}
