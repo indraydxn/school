@@ -78,16 +78,6 @@ class Login extends Component
         $this->reset('password');
     }
 
-    public function logout()
-    {
-        Auth::logout();
-        session()->invalidate();
-        session()->regenerateToken();
-
-        noty()->success('Anda berhasil logout!');
-        return redirect()->route('login');
-    }
-
     public function render()
     {
         return view('pages.auth.login');

@@ -60,9 +60,9 @@
                 </div>
 
                 {{-- Submit --}}
-                <button type="submit" wire:loading.attr="disabled" class="text-base w-full h-10 mt-2 font-bold text-white btn bg-primary hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-primary dark:hover:bg-primary-focus dark:focus:bg-primary-focus dark:active:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed">
+                <button type="submit" wire:loading.attr="disabled" class="text-base flex items-center w-full h-10 mt-2 font-bold text-white btn bg-primary hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-primary dark:hover:bg-primary-focus dark:focus:bg-primary-focus dark:active:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed">
                     <span wire:loading.remove>Masuk</span>
-                    <span wire:loading class="flex items-center justify-center gap-2">
+                    <span wire:loading class="flex items-center gap-2">
                         Memproses...
                         <i class="fa-duotone fa-spinner-third animate-spin"></i>
                     </span>

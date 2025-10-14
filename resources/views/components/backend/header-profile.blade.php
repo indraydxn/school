@@ -33,15 +33,6 @@
                 </a>
 
                 {{-- Logout --}}
-                {{-- <form action="{{ route('logout') }}" method="POST" class="w-full">
-                    @csrf
-                    <button type="submit" class="w-full flex items-center gap-3 py-2 px-3 rounded-lg text-white  bg-error hover:bg-error-focus focus:bg-error-focus" >
-                        <i class="fa-light fa-sign-out"></i>
-                        <span class="tracking-wider">
-                            Keluar
-                        </span>
-                    </button>
-                </form> --}}
                 <div x-data="{showModal:false}">
                     <button type="button" @click="showModal = true" class="w-full flex items-center gap-3 py-2 px-3 rounded-lg text-white  bg-error hover:bg-error-focus focus:bg-error-focus" >
                         <i class="fa-light fa-sign-out"></i>
@@ -49,7 +40,7 @@
                             Keluar
                         </span>
                     </button>
-                    <x-modal-logout/>
+                    <livewire:auth.logout/>
                 </div>
 
             </div>
