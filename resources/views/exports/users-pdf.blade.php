@@ -66,7 +66,7 @@
                 <p style="margin: 0; text-transform: uppercase;">{{ auth()->user()->roles->pluck('name')->implode(', ') ?: 'Tidak ada role' }},</p>
                 <div style="height: 60px;"></div>
                 <p style="margin: 0; font-weight: 700; text-decoration: underline;">{{ auth()->user()->nama_lengkap }}</p>
-                <p style="margin: 0;">NIP.{{ auth()->user()->nip }}</p>
+                <p style="margin: 0;">NIP.{{ auth()->user()->staf->nip ?? '' }}</p>
             </div>
         </div>
     </div>
