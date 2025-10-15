@@ -17,7 +17,7 @@
             <div class="p-1.5 space-y-1.5 w-full">
 
                 {{-- Profile --}}
-                <a wire:navigate href="" class="flex items-center gap-3 py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100/50 hover:text-gray-800 focus:bg-gray-100/50 focus:text-gray-80" >
+                <a href="" class="flex items-center gap-3 py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100/50 hover:text-gray-800 focus:bg-gray-100/50 focus:text-gray-80" >
                     <i class="fa-light fa-address-card"></i>
                     <span class="tracking-wider">
                         Profil
@@ -25,7 +25,7 @@
                 </a>
 
                 {{-- Pengaturan --}}
-                <a wire:navigate href="" class="flex items-center gap-3 py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100/50 hover:text-gray-800 focus:bg-gray-100/50 focus:text-gray-80" >
+                <a href="" class="flex items-center gap-3 py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100/50 hover:text-gray-800 focus:bg-gray-100/50 focus:text-gray-80" >
                     <i class="fa-light fa-gear"></i>
                     <span class="tracking-wider">
                         Pengaturan

@@ -18,10 +18,13 @@
         @endif
 
         {{-- Export --}}
-        <button class="lg:flex lg:items-center lg:gap-2 px-3 py-2 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
-            <i class="text-xs-plus fa-regular fa-down-to-bracket"></i>
-            <span class="text-xs-plus tracking-wider hidden lg:block">Export</span>
-        </button>
+        <div x-data="{showModal:false}">
+            <button type="button" @click="showModal = true" class="lg:flex lg:items-center lg:gap-2 px-3 py-2 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
+                <i class="text-xs-plus fa-regular fa-down-to-bracket"></i>
+                <span class="text-xs-plus tracking-wider hidden lg:block">Export</span>
+            </button>
+           <livewire:backend.user.export/>
+        </div>
 
         {{-- Print --}}
         <button class="lg:flex lg:items-center lg:gap-2 px-3 py-2 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
