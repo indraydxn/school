@@ -10,32 +10,20 @@ use App\Exports\UsersExport;
 
 class Export extends Component
 {
-    public $showModal = false;
-
-    public function openModal()
-    {
-        $this->showModal = true;
-    }
-
-    public function closeModal()
-    {
-        $this->showModal = false;
-    }
-
     public function exportPdf()
     {
-        $users = User::all();
+        $users = User::with('roles')->get();
 
         $pdf = Pdf::loadView('exports.users-pdf', compact('users'));
 
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();
-        }, 'users.pdf');
+        }, 'data-pengguna-'. date('dmYHis') .'.pdf');
     }
 
     public function exportExcel()
     {
-        return Excel::download(new UsersExport, 'users.xlsx');
+        return Excel::download(new UsersExport, 'data-pengguna-'. date('dmYHis') .'.xlsx');
     }
 
     public function render()
