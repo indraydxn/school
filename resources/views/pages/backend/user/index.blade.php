@@ -12,57 +12,117 @@
                         <div class="overflow-hidden card rounded-xl">
                             <div class="ps-6 pe-4 py-3 border-b border-gray-200 lg:gap-2 gap-1">
                             </div>
-                            <div class="overflow-x-auto">
+                            <div class="overflow-x-auto is-scrollbar-hidden">
                                 <table class="min-w-full divide-y divide-gray-200">
-                                    <thead class="">
+                                    <thead>
                                         <tr class="divide-x divide-gray-200">
                                             <th scope="col" class="px-4 py-2 whitespace-nowrap text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                            <th scope="col" class="px-6 py-2 whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider">NIK</th>
-                                            <th scope="col" class="px-6 py-2 whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Lengkap</th>
+                                            {{-- <th scope="col" class="px-6 py-2 whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider">NIK</th> --}}
+                                            <th scope="col" class="px-6 py-2 whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-48">Nama Lengkap</th>
+                                            <th scope="col" class="px-6 py-2 whitespace-nowrap text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
                                             <th scope="col" class="px-6 py-2 whitespace-nowrap text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                                            <th scope="col" class="px-6 py-2 whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                                             <th scope="col" class="px-6 py-2 whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Telepon</th>
-                                            <th scope="col" class="px-6 py-2 whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+                                            <th scope="col" class="px-6 py-2 whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-56">Email</th>
+                                            <th scope="col" class="px-4 py-2 whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
                                         @forelse($users as $user)
                                         <tr class="divide-x divide-gray-200">
+
+                                            {{-- Status --}}
                                             <td class="px-4 py-2 whitespace-nowrap tracking-wider text-center">
                                                 <label class="flex items-center justify-center space-x-2">
-                                                    <input type="checkbox" class="form-switch h-5 w-10 rounded-full bg-gray-300 before:rounded-full before:bg-gray-50 checked:bg-primary checked:before:bg-white"
-                                                        {{ $user->status ? 'checked' : '' }}
-                                                        wire:click.debounce.500ms="toggleStatus({{ $user->id }})"
-                                                        wire:loading.attr="disabled"
-                                                    />
+                                                    <input type="checkbox" {{ $user->status ? 'checked' : '' }} wire:click="toggleStatus({{ $user->id }})" wire:loading.attr="disabled" class="form-switch h-5 w-10 rounded-full bg-gray-300 before:rounded-full before:bg-gray-50 checked:bg-primary checked:before:bg-white"/>
                                                 </label>
                                             </td>
-                                            <td class="px-6 py-2 whitespace-nowrap tracking-wider text-gray-900">{{ $user->nik }}</td>
-                                            <td class="px-6 py-2 whitespace-nowrap tracking-wider text-gray-500">{{ $user->nama_lengkap }}</td>
+
+                                            {{-- NIK --}}
+                                            {{-- <td class="px-6 py-2 whitespace-nowrap tracking-wider text-gray-900">
+                                                {{ $user->nik }}
+                                            </td> --}}
+
+                                            {{-- Nama Lengkap --}}
+                                            <td class="px-6 py-2 whitespace-nowrap tracking-wider text-gray-500">
+                                                {{ $user->nama_lengkap }}
+                                            </td>
+
+                                            {{-- Gender --}}
+                                            <td class="px-6 py-2 whitespace-nowrap tracking-wider text-center text-gray-500">
+                                                @switch($user->jenis_kelamin)
+                                                    @case($user->jenis_kelamin == "L" )
+                                                        <span class="badge px-2 py-1 text-xs tracking-wider bg-info/10 text-info capitalize">
+                                                            {{  $user->jenis_kelamin }}
+                                                        </span>
+                                                        @break
+                                                    @default
+                                                        <span class="badge px-2 py-1 text-xs tracking-wider bg-secondary/10 text-secondary capitalize">
+                                                            {{  $user->jenis_kelamin }}
+                                                        </span>
+                                                @endswitch
+                                            </td>
+
+                                            {{-- Role --}}
                                             <td class="px-6 py-2 whitespace-nowrap tracking-wider text-center">
                                                 @foreach($user->getRoleNames() as $roleName)
-                                                    @if($roleName == 'admin')
-                                                        <span class="badge px-2 py-1 text-xs tracking-wider border border-error text-error capitalize">{{ $roleName }}</span>
-                                                    @elseif($roleName == 'guru')
-                                                        <span class="badge px-2 py-1 text-xs tracking-wider border border-info text-info capitalize">{{ $roleName }}</span>
-                                                    @elseif($roleName == 'siswa')
-                                                        <span class="badge px-2 py-1 text-xs tracking-wider border border-success text-success capitalize">{{ $roleName }}</span>
-                                                    @elseif($roleName == 'wali')
-                                                        <span class="badge px-2 py-1 text-xs tracking-wider border border-warning text-warning capitalize">{{ $roleName }}</span>
-                                                    @else
-                                                        <span class="badge px-2 py-1 text-xs tracking-wider border border-secondary text-secondary capitalize">{{ $roleName }}</span>
-                                                    @endif
+                                                    @switch($roleName)
+                                                        @case($roleName == 'admin')
+                                                            <span class="badge px-2 py-1 text-xs tracking-wider border border-primary/20 text-primary capitalize">
+                                                                {{ $roleName }}
+                                                            </span>
+                                                            @break
+                                                        @case($roleName == 'guru')
+                                                            <span class="badge px-2 py-1 text-xs tracking-wider border border-secondary/20 text-secondary capitalize">
+                                                                {{ $roleName }}
+                                                            </span>
+                                                            @break
+                                                        @case($roleName == 'siswa')
+                                                            <span class="badge px-2 py-1 text-xs tracking-wider border border-success/20 text-success capitalize">
+                                                                {{ $roleName }}
+                                                            </span>
+                                                            @break
+                                                        @case($roleName == 'wali')
+                                                            <span class="badge px-2 py-1 text-xs tracking-wider border border-error/20 text-error capitalize">
+                                                                {{ $roleName }}
+                                                            </span>
+                                                            @break
+                                                        @default
+                                                        <span class="badge px-2 py-1 text-xs tracking-wider border border-gray-200/20 capitalize">
+                                                            {{ $roleName }}
+                                                        </span>
+                                                    @endswitch
                                                 @endforeach
                                             </td>
-                                            <td class="px-6 py-2 whitespace-nowrap tracking-wider text-gray-500">{{ $user->email }}</td>
-                                            <td class="px-6 py-2 whitespace-nowrap tracking-wider text-gray-500">{{ $user->telepon }}</td>
-                                            <td class="px-6 py-4 whitespace-nowrap font-medium">
-                                                <x-backend.actions :user="$user"/>
+
+                                            {{-- Telepon --}}
+                                            <td class="px-6 py-2 whitespace-nowrap tracking-wider text-gray-500">
+                                                {{ $user->telepon }}
                                             </td>
+
+                                            {{-- Email --}}
+                                            <td class="px-6 py-2 whitespace-nowrap tracking-wider text-gray-500">
+                                                {{ $user->email }}
+                                            </td>
+
+                                            {{-- Actions --}}
+                                            <td class="px-4 py-2 whitespace-nowrap font-medium">
+                                                <x-backend.actions
+                                                    :data="$user"
+                                                    :view="true"
+                                                    :edit="true"
+                                                    :delete="true"
+                                                />
+                                            </td>
+
                                         </tr>
                                         @empty
                                         <tr>
-                                            <td colspan="7" class="px-6 py-4 text-center text-sm text-gray-500">Tidak ada data pengguna</td>
+                                            <td colspan="7" class="px-6 py-4 text-center text-sm text-gray-500">
+                                                <div class="flex flex-col items-center gap-2">
+                                                    <i class="fa-regulsr fa-users text-4xl"></i>
+                                                    <span>TIda ada data</span>
+                                                </div>
+                                            </td>
                                         </tr>
                                         @endforelse
                                     </tbody>

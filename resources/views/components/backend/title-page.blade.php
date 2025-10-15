@@ -2,7 +2,7 @@
     <div class="flex items-center lg:gap-2 gap-1">
 
         {{-- Title Page --}}
-        <h2 class="lg:text-xl text-base font-bold text-slate-800 tracking-wider">
+        <h2 class="lg:text-xl text-base font-bold text-slate-800 tracking-wide">
             {{ $title }}
         </h2>
 

@@ -23,8 +23,9 @@ class Index extends Component
         if ($user) {
             $user->status = !$user->status;
             $user->save();
-            $nama_pertama = explode(' ', $user->nama_lengkap)[0];
-            noty()->success('Status ' . $nama_pertama . ' berhasil diubah!');
+            noty()->success('Status ' . $user->nama_lengkap . ' berhasil diubah!');
+        } else {
+            noty()->error('Data tidak ditemukan!');
         }
     }
 
@@ -32,9 +33,8 @@ class Index extends Component
     {
         $user = User::find($id);
         if ($user) {
-            $nama_pertama = explode(' ', $user->nama_lengkap)[0];
             $user->delete();
-            noty()->success('Data ' . $nama_pertama . ' berhasil dihapus!');
+            noty()->success($user->nama_lengkap . ' berhasil dihapus!');
         } else {
             noty()->error('Data tidak ditemukan!');
         }

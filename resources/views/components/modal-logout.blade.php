@@ -1,11 +1,11 @@
 <div>
     <template x-teleport="#x-teleport-target">
         <div @keydown.window.escape="showModal = false" x-show="showModal" role="dialog" class="fixed inset-0 z-100 flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5" >
-            <div @click="showModal = false" x-show="showModal" x-transition:enter="ease-out" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute inset-0 bg-slate-900/60 transition-opacity duration-300"></div>
-            <div x-show="showModal" x-transition:enter="easy-out" x-transition:enter-start="opacity-0 [transform:translate3d(0,1rem,0)]" x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave="easy-in" x-transition:leave-start="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave-end="opacity-0 [transform:translate3d(0,1rem,0)]" class="relative flex items-center justify-center max-w-md rounded-xl bg-white p-6 text-center transition-all duration-300" >
+            <div @click="showModal = false" x-show="showModal" x-transition:enter="ease-out" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute inset-0 bg-slate-900/60 backdrop-blur transition-opacity duration-300"></div>
+            <div x-show="showModal" x-transition:enter="easy-out" x-transition:enter-start="opacity-0 [transform:translate3d(0,1rem,0)]" x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave="easy-in" x-transition:leave-start="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave-end="opacity-0 [transform:translate3d(0,1rem,0)]" class="relative flex items-center justify-center lg:max-w-md max-w-sm rounded-xl bg-white p-6 text-center transition-all duration-300" >
                 <div class="">
-                    <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-error text-white">
-                        <i class="fa-duotone fa-sign-out text-2xl"></i>
+                    <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-warning text-white">
+                        <i class="fa-solid fa-sign-out text-2xl"></i>
                     </div>
                     <h3 class="mt-4 text-xl font-extrabold text-slate-800 tracking-wide dark:text-navy-50">
                         Konfirmasi Log Out
@@ -18,7 +18,7 @@
                             Batal
                         </button>
                         <form wire:submit="logout">
-                            <button type="submit" wire:loading.attr="disabled" type="button" class="btn bg-error font-bold text-white hover:bg-error-focus focus:bg-error-focus active:bg-error-focus/90">
+                            <button type="submit" wire:loading.attr="disabled" type="button" class="btn bg-warning font-bold text-white hover:bg-warning-focus focus:bg-warning-focus active:bg-warning-focus/90">
                                 <span wire:loading.remove>Ya, Keluar</span>
                                 <span wire:loading class="flex items-center justify-center gap-2">
                                     Memproses...
