@@ -59,7 +59,6 @@
                 @endforeach
             </tbody>
         </table>
-
         <div class="signature-wrapper" style="margin-top: 36px; display: flex; justify-content: flex-end;">
             <div style="text-align: right; font-size: 12px;">
                 <p style="margin: 0;">NAMA KOTA, {{ now()->translatedFormat('d F Y') }}</p>
@@ -71,5 +70,4 @@
         </div>
     </div>
 </body>
-
 </html>

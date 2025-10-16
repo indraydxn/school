@@ -6,7 +6,7 @@
                     <div class="overflow-hidden space-y-3">
 
                         {{-- Tile Page --}}
-                        <x-backend.title-page title="Data Pengguna" :import="false"/>
+                        <x-backend.title-page title="Data Pengguna" :import="true"/>
 
                         {{-- Table Card --}}
                         <div class="overflow-hidden card rounded-xl">
@@ -125,6 +125,8 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                            {{-- Pagination --}}
                             @if($users->hasPages())
                                 <x-pagination
                                     :paginator="$users"

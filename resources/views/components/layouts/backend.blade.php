@@ -19,7 +19,10 @@
             {{ $head }}
         @endisset
     </head>
-    <body x-data x-bind="$store.global.documentBody" class="navigation:sideblock is-sidebar-open" >
+    <body x-data x-bind="$store.global.documentBody" class="navigation:sideblock is-sidebar-open">
+
+        {{-- Preloader --}}
+        <x-preloader/>
 
         {{-- Page Wrapper --}}
         <div id="root" class="flex min-h-100vh grow bg-gray-100 dark:bg-gray-900" x-cloak>
@@ -59,7 +62,7 @@
 
         </div>
         {{-- / Page Wrapper --}}
-        
+
         {{-- AlpineJS & Scripts --}}
         <div id="x-teleport-target"></div>
         @livewireScriptConfig

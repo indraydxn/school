@@ -8,18 +8,23 @@ Route::get('/', function () {
 });
 
 // Login
-Route::get('login', App\Livewire\Auth\Login::class)->name('login');
+Route::middleware('guest')->get('login', App\Livewire\Auth\Login::class)->name('login');
 
 // Admin
-Route::middleware('auth', 'role:admin')->prefix('admin')->name('admin.')->group(function () {
+Route::middleware('auth')->group(function () {
 
-    // Dashboard
-    Route::get('dashboard', App\Livewire\Backend\Dashboard::class)->name('dashboard');
+    // Admin
+    Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {
 
-    // Users
-    Route::prefix('user')->name('user.')->group(function () {
-        Route::get('/', App\Livewire\Backend\User\Index::class)->name('index');
+        // Dashboard
+        Route::get('dashboard', App\Livewire\Backend\Dashboard::class)->name('dashboard');
+
+        // Users
+        Route::prefix('user')->name('user.')->group(function () {
+            Route::get('/', App\Livewire\Backend\User\Index::class)->name('index');
+        });
+
     });
-
+    
 });
 

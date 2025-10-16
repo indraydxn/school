@@ -34,7 +34,7 @@ class Login extends Component
 
         if ($validator->fails()) {
             foreach ($validator->errors()->all() as $error) {
-                noty()->error($error);
+                noty()->warning($error);
             }
             return;
         }
@@ -43,12 +43,12 @@ class Login extends Component
 
         if (!$user) {
             noty()->error('Email tidak terdaftar!');
-            return redirect()->route('login');
+            return;
         }
 
         if ($user->status != 1) {
-            noty()->error('Akun Anda tidak aktif!');
-            return redirect()->route('login');
+            noty()->warning('Akun Anda tidak aktif!');
+            return;
         }
 
         $credentials = [
@@ -64,11 +64,11 @@ class Login extends Component
             ]);
 
             if (Auth::user()->hasRole('admin')) {
-                noty()->success('Anda berhasil login!');
+                noty()->success('Anda berhasil login sebagai Admin!');
                 return redirect()->route('admin.dashboard');
             } else {
                 Auth::logout();
-                noty()->error('Anda tidak memiliki akses ke halaman admin');
+                noty()->warning('Anda tidak memiliki akses ke halaman admin');
                 return redirect()->route('login');
             }
         }

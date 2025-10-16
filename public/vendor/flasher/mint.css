@@ -19,26 +19,26 @@
 .noty_theme__mint.noty_type__alert,
 .noty_theme__mint.noty_type__notification {
   background-color: #fff;
-  border-bottom: 1px solid #D1D1D1;
+  /* border-bottom: 1px solid #D1D1D1; */
   color: #2F2F2F;
 }
 
 .noty_theme__mint.noty_type__warning {
   background-color: #f59e0b;
-  border-bottom: 1px solid d97706;
+  /* border-bottom: 1px solid d97706; */
   color: #fff;
 }
 
 .noty_theme__mint.noty_type__error {
   background-color: #ef4444;
-  border-bottom: 1px solid #dc2626;
+  /* border-bottom: 1px solid #dc2626; */
   color: #fff;
 }
 
 .noty_theme__mint.noty_type__info,
 .noty_theme__mint.noty_type__information {
   background-color: #0ea5e9;
-  border-bottom: 1px solid #0284c7;
+  /* border-bottom: 1px solid #0284c7; */
   color: #fff;
 }
 

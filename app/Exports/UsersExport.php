@@ -12,7 +12,19 @@ class UsersExport implements FromArray, WithTitle, WithEvents
 {
     public function array(): array
     {
-        $users = User::with('roles')->select('id', 'nik', 'no_kk', 'nama_lengkap', 'email', 'telepon', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'alamat', 'status')->get()->map(function ($user, $key) {
+        $users = User::with('roles')->select(
+                'id',
+                'nik',
+                'no_kk',
+                'nama_lengkap',
+                'email', 'telepon',
+                'tempat_lahir',
+                'tanggal_lahir',
+                'jenis_kelamin',
+                'alamat',
+                'status'
+            )->get()->map(function ($user, $key) {
+
             return [
                 $key + 1,
                 $user->nama_lengkap,
@@ -27,6 +39,7 @@ class UsersExport implements FromArray, WithTitle, WithEvents
                 $user->status ? 'Aktif' : 'Tidak aktif',
                 $user->roles->pluck('name')->implode(', ') ?: 'Tidak ada role',
             ];
+            
         })->toArray();
 
         return [

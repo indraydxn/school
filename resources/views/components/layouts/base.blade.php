@@ -21,6 +21,9 @@
     </head>
     <body x-data x-bind="$store.global.documentBody" class="is-header-blur">
 
+        {{-- Preloader --}}
+        <x-preloader/>
+        
         {{-- Page Wrapper --}}
         <div id="root" class="flex min-h-100vh grow bg-gray-100 dark:bg-gray-900" x-cloak>
             {{ $slot }}
