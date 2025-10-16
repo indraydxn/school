@@ -14,9 +14,8 @@ use Livewire\WithPagination;
 class Index extends Component
 {
     use withPagination;
-    
-    public $search = '';
 
+    public $search = '';
     public $perPage = '10';
 
     public function toggleStatus($userId)

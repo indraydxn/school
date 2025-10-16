@@ -23,7 +23,7 @@
                                                 <i class="text-xs-plus fa-regular fa-down-to-bracket"></i>
                                                 <span class="text-xs-plus tracking-wider hidden lg:block">Export</span>
                                             </button>
-                                        <livewire:backend.user.export/>
+                                            <livewire:backend.user.export/>
                                         </div>
 
                                         {{-- Print --}}
@@ -51,10 +51,13 @@
                                         </label>
 
                                         {{-- Tambah --}}
-                                        <button class="lg:flex lg:items-center lg:gap-2 px-3 py-1.5 font-semibold text-white btn bg-primary hover:bg-primary-focus disabled:opacity-25">
-                                            <i class="text-xs-plus fa-regular fa-plus"></i>
-                                            <span class="text-xs-plus tracking-wider hidden lg:block">Tambah</span>
-                                        </button>
+                                        <div x-data="{showModal:false}">
+                                            <button type="button" @click="showModal = true" class="lg:flex lg:items-center lg:gap-2 px-3 py-1.5 font-semibold text-white btn bg-primary hover:bg-primary-focus disabled:opacity-25">
+                                                <i class="text-xs-plus fa-regular fa-plus"></i>
+                                                <span class="text-xs-plus tracking-wider hidden lg:block">Tambah</span>
+                                            </button>
+                                            <livewire:backend.user.create/>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -150,10 +153,9 @@
                                                 <x-backend.actions
                                                     :data="$user"
                                                     :name="$user->nama_lengkap"
-                                                    :view="true"
+                                                    :view="false"
                                                     :edit="true"
                                                     :delete="true"
-                                                    urlView="{{  route('admin.user.index') }}"
                                                     urlEdit="{{  route('admin.user.index') }}"
                                                 />
                                             </td>
