@@ -5,12 +5,59 @@
                 <div class="min-w-full inline-block align-middle">
                     <div class="overflow-hidden space-y-3">
 
-                        {{-- Tile Page --}}
-                        <x-backend.title-page title="Data Pengguna" :import="true"/>
-
                         {{-- Table Card --}}
                         <div class="overflow-hidden card rounded-xl">
-                            <div class="ps-6 pe-4 py-3 border-b border-gray-200 lg:gap-2 gap-1">
+                            <div class="px-4 py-3 border-b border-gray-200 lg:gap-2 gap-1">
+                                <div class="flex items-center justify-between lg:gap-2 gap-1">
+                                    <div class="flex items-center lg:gap-2 gap-1">
+
+                                        {{-- Import --}}
+                                        <button class="lg:flex lg:items-center lg:gap-2 px-3 py-1.5 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
+                                            <i class="text-xs-plus fa-regular fa-up-from-bracket"></i>
+                                            <span class="text-xs-plus tracking-wider hidden lg:block">Import</span>
+                                        </button>
+
+                                        {{-- Export --}}
+                                        <div x-data="{showModal:false}">
+                                            <button type="button" @click="showModal = true" class="lg:flex lg:items-center lg:gap-2 px-3 py-1.5 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
+                                                <i class="text-xs-plus fa-regular fa-down-to-bracket"></i>
+                                                <span class="text-xs-plus tracking-wider hidden lg:block">Export</span>
+                                            </button>
+                                        <livewire:backend.user.export/>
+                                        </div>
+
+                                        {{-- Print --}}
+                                        <button class="lg:flex lg:items-center lg:gap-2 px-3 py-1.5 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
+                                            <i class="text-xs-plus fa-regular fa-print"></i>
+                                            <span class="text-xs-plus tracking-wider hidden lg:block">Print</span>
+                                        </button>
+
+                                    </div>
+                                    <div class="flex items-center lg:gap-2 gap-1">
+
+                                        {{-- Cari --}}
+                                        <label class="relative flex">
+                                            <input type="text" placeholder="Cari..." wire:model.live="search" class="text-xs-plus tracking-wide form-input peer w-full rounded-lg border border-gray-200 bg-transparent px-3 py-1.5 pl-9 pr-9 placeholder:text-gray-400/70 focus:border-primary"/>
+                                            <div class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                                                <i class="fa-regular fa-magnifying-glass text-xs-plus transition-colors duration-200"></i>
+                                            </div>
+                                            <div wire:loading wire:target="search">
+                                                <div class="absolute inset-y-0 z-20 flex h-full items-center justify-center px-4 font-semibold text-gray-400 cursor-pointer dark:text-gray-500 end-0 rounded-e-md focus:outline-hidden focus:text-primary">
+                                                    <div class="transition-colors duration-200 shrink-0">
+                                                        <i class="fa-duotone fa-spinner-third animate-spin text-xs-plus text-gray-400"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </label>
+
+                                        {{-- Tambah --}}
+                                        <button class="lg:flex lg:items-center lg:gap-2 px-3 py-1.5 font-semibold text-white btn bg-primary hover:bg-primary-focus disabled:opacity-25">
+                                            <i class="text-xs-plus fa-regular fa-plus"></i>
+                                            <span class="text-xs-plus tracking-wider hidden lg:block">Tambah</span>
+                                        </button>
+
+                                    </div>
+                                </div>
                             </div>
                             <div class="overflow-x-auto is-scrollbar-hidden">
                                 <table class="min-w-full divide-y divide-gray-200">
@@ -114,9 +161,9 @@
                                         </tr>
                                         @empty
                                         <tr>
-                                            <td colspan="7" class="px-6 py-4 text-center text-sm text-gray-500">
+                                            <td colspan="7" class="px-3 py-8 text-center text-gray-500">
                                                 <div class="flex flex-col items-center gap-2">
-                                                    <i class="fa-regular fa-folder-open text-4xl"></i>
+                                                    <i class="fa-duotone fa-folder-open text-4xl"></i>
                                                     <span>Tidak ada data</span>
                                                 </div>
                                             </td>

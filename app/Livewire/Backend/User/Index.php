@@ -15,6 +15,8 @@ class Index extends Component
 {
     use withPagination;
     
+    public $search = '';
+
     public $perPage = '10';
 
     public function toggleStatus($userId)
@@ -43,7 +45,11 @@ class Index extends Component
     public function render()
     {
         return view('pages.backend.user.index', [
-            'users' => User::paginate($this->perPage)
+            "users" => User::query()->when($this->search, function ($query) {
+                $query->where('nama_lengkap', 'like', '%' . $this->search . '%')
+                ->orWhere('email', 'like', '%' . $this->search . '%')
+                ->orWhere('telepon', 'like', '%' . $this->search . '%');
+            })->paginate($this->perPage)
         ]);
     }
 }
