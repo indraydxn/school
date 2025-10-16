@@ -1,0 +1,867 @@
+// ========== ENUM ==========
+Enum JenisKelamin {
+  L
+  P
+}
+
+Enum JenisSemester {
+  ganjil
+  genap
+}
+
+Enum Hari {
+  senin
+  selasa
+  rabu
+  kamis
+  jumat
+  sabtu
+  minggu
+}
+
+Enum StatusKehadiran {
+  hadir
+  izin
+  sakit
+  alfa
+  terlambat
+}
+
+Enum JenisUjian {
+  ulangan_harian
+  kuis
+  tugas
+  uts
+  uas
+  ujian
+}
+
+Enum JenisSoal {
+  pilihan_ganda
+  esai
+}
+
+Enum StatusPengerjaan {
+  draf
+  berjalan
+  dikumpulkan
+  dinilai
+}
+
+Enum StatusKepegawaian {
+    PNS
+    "NON-PNS"
+}
+
+Enum StatusPembayaran {
+  menunggu
+  dibayar
+  gagal
+  dikembalikan
+  dibatalkan
+}
+
+Enum StatusTagihan {
+  menunggu
+  dibayar_sebagian
+  dibayar
+  dibatalkan
+}
+
+Enum StatusHalaman {
+  draf
+  terbit
+  arsip
+}
+
+Table roles {
+  id            int [pk, increment]
+  name          varchar(255) [not null]
+  guard_name    varchar(255) [not null, default: 'web']
+  created_at    timestamp [not null, default: `now()`]
+  updated_at    timestamp [not null, default: `now()`]
+  deleted_at    timestamp
+
+  Indexes {
+    (name, guard_name) [unique]
+  }
+}
+
+Table modules {
+  id            int [pk, increment]
+  name          varchar(120) [not null, unique]
+  created_at    timestamp [not null, default: `now()`]
+  updated_at    timestamp [not null, default: `now()`]
+  deleted_at    timestamp
+}
+
+Table actions {
+  id            int [pk, increment]
+  name          varchar(120) [not null, unique]
+  created_at    timestamp [not null, default: `now()`]
+  updated_at    timestamp [not null, default: `now()`]
+  deleted_at    timestamp
+}
+
+Table permissions {
+  id            int [pk, increment]
+  module_id     int [not null]
+  action_id     int [not null]
+  name          varchar(255) [not null]
+  guard_name    varchar(255) [not null, default: 'web']
+  created_at    timestamp [not null, default: `now()`]
+  updated_at    timestamp [not null, default: `now()`]
+  deleted_at    timestamp
+
+  Indexes {
+    (name, module_id, action_id) [unique]
+  }
+}
+
+Table model_has_permissions {
+  permission_id int [not null]
+  model_type    varchar(255) [not null]
+  model_id      int [not null]
+
+  Indexes {
+    (model_id, model_type)
+  }
+
+  Indexes {
+    (permission_id, model_id, model_type)
+  }
+}
+
+Table model_has_roles {
+  role_id       int [not null]
+  model_type    varchar(255) [not null]
+  model_id      int [not null]
+
+  Indexes {
+    (model_id, model_type)
+  }
+
+  Indexes {
+    (role_id, model_id, model_type)
+  }
+}
+
+Table role_has_permissions {
+  permission_id int [not null]
+  role_id       int [not null]
+
+  Indexes {
+    (permission_id, role_id)
+  }
+}
+
+Table users {
+    id                 int [pk, increment]
+    nik                int(30) [not null, unique]
+    no_kk              int(30)
+    nama_lengkap       varchar(255) [not null]
+    email              varchar(255) [not null, unique]
+    password           varchar(255) [not null]
+    foto_url           varchar(255)
+    telepon            varchar(30)
+    tempat_lahir       varchar(120) [not null]
+    tanggal_lahir      date [not null]
+    jenis_kelamin      JenisKelamin [not null]
+    alamat             text [not null]
+    status             boolean [not null, default: true]
+    login_terakhir     timestamp
+    created_at         timestamp [not null, default: `now()`]
+    updated_at         timestamp [not null, default: `now()`]
+    deleted_at         timestamp
+
+    Indexes {
+        (nik, email, telepon) [unique]
+    }
+}
+
+Table user_has_roles {
+    user_id       int [not null]
+    role_id       int [not null]
+
+    Indexes {
+        (user_id, role_id) [unique]
+    }
+}
+
+Table staf {
+    id                  int [pk, increment]
+    user_id             int [not null]
+    no_staf             int(30) [not null, unique]
+    nip                 int(30) [unique]
+    nuptk               int(30) [unique]
+    jabatan             varchar(40) [not null]
+    tahun_masuk         int [not null]
+    pendidikan_terakhir varchar(100) [not null]
+    status_kepegawaian  StatusKepegawaian [not null]
+    created_at          timestamp [not null, default: `now()`]
+    updated_at          timestamp [not null, default: `now()`]
+    deleted_at          timestamp
+
+    Indexes {
+        (user_id, no_staf, nip, nuptk) [unique]
+    }
+}
+
+Table siswa {
+    id              int [pk, increment]
+    user_id         int [not null]
+    nis             int(20) [not null, unique]
+    nisn            int(20) [not null, unique]
+    tahun_masuk     int [not null]
+    created_at      timestamp [not null, default: `now()`]
+    updated_at      timestamp [not null, default: `now()`]
+    deleted_at      timestamp
+
+    Indexes {
+        (user_id, nis, nisn) [unique]
+    }
+}
+
+Table wali_siswa {
+    id                      int [pk, increment]
+    user_id                 int [not null]
+    student_id              int [not null]
+    hubungan                varchar(120) [not null]
+    pendidikan_terakhir     varchar(120) [not null]
+    pekerjaan               varchar(120) [not null]
+    created_at              timestamp [not null, default: `now()`]
+    updated_at              timestamp [not null, default: `now()`]
+    deleted_at              timestamp
+}
+
+
+// ========== AKADEMIK INTI ==========
+Table tahun_ajaran {
+  id              int [pk, increment]
+  nama            varchar(20) [not null, unique]   // contoh: 2025/2026
+  tanggal_mulai   date [not null]
+  tanggal_selesai date [not null]
+  aktif           boolean [not null, default: false]
+  dibuat_oleh     int
+  dibuat_pada     timestamp [not null, default: `now()`]
+  diubah_oleh     int
+  diubah_pada     timestamp [not null, default: `now()`]
+  dihapus_oleh    int
+  dihapus_pada    timestamp
+}
+
+Table semester {
+  id              int [pk, increment]
+  tahun_ajaran_id int [not null]
+  nama            varchar(20) [not null]          // "Ganjil/Genap"
+  jenis           JenisSemester [not null]
+  tanggal_mulai   date [not null]
+  tanggal_selesai date [not null]
+  aktif           boolean [not null, default: false]
+  dibuat_oleh     int
+  dibuat_pada     timestamp [not null, default: `now()`]
+  diubah_oleh     int
+  diubah_pada     timestamp [not null, default: `now()`]
+  dihapus_oleh    int
+  dihapus_pada    timestamp
+
+  Indexes {
+    (tahun_ajaran_id, jenis) [unique]
+  }
+}
+
+Table tingkat_kelas {
+  id           int [pk, increment]
+  nama         varchar(20) [not null]           // "X", "XI", "XII" atau "7", "8", "9"
+  jenjang      Jenjang
+  dibuat_oleh  int
+  dibuat_pada  timestamp [not null, default: `now()`]
+  diubah_oleh  int
+  diubah_pada  timestamp [not null, default: `now()`]
+  dihapus_oleh int
+  dihapus_pada timestamp
+}
+
+Table kelas {
+  id              int [pk, increment]
+  tahun_ajaran_id int [not null]
+  tingkat_id      int [not null]
+  nama            varchar(60) [not null]     // "X IPA 1"
+  kode            varchar(30) [not null, unique]
+  wali_kelas_id   int                        // pengguna guru
+  ruang           varchar(30)
+  dibuat_oleh     int
+  dibuat_pada     timestamp [not null, default: `now()`]
+  diubah_oleh     int
+  diubah_pada     timestamp [not null, default: `now()`]
+  dihapus_oleh    int
+  dihapus_pada    timestamp
+}
+
+Table mata_pelajaran {
+  id           int [pk, increment]
+  kode         varchar(30) [not null, unique]
+  nama         varchar(120) [not null]
+  kelompok     varchar(40)                   // wajib/pilihan/produktif
+  kkm          int [not null, default: 75]
+  jenjang      Jenjang
+  dibuat_oleh  int
+  dibuat_pada  timestamp [not null, default: `now()`]
+  diubah_oleh  int
+  diubah_pada  timestamp [not null, default: `now()`]
+  dihapus_oleh int
+  dihapus_pada timestamp
+}
+
+Table pengampu_mapel {
+  id                int [pk, increment]
+  kelas_id          int [not null]
+  mata_pelajaran_id int [not null]
+  guru_id           int [not null]        // pengguna guru
+  semester_id       int [not null]
+  jam_per_minggu    int [not null, default: 2]
+  dibuat_oleh       int
+  dibuat_pada       timestamp [not null, default: `now()`]
+  diubah_oleh       int
+  diubah_pada       timestamp [not null, default: `now()`]
+  dihapus_oleh      int
+  dihapus_pada      timestamp
+
+  Indexes {
+    (kelas_id, mata_pelajaran_id, semester_id) [unique]
+  }
+}
+
+Table anggota_kelas {
+  id            int [pk, increment]
+  kelas_id      int [not null]
+  siswa_id      int [not null]          // pengguna siswa
+  semester_id   int [not null]
+  nomor_absen   int
+  status        varchar(20) [not null, default: 'aktif']  // aktif/mutasi/lulus/keluar
+  dibuat_oleh   int
+  dibuat_pada   timestamp [not null, default: `now()`]
+  diubah_oleh   int
+  diubah_pada   timestamp [not null, default: `now()`]
+  dihapus_oleh  int
+  dihapus_pada  timestamp
+
+  Indexes {
+    (kelas_id, siswa_id, semester_id) [unique]
+  }
+}
+
+Table jadwal_pelajaran {
+  id            int [pk, increment]
+  pengampu_id   int [not null]
+  hari          Hari [not null]
+  jam_mulai     time [not null]
+  jam_selesai   time [not null]
+  ruang         varchar(30)
+  dibuat_oleh   int
+  dibuat_pada   timestamp [not null, default: `now()`]
+  diubah_oleh   int
+  diubah_pada   timestamp [not null, default: `now()`]
+  dihapus_oleh  int
+  dihapus_pada  timestamp
+}
+
+
+// ========== MATERI & TUGAS ==========
+Table materi {
+  id            int [pk, increment]
+  pengampu_id   int [not null]
+  judul         varchar(200) [not null]
+  konten_teks   text
+  berkas_url    varchar(255)
+  terbit_pada   timestamp
+  dibuat_oleh   int
+  dibuat_pada   timestamp [not null, default: `now()`]
+  diubah_oleh   int
+  diubah_pada   timestamp [not null, default: `now()`]
+  dihapus_oleh  int
+  dihapus_pada  timestamp
+}
+
+Table tugas {
+  id            int [pk, increment]
+  pengampu_id   int [not null]
+  judul         varchar(200) [not null]
+  deskripsi     text
+  lampiran_url  varchar(255)
+  tenggat_pada  timestamp
+  skor_maks     int [not null, default: 100]
+  dibuat_oleh   int
+  dibuat_pada   timestamp [not null, default: `now()`]
+  diubah_oleh   int
+  diubah_pada   timestamp [not null, default: `now()`]
+  dihapus_oleh  int
+  dihapus_pada  timestamp
+}
+
+Table tugas_pengumpulan {
+  id             int [pk, increment]
+  tugas_id       int [not null]
+  siswa_id       int [not null]      // pengguna siswa
+  berkas_url     varchar(255)
+  jawaban_teks   text
+  dikumpul_pada  timestamp
+  skor           decimal(6,2)
+  umpan_balik    text
+  dibuat_oleh    int
+  dibuat_pada    timestamp [not null, default: `now()`]
+  diubah_oleh    int
+  diubah_pada    timestamp [not null, default: `now()`]
+  dihapus_oleh   int
+  dihapus_pada   timestamp
+
+  Indexes {
+    (tugas_id, siswa_id) [unique]
+  }
+}
+
+
+// ========== ABSENSI ==========
+Table absensi_pertemuan {
+  id              int [pk, increment]
+  pengampu_id     int [not null]
+  tanggal         date [not null]
+  pertemuan_ke    int
+  topik           varchar(200)
+  dibuat_oleh     int
+  dibuat_pada     timestamp [not null, default: `now()`]
+  diubah_oleh     int
+  diubah_pada     timestamp [not null, default: `now()`]
+  dihapus_oleh    int
+  dihapus_pada    timestamp
+}
+
+Table absensi_detail {
+  id              int [pk, increment]
+  absensi_id      int [not null]
+  siswa_id        int [not null]      // pengguna siswa
+  status          StatusKehadiran [not null, default: 'hadir']
+  jam_masuk       time
+  catatan         varchar(255)
+  dibuat_oleh     int
+  dibuat_pada     timestamp [not null, default: `now()`]
+  diubah_oleh     int
+  diubah_pada     timestamp [not null, default: `now()`]
+  dihapus_oleh    int
+  dihapus_pada    timestamp
+
+  Indexes {
+    (absensi_id, siswa_id) [unique]
+  }
+}
+
+
+// ========== UJIAN & BANK SOAL ==========
+Table bank_soal {
+  id            int [pk, increment]
+  pengampu_id   int [not null]
+  judul         varchar(200) [not null]
+  keterangan    text
+  dibuat_oleh   int
+  dibuat_pada   timestamp [not null, default: `now()`]
+  diubah_oleh   int
+  diubah_pada   timestamp [not null, default: `now()`]
+  dihapus_oleh  int
+  dihapus_pada  timestamp
+}
+
+Table soal {
+  id            int [pk, increment]
+  bank_soal_id  int [not null]
+  teks          text [not null]
+  jenis_soal    JenisSoal [not null, default: 'pilihan_tunggal']
+  skor_maks     decimal(6,2) [not null, default: 1.00]
+  posisi        int [not null, default: 1]
+  kunci_teks    text
+  dibuat_oleh   int
+  dibuat_pada   timestamp [not null, default: `now()`]
+  diubah_oleh   int
+  diubah_pada   timestamp [not null, default: `now()`]
+  dihapus_oleh  int
+  dihapus_pada  timestamp
+}
+
+Table opsi_soal {
+  id            int [pk, increment]
+  soal_id       int [not null]
+  opsi_teks     text [not null]
+  benar         boolean [not null, default: false]
+  posisi        int [not null, default: 1]
+  dibuat_oleh   int
+  dibuat_pada   timestamp [not null, default: `now()`]
+  diubah_oleh   int
+  diubah_pada   timestamp [not null, default: `now()`]
+  dihapus_oleh  int
+  dihapus_pada  timestamp
+}
+
+Table ujian {
+  id             int [pk, increment]
+  pengampu_id    int [not null]
+  bank_soal_id   int [not null]
+  jenis          JenisUjian [not null, default: 'ujian']
+  judul          varchar(200) [not null]
+  deskripsi      text
+  mulai_pada     timestamp
+  selesai_pada   timestamp
+  durasi_menit   int
+  skor_maks      decimal(7,2) [not null, default: 100.00]
+  dibuat_oleh    int
+  dibuat_pada    timestamp [not null, default: `now()`]
+  diubah_oleh    int
+  diubah_pada    timestamp [not null, default: `now()`]
+  dihapus_oleh   int
+  dihapus_pada   timestamp
+}
+
+Table ujian_peserta {
+  id              int [pk, increment]
+  ujian_id        int [not null]
+  siswa_id        int [not null]  // pengguna siswa
+  status          StatusPengerjaan [not null, default: 'draf']
+  mulai_pada      timestamp
+  selesai_pada    timestamp
+  skor_total      decimal(7,2) [not null, default: 0.00]
+  dibuat_oleh     int
+  dibuat_pada     timestamp [not null, default: `now()`]
+  diubah_oleh     int
+  diubah_pada     timestamp [not null, default: `now()`]
+  dihapus_oleh    int
+  dihapus_pada    timestamp
+
+  Indexes {
+    (ujian_id, siswa_id) [unique]
+  }
+}
+
+Table ujian_jawaban {
+  id               int [pk, increment]
+  ujian_peserta_id int [not null]
+  soal_id          int [not null]
+  opsi_terpilih_id int
+  jawaban_teks     text
+  benar            boolean
+  skor_diperoleh   decimal(7,2) [not null, default: 0.00]
+  dibuat_oleh      int
+  dibuat_pada      timestamp [not null, default: `now()`]
+  diubah_oleh      int
+  diubah_pada      timestamp [not null, default: `now()`]
+  dihapus_oleh     int
+  dihapus_pada     timestamp
+
+  Indexes {
+    (ujian_peserta_id, soal_id) [unique]
+  }
+}
+
+
+// ========== PENILAIAN & RAPOR ==========
+Table komponen_nilai {
+  id            int [pk, increment]
+  pengampu_id   int [not null]
+  nama          varchar(60) [not null]   // UH, TUGAS, UTS, UAS, PROYEK
+  bobot_persen  decimal(5,2) [not null, default: 0.00] // 0-100
+  dibuat_oleh   int
+  dibuat_pada   timestamp [not null, default: `now()`]
+  diubah_oleh   int
+  diubah_pada   timestamp [not null, default: `now()`]
+  dihapus_oleh  int
+  dihapus_pada  timestamp
+
+  Indexes {
+    (pengampu_id, nama) [unique]
+  }
+}
+
+Table nilai {
+  id            int [pk, increment]
+  komponen_id   int [not null]
+  siswa_id      int [not null]  // pengguna siswa
+  skor          decimal(6,2) [not null, default: 0.00]
+  catatan       varchar(255)
+  dibuat_oleh   int
+  dibuat_pada   timestamp [not null, default: `now()`]
+  diubah_oleh   int
+  diubah_pada   timestamp [not null, default: `now()`]
+  dihapus_oleh  int
+  dihapus_pada  timestamp
+
+  Indexes {
+    (komponen_id, siswa_id) [unique]
+  }
+}
+
+Table rapor {
+  id               int [pk, increment]
+  anggota_kelas_id int [not null]
+  semester_id      int [not null]
+  wali_kelas_id    int [not null]   // pengguna guru
+  terbit_pada      timestamp [not null, default: `now()`]
+  catatan_wali     text
+  dibuat_oleh      int
+  dibuat_pada      timestamp [not null, default: `now()`]
+  diubah_oleh      int
+  diubah_pada      timestamp [not null, default: `now()`]
+  dihapus_oleh     int
+  dihapus_pada     timestamp
+
+  Indexes {
+    (anggota_kelas_id, semester_id) [unique]
+  }
+}
+
+Table rapor_item {
+  id            int [pk, increment]
+  rapor_id      int [not null]
+  pengampu_id   int [not null]
+  nilai_akhir   decimal(6,2) [not null, default: 0.00]
+  predikat      varchar(2)       // A/B/C/D
+  deskripsi     text
+  dibuat_oleh   int
+  dibuat_pada   timestamp [not null, default: `now()`]
+  diubah_oleh   int
+  diubah_pada   timestamp [not null, default: `now()`]
+  dihapus_oleh  int
+  dihapus_pada  timestamp
+
+  Indexes {
+    (rapor_id, pengampu_id) [unique]
+  }
+}
+
+
+// ========== KONTEN WEB SEKOLAH ==========
+Table pengumuman {
+  id            int [pk, increment]
+  judul         varchar(200) [not null]
+  isi           text
+  publik        boolean [not null, default: true]
+  terbit_pada   timestamp
+  dibuat_oleh   int
+  dibuat_pada   timestamp [not null, default: `now()`]
+  diubah_oleh   int
+  diubah_pada   timestamp [not null, default: `now()`]
+  dihapus_oleh  int
+  dihapus_pada  timestamp
+}
+
+Table agenda {
+  id            int [pk, increment]
+  judul         varchar(200) [not null]
+  lokasi        varchar(150)
+  mulai_pada    timestamp
+  selesai_pada  timestamp
+  deskripsi     text
+  dibuat_oleh   int
+  dibuat_pada   timestamp [not null, default: `now()`]
+  diubah_oleh   int
+  diubah_pada   timestamp [not null, default: `now()`]
+  dihapus_oleh  int
+  dihapus_pada  timestamp
+}
+
+Table galeri {
+  id            int [pk, increment]
+  judul         varchar(200) [not null]
+  gambar_url    varchar(255) [not null]
+  deskripsi     text
+  terbit_pada   timestamp
+  dibuat_oleh   int
+  dibuat_pada   timestamp [not null, default: `now()`]
+  diubah_oleh   int
+  diubah_pada   timestamp [not null, default: `now()`]
+  dihapus_oleh  int
+  dihapus_pada  timestamp
+}
+
+Table halaman {
+  id            int [pk, increment]
+  slug          varchar(140) [not null, unique]
+  judul         varchar(200) [not null]
+  konten_teks   text
+  status        StatusHalaman [not null, default: 'draf']
+  terbit_pada   timestamp
+  dibuat_oleh   int
+  dibuat_pada   timestamp [not null, default: `now()`]
+  diubah_oleh   int
+  diubah_pada   timestamp [not null, default: `now()`]
+  dihapus_oleh  int
+  dihapus_pada  timestamp
+}
+
+
+// ========== PEMBAYARAN SPP/BIAYA ==========
+Table penyedia_pembayaran {
+  id                 int [pk, increment]
+  nama               varchar(100) [not null]
+  slug               varchar(60) [not null, unique]
+  tipe               varchar(40)  // gateway|ewallet|bank_transfer|credit_card
+  aktif              boolean [not null, default: true]
+  biaya_tetap_sen    int [not null, default: 0]
+  biaya_persen       decimal(5,2) [not null, default: 0.00]
+  minimal_nominal_sen int [not null, default: 0]
+  maksimal_nominal_sen int
+  konfigurasi_json   text
+  webhook_url        varchar(255)
+  dasbor_url         varchar(255)
+  dibuat_oleh        int
+  dibuat_pada        timestamp [not null, default: `now()`]
+  diubah_oleh        int
+  diubah_pada        timestamp [not null, default: `now()`]
+  dihapus_oleh       int
+  dihapus_pada       timestamp
+}
+
+Table jenis_tagihan {
+  id               int [pk, increment]
+  kode             varchar(40) [not null, unique]   // SPP, UTS, UAS, DAFTAR_ULANG, dll
+  nama             varchar(120) [not null]
+  deskripsi        varchar(255)
+  nominal_sen      int [not null, default: 0]
+  berulang         boolean [not null, default: false]
+  periode          varchar(30)  // bulanan/semesteran/tahunan
+  jenjang          Jenjang
+  dibuat_oleh      int
+  dibuat_pada      timestamp [not null, default: `now()`]
+  diubah_oleh      int
+  diubah_pada      timestamp [not null, default: `now()`]
+  dihapus_oleh     int
+  dihapus_pada     timestamp
+}
+
+Table tagihan {
+  id               int [pk, increment]
+  siswa_id         int [not null]        // pengguna siswa
+  jenis_tagihan_id int [not null]
+  semester_id      int
+  jatuh_tempo      date
+  jumlah_sen       int [not null, default: 0]
+  dibayar_sen      int [not null, default: 0]
+  status           StatusTagihan [not null, default: 'menunggu']
+  dibuat_oleh      int
+  dibuat_pada      timestamp [not null, default: `now()`]
+  diubah_oleh      int
+  diubah_pada      timestamp [not null, default: `now()`]
+  dihapus_oleh     int
+  dihapus_pada     timestamp
+
+  Indexes {
+    (siswa_id, jenis_tagihan_id, semester_id, jatuh_tempo) [unique]
+  }
+}
+
+Table pembayaran_tagihan {
+  id                 int [pk, increment]
+  tagihan_id         int [not null]
+  penyedia_id        int [not null]
+  jumlah_sen         int [not null]
+  kode_mata_uang     varchar(3) [not null, default: 'IDR']
+  id_pembayaran_penyedia varchar(120)
+  status             StatusPembayaran [not null, default: 'menunggu']
+  dibayar_pada       timestamp
+  dibuat_oleh        int
+  dibuat_pada        timestamp [not null, default: `now()`]
+  diubah_oleh        int
+  diubah_pada        timestamp [not null, default: `now()`]
+  dihapus_oleh       int
+  dihapus_pada       timestamp
+
+  Indexes {
+    (penyedia_id, id_pembayaran_penyedia) [unique]
+  }
+}
+
+
+// ========== NOTIFIKASI ==========
+Table notifikasi_pengguna {
+  id            int [pk, increment]
+  pengguna_id   int [not null]
+  tipe          varchar(80) [not null]
+  judul         varchar(150) [not null]
+  isi           text
+  data_json     text // string JSON
+  sudah_dibaca  boolean [not null, default: false]
+  dibaca_pada   timestamp
+  dibuat_oleh   int
+  dibuat_pada   timestamp [not null, default: `now()`]
+  diubah_oleh   int
+  diubah_pada   timestamp [not null, default: `now()`]
+  dihapus_oleh  int
+  dihapus_pada  timestamp
+}
+
+
+// ========== RELASI ==========
+Ref: permissions.module_id > modules.id [delete: cascade]
+Ref: permissions.action_id > actions.id [delete: cascade]
+Ref: model_has_permissions.permission_id > permissions.id [delete: cascade]
+Ref: model_has_roles.role_id > roles.id [delete: cascade]
+Ref: role_has_permissions.permission_id > permissions.id [delete: cascade]
+Ref: role_has_permissions.role_id > roles.id [delete: cascade]
+
+Ref: user_has_roles.user_id > users.id
+Ref: user_has_roles.role_id > roles.id
+
+Ref: staf.user_id > users.id
+Ref: siswa.user_id > users.id
+Ref: wali_siswa.user_id > users.id
+Ref: wali_siswa.student_id > siswa.id
+
+Ref: semester.tahun_ajaran_id > tahun_ajaran.id
+Ref: kelas.tahun_ajaran_id > tahun_ajaran.id
+Ref: kelas.tingkat_id > tingkat_kelas.id
+Ref: kelas.wali_kelas_id > users.id
+
+Ref: pengampu_mapel.kelas_id > kelas.id
+Ref: pengampu_mapel.mata_pelajaran_id > mata_pelajaran.id
+Ref: pengampu_mapel.guru_id > users.id
+Ref: pengampu_mapel.semester_id > semester.id
+
+Ref: anggota_kelas.kelas_id > kelas.id
+Ref: anggota_kelas.siswa_id > users.id
+Ref: anggota_kelas.semester_id > semester.id
+
+Ref: jadwal_pelajaran.pengampu_id > pengampu_mapel.id
+
+Ref: materi.pengampu_id > pengampu_mapel.id
+Ref: tugas.pengampu_id > pengampu_mapel.id
+Ref: tugas_pengumpulan.tugas_id > tugas.id
+Ref: tugas_pengumpulan.siswa_id > users.id
+
+Ref: absensi_pertemuan.pengampu_id > pengampu_mapel.id
+Ref: absensi_detail.absensi_id > absensi_pertemuan.id
+Ref: absensi_detail.siswa_id > users.id
+
+Ref: bank_soal.pengampu_id > pengampu_mapel.id
+Ref: soal.bank_soal_id > bank_soal.id
+Ref: opsi_soal.soal_id > soal.id
+Ref: ujian.pengampu_id > pengampu_mapel.id
+Ref: ujian.bank_soal_id > bank_soal.id
+Ref: ujian_peserta.ujian_id > ujian.id
+Ref: ujian_peserta.siswa_id > users.id
+Ref: ujian_jawaban.ujian_peserta_id > ujian_peserta.id
+Ref: ujian_jawaban.soal_id > soal.id
+Ref: ujian_jawaban.opsi_terpilih_id > opsi_soal.id
+
+Ref: komponen_nilai.pengampu_id > pengampu_mapel.id
+Ref: nilai.komponen_id > komponen_nilai.id
+Ref: nilai.siswa_id > users.id
+
+Ref: rapor.anggota_kelas_id > anggota_kelas.id
+Ref: rapor.semester_id > semester.id
+Ref: rapor.wali_kelas_id > users.id
+Ref: rapor_item.rapor_id > rapor.id
+Ref: rapor_item.pengampu_id > pengampu_mapel.id
+
+Ref: pembayaran_tagihan.penyedia_id > penyedia_pembayaran.id
+Ref: pembayaran_tagihan.tagihan_id > tagihan.id
+Ref: tagihan.jenis_tagihan_id > jenis_tagihan.id
+Ref: tagihan.siswa_id > users.id
+Ref: tagihan.semester_id > semester.id
+
+Ref: notifikasi_pengguna.pengguna_id > users.id

@@ -13,17 +13,19 @@ class Export extends Component
     public function exportPdf()
     {
         $users = User::with('roles')->get();
-
         $pdf = Pdf::loadView('exports.users-pdf', compact('users'));
+
+        noty()->success('Data berhasil diexport ke PDF!');
 
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();
-        }, 'data-pengguna-'. date('dmYHis') .'.pdf');
+        }, date('d-m-Y').'data-pengguna.pdf');
     }
 
     public function exportExcel()
     {
-        return Excel::download(new UsersExport, 'data-pengguna-'. date('dmYHis') .'.xlsx');
+        noty()->success('Data berhasil diexport ke excel!');
+        return Excel::download(new UsersExport, date('d-m-Y').'data-pengguna.xlsx');
     }
 
     public function render()

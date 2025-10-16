@@ -15,6 +15,8 @@
         {{-- Styles --}}
         @livewireStyles
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <link rel="stylesheet" href="{{ asset('icons/fontawesome/css/all.css') }}">
+        <link rel="stylesheet" href="{{ asset('icons/fontawesome/css/jelly-regular.css') }}">
         @isset($head)
             {{ $head }}
         @endisset
@@ -23,7 +25,7 @@
 
         {{-- Preloader --}}
         <x-preloader/>
-        
+
         {{-- Page Wrapper --}}
         <div id="root" class="flex min-h-100vh grow bg-gray-100 dark:bg-gray-900" x-cloak>
             {{ $slot }}
