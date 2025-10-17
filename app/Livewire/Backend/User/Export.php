@@ -19,13 +19,13 @@ class Export extends Component
 
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();
-        }, date('d-m-Y').'data-pengguna.pdf');
+        }, date('d-m-Y').'-data-pengguna.pdf');
     }
 
     public function exportExcel()
     {
         noty()->success('Data berhasil diexport ke excel!');
-        return Excel::download(new UsersExport, date('d-m-Y').'data-pengguna.xlsx');
+        return Excel::download(new UsersExport, date('d-m-Y').'-data-pengguna.xlsx');
     }
 
     public function render()
