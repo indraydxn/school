@@ -156,7 +156,7 @@
                                                     :view="false"
                                                     :edit="true"
                                                     :delete="true"
-                                                    urlEdit="{{  route('admin.user.index') }}"
+                                                    urlEdit="{{  route('admin.user.edit', $user->id) }}"
                                                 />
                                             </td>
 

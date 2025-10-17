@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
         // Users
         Route::prefix('user')->name('user.')->group(function () {
             Route::get('/', App\Livewire\Backend\User\Index::class)->name('index');
+            Route::get('/{user}/edit', App\Livewire\Backend\User\Edit::class)->name('edit');
         });
 
     });
