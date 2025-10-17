@@ -7,13 +7,24 @@
                         <div class="overflow-hidden space-y-3">
                             <div class="overflow-hidden card rounded-xl">
                                 <div class="border-b border-gray-200 px-6 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <div class="flex size-7 items-center justify-center rounded-lg bg-primary p-1 text-white dark:bg-accent-light/10 dark:text-accent-light">
-                                            <i class="fa-solid text-xs-plus fa-user"></i>
-                                        </div>
+                                    <div class="flex items-center justify-between gap-3">
                                         <h4 class="tracking-wider text-base font-bold text-slate-700 dark:text-navy-100">
-                                            Data {{ $nama_pengguna }}
+                                            {{ $nama_pengguna }}
                                         </h4>
+                                        <div x-data="{
+                                                showModal:false,
+                                                init() {
+                                                    window.addEventListener('password-reset-success', () => {
+                                                        this.showModal = false;
+                                                    });
+                                                }
+                                            }">
+                                            <button type="button" @click="showModal = true" wire:loading.attr="disabled" wire:target="resetPassword" @if(!$defaultPassword) disabled @endif class="lg:flex lg:items-center lg:gap-2 px-3 py-1.5 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60">
+                                                <i class="text-xs-plus fa-regular fa-user-lock"></i>
+                                                <span class="text-xs-plus tracking-wider hidden lg:block">Reset Password</span>
+                                            </button>
+                                            <x-backend.modal-reset-password :id="$userId" :name="$nama_pengguna" :password="$defaultPassword"/>
+                                        </div>
                                     </div>
                                 </div>
                                 <form wire:submit="update">
@@ -154,9 +165,9 @@
                                             <a href="{{ route('admin.user.index') }}" class="btn bg-gray-100 font-bold text-slate-800 hover:bg-gray-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
                                                 Batal
                                             </a>
-                                            <button type="submit" wire:loading.attr="disabled" type="button" class="btn bg-success font-bold text-white hover:bg-success-focus focus:bg-success-focus active:bg-success-focus/90">
-                                                <span wire:loading.remove>Simpan</span>
-                                                <span wire:loading class="flex items-center justify-center gap-2">
+                                            <button type="submit" wire:target="update" wire:loading.attr="disabled" class="btn bg-success font-bold text-white hover:bg-success-focus focus:bg-success-focus active:bg-success-focus/90">
+                                                <span wire:loading.remove wire:target="update">Simpan</span>
+                                                <span wire:loading wire:target="update" class="flex items-center justify-center gap-2">
                                                     Memproses...
                                                     <i class="fa-duotone fa-spinner-third animate-spin"></i>
                                                 </span>

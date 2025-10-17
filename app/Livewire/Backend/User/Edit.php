@@ -4,6 +4,7 @@ namespace App\Livewire\Backend\User;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -132,11 +133,54 @@ class Edit extends Component
         return redirect()->route('admin.user.index');
     }
 
+    public function getDefaultPasswordProperty(): ?string
+    {
+        if (empty($this->tanggal_lahir)) {
+            return null;
+        }
+
+        $timestamp = strtotime($this->tanggal_lahir);
+
+        if ($timestamp === false) {
+            return null;
+        }
+
+        return date('d-m-Y', $timestamp);
+    }
+
+    public function resetPassword(?int $userId = null): void
+    {
+        if ($userId !== null && (int) $userId !== (int) $this->user->id) {
+            noty()->error('Pengguna tidak valid.');
+            return;
+        }
+
+        $formattedPassword = $this->defaultPassword;
+
+        if (empty($formattedPassword)) {
+            noty()->error('Tanggal lahir pengguna tidak tersedia.');
+            return;
+        }
+
+        try {
+            $this->user->update([
+                'password' => Hash::make($formattedPassword),
+            ]);
+
+            noty()->success('Password berhasil direset menjadi tanggal lahir (d-m-Y).');
+            $this->dispatch('password-reset-success');
+        } catch (\Throwable $e) {
+            noty()->error('Gagal mereset password: ' . $e->getMessage());
+        }
+    }
+
     public function render()
     {
         return view('pages.backend.user.edit', [
             'roles'          => Role::all(),
             'nama_pengguna'  => $this->nama_lengkap,
+            'defaultPassword' => $this->defaultPassword,
+            'userId'         => $this->user->id,
         ]);
     }
 }
