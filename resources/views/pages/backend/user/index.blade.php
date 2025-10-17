@@ -51,7 +51,7 @@
                                         </label>
 
                                         {{-- Tambah --}}
-                                        <div x-data="{showModal:false}">
+                                        <div x-data="{showModal:false}" @closeModal.window="showModal = false">
                                             <button type="button" @click="showModal = true" class="lg:flex lg:items-center lg:gap-2 px-3 py-1.5 font-semibold text-white btn bg-primary hover:bg-primary-focus disabled:opacity-25">
                                                 <i class="text-xs-plus fa-regular fa-plus"></i>
                                                 <span class="text-xs-plus tracking-wider hidden lg:block">Tambah</span>

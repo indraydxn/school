@@ -10,7 +10,6 @@ use Spatie\Permission\Models\Role;
 
 class Create extends Component
 {
-    public $showModal = false;
     public $nik;
     public $no_kk;
     public $nama_lengkap;
@@ -82,6 +81,8 @@ class Create extends Component
             return;
         }
 
+        $formattedPassword = date('d-m-Y', strtotime($this->tanggal_lahir));
+
         $user = User::create([
             'nik'            => $this->nik,
             'no_kk'          => $this->no_kk,
@@ -93,20 +94,23 @@ class Create extends Component
             'jenis_kelamin'  => $this->jenis_kelamin,
             'alamat'         => $this->alamat,
             'status'         => $this->status,
-            'password'       => Hash::make($this->tangga_lahir),
+            'password'       => Hash::make($formattedPassword),
         ]);
 
         $user->assignRole($this->role);
 
+        $this->dispatch('closeModal');
+        $this->dispatch('userCreated');
+
         noty()->success('Pengguna berhasil ditambahkan!');
 
         $this->reset();
-
-        $this->showModal = false;
     }
 
     public function render()
     {
-        return view('pages.backend.user.create');
+        return view('pages.backend.user.create', [
+            'roles' => Role::all()
+        ]);
     }
 }

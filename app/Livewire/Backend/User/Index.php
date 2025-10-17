@@ -4,6 +4,7 @@ namespace App\Livewire\Backend\User;
 
 use App\Models\User;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -39,6 +40,12 @@ class Index extends Component
         } else {
             noty()->error('Data tidak ditemukan!');
         }
+    }
+
+    #[On('userCreated')]
+    public function refreshUsers()
+    {
+        $this->resetPage();
     }
 
     public function render()
