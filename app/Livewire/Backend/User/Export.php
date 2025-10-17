@@ -16,6 +16,7 @@ class Export extends Component
         $pdf = Pdf::loadView('exports.users-pdf', compact('users'));
 
         noty()->success('Data berhasil diexport ke PDF!');
+        $this->dispatch('close-modal');
 
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();
@@ -25,6 +26,7 @@ class Export extends Component
     public function exportExcel()
     {
         noty()->success('Data berhasil diexport ke excel!');
+        $this->dispatch('close-modal');
         return Excel::download(new UsersExport, date('d-m-Y').'-data-pengguna.xlsx');
     }
 
