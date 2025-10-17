@@ -10,13 +10,13 @@
         </div>
         @endif
         <nav role="navigation" aria-label="{{ __('Pagination Navigation') }}" class="not-lg:w-full">
-            <div class="flex justify-between items-center w-full space-x-1.5 bg-gray-100 rounded-lg p-1">
+            <div class="flex justify-between items-center w-full space-x-1.5 rounded-lg">
                 @if ($paginator->onFirstPage())
-                    <span class="text-gray-400 bg-white font-bold rounded-lg size-7 text-xs flex items-center justify-center opacity-80 cursor-not-allowed">
+                    <span class="text-gray-400 bg-white border border-gray-200 font-bold rounded-lg size-7 text-xs flex items-center justify-center opacity-80 cursor-not-allowed">
                         <i class="text-base fa-regular fa-angle-left"></i>
                     </span>
                 @else
-                    <button wire:click="previousPage" aria-label="{{ __('pagination.previous') }}" class="text-gray-500 font-bold bg-white hover:bg-white/50 rounded-lg size-7 text-xs flex items-center justify-center">
+                    <button wire:click="previousPage" aria-label="{{ __('pagination.previous') }}" class="text-gray-500 font-bold bg-white border border-gray-200 hover:bg-gray-100/50 rounded-lg size-7 text-xs flex items-center justify-center">
                         <i class="text-base fa-regular fa-angle-left"></i>
                     </button>
                 @endif
@@ -31,7 +31,7 @@
                         @else
                             @if ($page == 1 || $page == $paginator->lastPage() || ($page >= $paginator->currentPage() - 2 && $page <= $paginator->currentPage() + 2))
                                 <li>
-                                    <button wire:click="gotoPage({{ $page }})" aria-label="{{ __('Go to page :page', ['page' => $page]) }}" class="text-gray-500 bg-white font-bold hover:bg-white/50 rounded-lg size-7 text-xs flex items-center justify-center">
+                                    <button wire:click="gotoPage({{ $page }})" aria-label="{{ __('Go to page :page', ['page' => $page]) }}" class="text-gray-500 bg-white border border-gray-200 font-bold hover:bg-gray-100/50 rounded-lg size-7 text-xs flex items-center justify-center">
                                         {{ $page }}
                                     </button>
                                 </li>
@@ -46,11 +46,11 @@
                     @endforeach
                 </ol>
                 @if ($paginator->hasMorePages())
-                    <button wire:click="nextPage" aria-label="{{ __('pagination.next') }}" class="text-gray-500 font-bold bg-white hover:bg-white/50 rounded-lg size-7 text-xs flex items-center justify-center">
+                    <button wire:click="nextPage" aria-label="{{ __('pagination.next') }}" class="text-gray-500 font-bold bg-white border border-gray-200 hover:bg-gray-100/50 rounded-lg size-7 text-xs flex items-center justify-center">
                         <i class="text-base fa-regular fa-angle-right"></i>
                     </button>
                 @else
-                    <span class="text-gray-400 bg-white font-bold rounded-lg size-7 text-xs flex items-center justify-center opacity-80 cursor-not-allowed">
+                    <span class="text-gray-400 bg-white border border-gray-200 font-bold rounded-lg size-7 text-xs flex items-center justify-center opacity-80 cursor-not-allowed">
                         <i class="text-base fa-regular fa-angle-right"></i>
                     </span>
                 @endif
