@@ -151,9 +151,9 @@
                                     </div>
                                     <div class="border-t border-gray-200 px-6 py-4">
                                         <div class="flex items-center justify-end gap-3">
-                                            <button @click="showModal = false" type="reset" class="btn bg-gray-100 font-bold text-slate-800 hover:bg-gray-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
+                                            <a href="{{ route('admin.user.index') }}" class="btn bg-gray-100 font-bold text-slate-800 hover:bg-gray-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
                                                 Batal
-                                            </button>
+                                            </a>
                                             <button type="submit" wire:loading.attr="disabled" type="button" class="btn bg-success font-bold text-white hover:bg-success-focus focus:bg-success-focus active:bg-success-focus/90">
                                                 <span wire:loading.remove>Simpan</span>
                                                 <span wire:loading class="flex items-center justify-center gap-2">
