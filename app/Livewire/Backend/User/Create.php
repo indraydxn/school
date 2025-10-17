@@ -100,7 +100,7 @@ class Create extends Component
         $user->assignRole($this->role);
 
         $this->dispatch('userCreated');
-        $this->dispatch('closeModal');
+        $this->dispatch('close-modal');
 
         noty()->success('Pengguna berhasil ditambahkan!');
 
