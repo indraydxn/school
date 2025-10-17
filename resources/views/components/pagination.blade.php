@@ -1,8 +1,8 @@
 @if($paginator && $paginator->hasPages())
     <div class="flex items-center lg:justify-between px-6 py-3 border-t border-gray-200 gap-2 not-lg:space-y-2">
-        @if ($showSelect) 
+        @if ($showSelect)
         <div class="items-center space-x-2 hidden lg:flex">
-            <select wire:model.live="perPage" class="form-select h-7 ps-3 text-xs w-12 rounded-lg space-x-2 border border-gray-200 font-medium cursor:pointer">
+            <select wire:model.live="perPage" class="form-select h-7 ps-2.5 text-xs w-14 rounded-lg space-x-2 border border-gray-200 font-medium cursor:pointer">
                 <option value="10">10</option>
                 <option value="25">25</option>
                 <option value="50">50</option>
