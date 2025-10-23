@@ -41,12 +41,46 @@
                 />
 
                 {{-- Pengguna --}}
-                <x-backend.sidebar-menu
-                    menu="Pengguna"
+                <x-backend.menu-item
+                    title="Pengguna"
                     icon="fa-users"
-                    :href="route('admin.user.index')"
                     :active="request()->routeIs('admin.user.*')"
-                />
+                >
+
+                    {{-- Sistem --}}
+                    <x-backend.sidebar-menu
+                        menu="Sistem"
+                        icon="fa-long-arrow-right"
+                        :href="route('admin.user.index')"
+                        :active="request()->routeIs('admin.user.index')"
+                    />
+
+                    {{-- Guru --}}
+                    <x-backend.sidebar-menu
+                        menu="Guru dan Staff"
+                        icon="fa-long-arrow-right"
+                        :href="route('admin.user.index')"
+                        :active="request()->routeIs('admin.dashboard')"
+                    />
+
+                    {{-- Siswa --}}
+                    <x-backend.sidebar-menu
+                        menu="Siswa"
+                        icon="fa-long-arrow-right"
+                        :href="route('admin.user.index')"
+                        :active="request()->routeIs('admin.dashboard')"
+                    />
+
+                    {{-- Wali Siswa --}}
+                    <x-backend.sidebar-menu
+                        menu="Wali Siswa"
+                        icon="fa-long-arrow-right"
+                        :href="route('admin.user.index')"
+                        :active="request()->routeIs('admin.dashboard')"
+                    />
+
+                </x-backend.menu-item>
+                {{-- / Pengguna --}}
 
             </x-backend.sidebar>
 
@@ -60,7 +94,7 @@
 
                         {{-- Tile Page --}}
                         <x-backend.title-page title="{{ $title }}"/>
-                        
+
                         {{ $slot }}
                     </div>
                 </div>
