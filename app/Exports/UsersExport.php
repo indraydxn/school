@@ -3,12 +3,16 @@
 namespace App\Exports;
 
 use App\Models\User;
+use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 
-class UsersExport implements FromArray, WithTitle, WithEvents
+class UsersExport implements FromArray, WithTitle, WithEvents, WithColumnFormatting
 {
     public function array(): array
     {
@@ -28,8 +32,8 @@ class UsersExport implements FromArray, WithTitle, WithEvents
             return [
                 $key + 1,
                 $user->nama_lengkap,
-                $user->nik,
-                $user->no_kk,
+                "\u{200B}" . (string)$user->nik,
+                "\u{200B}" . (string)$user->no_kk,
                 $user->email,
                 $user->telepon,
                 $user->tempat_lahir,
@@ -39,13 +43,11 @@ class UsersExport implements FromArray, WithTitle, WithEvents
                 $user->status ? 'Aktif' : 'Tidak aktif',
                 $user->roles->pluck('name')->implode(', ') ?: 'Tidak ada role',
             ];
-            
+
         })->toArray();
 
         return [
-            ['Data Pengguna'],
-            ['Di export pada: ' . now()->format('d-m-Y H:i:s')],
-            ['Petugas: ' . (auth()->check() ? auth()->user()->nama_lengkap : 'System')],
+            ['Data Pengguna Aplikasi'],
             [''],
             [
                 'No',
@@ -70,20 +72,38 @@ class UsersExport implements FromArray, WithTitle, WithEvents
         return 'Data Pengguna';
     }
 
+    public function columnFormats(): array
+    {
+        return [
+            'C' => NumberFormat::FORMAT_TEXT,
+            'D' => NumberFormat::FORMAT_TEXT,
+        ];
+    }
+
     public function registerEvents(): array
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
                 $sheet = $event->sheet->getDelegate();
 
-                // Title: bold, size 16
+                // Title);
+                $sheet->mergeCells('A1:L1');
+                $sheet->getRowDimension(1)->setRowHeight(28);
                 $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(16);
+                $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER)->setVertical(Alignment::VERTICAL_CENTER);
 
-                // Subtitles: size 12
-                $sheet->getStyle('A2:A3')->getFont()->setSize(12);
+                // Headings
+                $sheet->getStyle('A3:L3')->getFont()->setBold(true);
+                $sheet->getStyle('A3:L3')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER)->setVertical(Alignment::VERTICAL_CENTER);
 
-                // Headings: bold
-                $sheet->getStyle('A5:L5')->getFont()->setBold(true);
+                // table
+                $highestRow = $sheet->getHighestRow();
+                $sheet->getStyle('A3:L' . $highestRow)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+
+                // Auto-fit
+                foreach (range('A', 'L') as $column) {
+                    $sheet->getColumnDimension($column)->setAutoSize(true);
+                }
             },
         ];
     }
