@@ -273,7 +273,6 @@ Table semester {
 Table tingkat_kelas {
   id           int [pk, increment]
   nama         varchar(20) [not null]           // "X", "XI", "XII" atau "7", "8", "9"
-  jenjang      Jenjang
   dibuat_oleh  int
   dibuat_pada  timestamp [not null, default: `now()`]
   diubah_oleh  int
