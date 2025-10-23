@@ -55,12 +55,12 @@
                         :active="request()->routeIs('admin.user.index')"
                     />
 
-                    {{-- Guru --}}
+                    {{-- Guru dan Staff --}}
                     <x-backend.sidebar-menu
                         menu="Guru dan Staff"
                         icon="fa-long-arrow-right"
-                        :href="route('admin.user.index')"
-                        :active="request()->routeIs('admin.dashboard')"
+                        :href="route('admin.user.staff')"
+                        :active="request()->routeIs('admin.user.staff')"
                     />
 
                     {{-- Siswa --}}

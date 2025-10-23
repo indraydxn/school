@@ -23,11 +23,12 @@ Route::middleware('auth')->group(function () {
         // Users
         Route::prefix('user')->name('user.')->group(function () {
             Route::get('/', App\Livewire\Backend\User\Index::class)->name('index');
+            Route::get('/staff', App\Livewire\Backend\Staff\Index::class)->name('staff');
             Route::get('/print', UserPrintController::class)->name('print');
             Route::get('/{user}/edit', App\Livewire\Backend\User\Edit::class)->name('edit');
         });
 
     });
-    
+
 });
 
