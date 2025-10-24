@@ -59,4 +59,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Wali::class);
     }
+
+    public function scopeWithRoles($query, $roles)
+    {
+        return $query->whereHas('roles', function($q) use ($roles) {
+            $q->whereIn('name', $roles);
+        });
+    }
 }

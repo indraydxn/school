@@ -3,13 +3,14 @@
 namespace App\Livewire\Backend\Staff;
 
 use App\Models\Staf;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\On;
-use Livewire\Attributes\Title;
+use App\Models\User;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use Livewire\Attributes\Title;
+use Livewire\Attributes\Layout;
 
-#[Title('Data Guru dan Staf')]
+#[Title('Data Guru dan Staff')]
 #[Layout('components.layouts.backend')]
 
 class Index extends Component
@@ -21,7 +22,7 @@ class Index extends Component
 
     public function toggleStatus($stafId)
     {
-        $staf = Staf::find($stafId);
+        $staf = User::find($stafId);
         if ($staf) {
             $staf->status = !$staf->status;
             $staf->save();
@@ -36,7 +37,7 @@ class Index extends Component
         $staf = Staf::find($id);
         if ($staf) {
             $staf->delete();
-            noty()->success($staf->nama_lengkap . ' berhasil dihapus!');
+            noty()->success($staf->user->nama_lengkap . ' berhasil dihapus dari staff!');
         } else {
             noty()->error('Data tidak ditemukan!');
         }
@@ -51,10 +52,12 @@ class Index extends Component
     public function render()
     {
         return view('pages.backend.staff.index', [
-            "staff" => Staf::query()->when($this->search, function ($query) {
-                $query->where('nama_lengkap', 'like', '%' . $this->search . '%')
-                ->orWhere('email', 'like', '%' . $this->search . '%')
-                ->orWhere('telepon', 'like', '%' . $this->search . '%');
+            "staff" => Staf::with(['jabatan', 'user'])->when($this->search, function ($query) {
+                $query->whereHas('user', function ($q) {
+                    $q->where('nama_lengkap', 'like', '%' . $this->search . '%')
+                      ->orWhere('email', 'like', '%' . $this->search . '%')
+                      ->orWhere('telepon', 'like', '%' . $this->search . '%');
+                });
             })->paginate($this->perPage)
         ]);
     }

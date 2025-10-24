@@ -12,14 +12,14 @@
                                     <div class="flex items-center lg:gap-2 gap-1">
 
                                         {{-- Import --}}
-                                        <button class="lg:flex lg:items-center lg:gap-2 px-3 py-1.5 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
+                                        {{-- <button class="lg:flex lg:items-center lg:gap-2 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
                                             <i class="text-xs-plus fa-regular fa-up-from-bracket"></i>
                                             <span class="text-xs-plus tracking-wider hidden lg:block">Import</span>
-                                        </button>
+                                        </button> --}}
 
                                         {{-- Export --}}
                                         <div x-data="{showModal:false}" @close-modal.window="showModal = false">
-                                            <button type="button" @click="showModal = true" class="lg:flex lg:items-center lg:gap-2 px-3 py-1.5 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
+                                            <button type="button" @click="showModal = true" class="lg:flex lg:items-center lg:gap-2 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
                                                 <i class="text-xs-plus fa-regular fa-down-to-bracket"></i>
                                                 <span class="text-xs-plus tracking-wider hidden lg:block">Export</span>
                                             </button>
@@ -27,11 +27,11 @@
                                         </div>
 
                                         {{-- Print --}}
-                                        {{-- <a href="{{ route('admin.staff.print', ['search' => $search ?: null]) }}" target="_blank" rel="noopener"
-                                           class="lg:flex lg:items-center lg:gap-2 px-3 py-1.5 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
+                                        <a href="" target="_blank" rel="noopener"
+                                           class="lg:flex lg:items-center lg:gap-2 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
                                             <i class="text-xs-plus fa-regular fa-print"></i>
                                             <span class="text-xs-plus tracking-wider hidden lg:block">Print</span>
-                                        </a> --}}
+                                        </a>
 
                                     </div>
                                     <div class="flex items-center lg:gap-2 gap-1">
@@ -53,11 +53,11 @@
 
                                         {{-- Tambah --}}
                                         <div x-data="{showModal:false}" @close-modal.window="showModal = false">
-                                            <button type="button" @click="showModal = true" class="lg:flex lg:items-center lg:gap-2 px-3 py-1.5 font-semibold text-white btn bg-primary hover:bg-primary-focus disabled:opacity-25">
+                                            <button type="button" @click="showModal = true" class="lg:flex lg:items-center lg:gap-2 font-semibold text-white btn bg-primary hover:bg-primary-focus disabled:opacity-25">
                                                 <i class="text-xs-plus fa-regular fa-plus"></i>
                                                 <span class="text-xs-plus tracking-wider hidden lg:block">Tambah</span>
                                             </button>
-                                            {{-- <livewire:backend.staff.create/> --}}
+                                            <livewire:backend.staff.create/>
                                         </div>
 
                                     </div>
@@ -68,12 +68,9 @@
                                     <thead>
                                         <tr class="divide-x divide-gray-200">
                                             <th scope="col" class="px-4 py-2 whitespace-nowrap text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                            <th scope="col" class="px-6 py-2 whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-48">No Staf</th>
-                                            <th scope="col" class="px-6 py-2 whitespace-nowrap text-center text-xs font-medium text-gray-500 uppercase tracking-wider">NIP</th>
-                                            <th scope="col" class="px-6 py-2 whitespace-nowrap text-center text-xs font-medium text-gray-500 uppercase tracking-wider">NUPTK</th>
-                                            <th scope="col" class="px-6 py-2 whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tahun Masuk</th>
-                                            <th scope="col" class="px-6 py-2 whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-56">Status Kepegawaian</th>
-                                            <th scope="col" class="px-6 py-2 whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pendidikan Terakhir</th>
+                                            <th scope="col" class="px-6 py-2 whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No Staf</th>
+                                            <th scope="col" class="px-6 py-2 whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-48">Nama Lengkap</th>
+                                            <th scope="col" class="px-6 py-2 whitespace-nowrap text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Kepegawaian</th>
                                             <th scope="col" class="px-6 py-2 whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jabatan</th>
                                             <th scope="col" class="px-4 py-2 whitespace-nowrap text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                                         </tr>
@@ -94,23 +91,13 @@
                                                 {{ $staf->no_staf }}
                                             </td>
 
-                                            {{-- NIP --}}
-                                            <td class="px-6 py-2 whitespace-nowrap tracking-wider text-center text-gray-500">
-                                                {{ $staf->nip ?? '-' }}
-                                            </td>
-
-                                            {{-- NUPTK --}}
-                                            <td class="px-6 py-2 whitespace-nowrap tracking-wider text-center text-gray-500">
-                                                {{ $staf->nuptk ?? '-' }}
-                                            </td>
-
-                                            {{-- Tahun Masuk --}}
+                                            {{-- Nama Lengkap --}}
                                             <td class="px-6 py-2 whitespace-nowrap tracking-wider text-gray-500">
-                                                {{ $staf->tahun_masuk }}
+                                                {{ $staf->user->nama_lengkap }}
                                             </td>
 
                                             {{-- Status Kepegawaian --}}
-                                            <td class="px-6 py-2 whitespace-nowrap tracking-wider text-gray-500">
+                                            <td class="px-6 py-2 whitespace-nowrap text-center tracking-wider text-gray-500">
                                                 @switch($staf->status_kepegawaian)
                                                     @case('PNS')
                                                         <span class="badge px-2 py-1 text-xs tracking-wider bg-success/10 text-success capitalize">
@@ -124,14 +111,9 @@
                                                 @endswitch
                                             </td>
 
-                                            {{-- Pendidikan Terakhir --}}
-                                            <td class="px-6 py-2 whitespace-nowrap tracking-wider text-gray-500">
-                                                {{ $staf->pendidikan_terakhir }}
-                                            </td>
-
                                             {{-- Jabatan --}}
                                             <td class="px-6 py-2 whitespace-nowrap tracking-wider text-gray-500">
-                                                {{ $staf->jabatan }}
+                                                {{ $staf->jabatan->nama_jabatan ?? '-' }}
                                             </td>
 
                                             {{-- Actions --}}
@@ -150,7 +132,7 @@
                                         </tr>
                                         @empty
                                         <tr>
-                                            <td colspan="9" class="px-3 py-8 text-center text-gray-500">
+                                            <td colspan="6" class="px-3 py-8 text-center text-gray-500">
                                                 <div class="flex flex-col items-center gap-2">
                                                     <i class="fa-duotone fa-folder-open text-4xl"></i>
                                                     <span>Tidak ada data</span>

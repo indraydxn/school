@@ -59,8 +59,8 @@
                     <x-backend.sidebar-menu
                         menu="Guru dan Staff"
                         icon="fa-long-arrow-right"
-                        :href="route('admin.user.staff')"
-                        :active="request()->routeIs('admin.user.staff')"
+                        :href="route('admin.user.staff.index')"
+                        :active="request()->routeIs('admin.user.staff.*')"
                     />
 
                     {{-- Siswa --}}
@@ -96,6 +96,7 @@
                         <x-backend.title-page title="{{ $title }}"/>
 
                         {{ $slot }}
+
                     </div>
                 </div>
             </main>

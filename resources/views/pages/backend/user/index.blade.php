@@ -12,14 +12,14 @@
                                     <div class="flex items-center lg:gap-2 gap-1">
 
                                         {{-- Import --}}
-                                        <button class="lg:flex lg:items-center lg:gap-2 px-3 py-1.5 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
+                                        <button class="lg:flex lg:items-center lg:gap-2 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
                                             <i class="text-xs-plus fa-regular fa-up-from-bracket"></i>
                                             <span class="text-xs-plus tracking-wider hidden lg:block">Import</span>
                                         </button>
 
                                         {{-- Export --}}
                                         <div x-data="{showModal:false}" @close-modal.window="showModal = false">
-                                            <button type="button" @click="showModal = true" class="lg:flex lg:items-center lg:gap-2 px-3 py-1.5 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
+                                            <button type="button" @click="showModal = true" class="lg:flex lg:items-center lg:gap-2 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
                                                 <i class="text-xs-plus fa-regular fa-down-to-bracket"></i>
                                                 <span class="text-xs-plus tracking-wider hidden lg:block">Export</span>
                                             </button>
@@ -28,7 +28,7 @@
 
                                         {{-- Print --}}
                                         <a href="{{ route('admin.user.print', ['search' => $search ?: null]) }}" target="_blank" rel="noopener"
-                                           class="lg:flex lg:items-center lg:gap-2 px-3 py-1.5 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
+                                           class="lg:flex lg:items-center lg:gap-2 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
                                             <i class="text-xs-plus fa-regular fa-print"></i>
                                             <span class="text-xs-plus tracking-wider hidden lg:block">Print</span>
                                         </a>
@@ -53,7 +53,7 @@
 
                                         {{-- Tambah --}}
                                         <div x-data="{showModal:false}" @close-modal.window="showModal = false">
-                                            <button type="button" @click="showModal = true" class="lg:flex lg:items-center lg:gap-2 px-3 py-1.5 font-semibold text-white btn bg-primary hover:bg-primary-focus disabled:opacity-25">
+                                            <button type="button" @click="showModal = true" class="lg:flex lg:items-center lg:gap-2 font-semibold text-white btn bg-primary hover:bg-primary-focus disabled:opacity-25">
                                                 <i class="text-xs-plus fa-regular fa-plus"></i>
                                                 <span class="text-xs-plus tracking-wider hidden lg:block">Tambah</span>
                                             </button>

@@ -38,20 +38,29 @@ return new class extends Migration
             $table->unique(['user_id', 'role_id']);
         });
 
+        Schema::create('jabatan', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_jabatan', 100)->unique();
+            $table->text('deskripsi')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
         Schema::create('staf', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('jabatan_id');
             $table->bigInteger('no_staf')->unique();
             $table->bigInteger('nip')->unique()->nullable();
             $table->bigInteger('nuptk')->unique()->nullable();
-            $table->integer('tahun_masuk');
+            $table->date('tanggal_masuk');
             $table->enum('status_kepegawaian', ['PNS', 'NON-PNS']);
             $table->string('pendidikan_terakhir', 100);
-            $table->string('jabatan', 40);
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('jabatan_id')->references('id')->on('jabatan')->onDelete('cascade');
             $table->unique(['user_id', 'no_staf', 'nip', 'nuptk']);
         });
 
@@ -85,6 +94,7 @@ return new class extends Migration
 
     public function down(): void
     {
+        Schema::dropIfExists('jabatan');
         Schema::dropIfExists('wali_siswa');
         Schema::dropIfExists('siswa');
         Schema::dropIfExists('staf');

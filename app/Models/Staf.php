@@ -17,19 +17,29 @@ class Staf extends Model
         'no_staf',
         'nip',
         'nuptk',
-        'tahun_masuk',
+        'tanggal_masuk',
         'status_kepegawaian',
         'pendidikan_terakhir',
-        'jabatan',
+        'jabatan_id',
     ];
 
     protected $casts = [
-        'tahun_masuk' => 'integer',
+        'tanggal_masuk' => 'date',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function jabatan()
+    {
+        return $this->belongsTo(Jabatan::class, 'jabatan_id');
+    }
+
+    public function getTahunMasukAttribute()
+    {
+        return $this->tanggal_masuk ? $this->tanggal_masuk->year : null;
     }
 
     public static function countGuru()
