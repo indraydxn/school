@@ -9,7 +9,7 @@
                                 <div class="border-b border-gray-200 px-6 py-4">
                                     <div class="flex items-center justify-between gap-3">
                                         <h4 class="tracking-wider text-base font-bold text-slate-700 dark:text-navy-100">
-                                            {{ $nama_pengguna }}
+                                            Edit Pengguna - {{ $nama_pengguna }}
                                         </h4>
                                         <div x-data="{
                                                 showModal:false,

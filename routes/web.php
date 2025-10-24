@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\UserPrintController;
+use App\Http\Controllers\Backend\StaffPrintController;
 use Illuminate\Support\Facades\Route;
 
 // Root
@@ -29,8 +30,10 @@ Route::middleware('auth')->group(function () {
             // Staff
             Route::prefix('staff')->name('staff.')->group(function () {
                 Route::get('/', App\Livewire\Backend\Staff\Index::class)->name('index');
+                Route::get('/print', StaffPrintController::class)->name('print');
+                Route::get('/{staf}/edit', App\Livewire\Backend\Staff\Edit::class)->name('edit');
             });
-            
+
         });
 
 
