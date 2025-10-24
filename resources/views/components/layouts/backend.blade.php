@@ -17,6 +17,11 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <link rel="stylesheet" href="{{ asset('icons/fontawesome/css/all.css') }}">
         <link rel="stylesheet" href="{{ asset('icons/fontawesome/css/jelly-regular.css') }}">
+        <style>
+            .ts-dropdown {
+                z-index: 9999 !important;
+            }
+        </style>
         @isset($head)
             {{ $head }}
         @endisset

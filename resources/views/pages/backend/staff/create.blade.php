@@ -20,7 +20,7 @@
                             {{-- Pilih Pengguna --}}
                             <label class="block space-y-1 col-span-12" wire:ignore>
                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Pilih Pengguna<p class="text-error">*</p></span>
-                                <select id="user_id" wire:model="user_id" x-init="$el._tom = new Tom($el,{create: true,sortField: {field: 'text'}})" required class="w-full">
+                                <select id="jabatan_id" wire:model="jabatan_id" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true})" required class="w-full">
                                     <option value="">- Pilih Pengguna -</option>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->nama_lengkap }} ({{ $user->email }})</option>
@@ -92,9 +92,9 @@
                             </label>
 
                             {{-- Jabatan --}}
-                            <label class="block space-y-1">
+                            <label class="block space-y-1" wire:ignore>
                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Jabatan<p class="text-error">*</p></span>
-                                <select id="jabatan_id" wire:model="jabatan_id" required class="form-select tracking-wide w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 placeholder:text-gray-400/70 hover:border-gray-400 focus:border-primary">
+                                <select id="jabatan_id" wire:model="jabatan_id" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true, dropdownParent: 'body'})" required class="w-full">
                                     <option value="">- Pilih Jabatan -</option>
                                     @foreach($jabatan as $jab)
                                         <option value="{{ $jab->id }}">{{ $jab->nama_jabatan }}</option>

@@ -15,22 +15,22 @@
                 </div>
                 <form wire:submit="store">
                     <div class="space-y-4 px-6 py-4 h-[400px] overflow-hidden overflow-y-auto scrollbar-custom">
-                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
                             {{-- Nama Lengkap --}}
-                            <label class="block space-y-1 col-span-2">
+                            <label class="block space-y-1">
                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Nama Lengkap<p class="text-error">*</p></span>
                                 <input type="text" id="nama_lengkap" wire:model="nama_lengkap" required placeholder="Masukkan nama" autocomplete="off" class="form-input tracking-wide w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 placeholder:text-gray-400/70 hover:border-gray-400 focus:border-primary"/>
                                 @error('nama_lengkap')<p class="text-error text-xs tracking-wide mt-1">{{ $message }}</p>@enderror
                             </label>
 
                             {{-- Role --}}
-                            <label class="block space-y-1">
+                            <label class="block space-y-1" wire:ignore>
                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Role<p class="text-error">*</p></span>
-                                <select id="role" wire:model="role" placeholder="Pilih role..." required class="form-select tracking-wide w-full rounded-lg border border-gray-200 bg-transparent capitalize px-3 py-2 placeholder:text-gray-400/70 hover:border-gray-400 focus:border-primary">
+                                <select id="role" wire:model="role" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true})" required class="w-full">
                                     <option value="">- Pilih Role -</option>
                                     @foreach($roles as $role)
-                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                        <option value="{{ $role->name }}">{{ Str::title($role->name) }}</option>
                                     @endforeach
                                 </select>
                                 @error('role')<p class="text-error text-xs tracking-wide mt-1">{{ $message }}</p>@enderror
