@@ -55,22 +55,37 @@ return new class extends Migration
             $table->unsignedBigInteger('kelas_id');
             $table->unsignedBigInteger('siswa_id');
             $table->unsignedBigInteger('semester_id');
-            $table->bigInteger('nomor_absen');
-            $table->boolean('status')->default(false);
-            $table->foreign('kelas_id')->references('id')->on('tingkat_kelas')->onDelete('cascade');
-            $table->foreign('siswa_id')->references('id')->on('siswa_id')->onDelete('siswa');
-            $table->unique(['kelas_id', 'siswa_id', 'semester_id', 'nomor_absen']);
+            $table->bigInteger('nomor_absen')->nullable();
+            $table->string('status', 20)->default('aktif'); // sesuai DBML
+            $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade'); // diperbaiki
+            $table->foreign('siswa_id')->references('id')->on('siswa')->onDelete('cascade');
+            $table->unique(['kelas_id', 'siswa_id', 'semester_id'], 'ak_kelas_siswa_sem_unique'); // nama index pendek
         });
 
         Schema::create('mata_pelajaran', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tingkat_kelas_id');
-            $table->string('kode');
-            $table->string('name', 60);
-            $table->string('kelompok');
-            $table->bigInteger('kkm');
-            $table->foreign('tingkat_kelas_id')->references('id')->on('tingkat_kelas')->onDelete('cascade');
-            $table->unique(['kode','tingkat_kelas_id', 'name', 'kelompok', 'kkm']);
+            // sesuaikan dengan DBML: kode, nama, kelompok, kkm, jenjang (jenjang sebagai string/enum sesuai implementasi)
+            $table->string('kode', 30)->unique();
+            $table->string('nama', 120);
+            $table->string('kelompok', 40)->nullable();
+            $table->integer('kkm')->default(75);
+            $table->string('jenjang')->nullable();
+            // index unik pendek jika diperlukan, contoh hanya pada kode saja (kode sudah unique)
+        });
+
+        Schema::create('pengampu_mapel', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('kelas_id');
+            $table->unsignedBigInteger('mata_pelajaran_id');
+            $table->unsignedBigInteger('guru_id');
+            $table->unsignedBigInteger('semester_id');
+            $table->integer('jam_per_minggu')->default(2);
+            $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');
+            $table->foreign('mata_pelajaran_id')->references('id')->on('mata_pelajaran')->onDelete('cascade');
+            $table->foreign('guru_id')->references('id')->on('users')->onDelete('cascade'); // ke users sesuai DBML
+            $table->foreign('semester_id')->references('id')->on('semester')->onDelete('cascade');
+            // gunakan nama index yang singkat agar tidak melebihi batas MySQL
+            $table->unique(['kelas_id','mata_pelajaran_id','semester_id'], 'pm_kelas_mapel_sem_unique');
         });
     }
 
@@ -80,8 +95,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jenjang');
+        Schema::dropIfExists('pengampu_mapel');
         Schema::dropIfExists('mata_pelajaran');
+        Schema::dropIfExists('anggota_kelas');
         Schema::dropIfExists('kelas');
         Schema::dropIfExists('tingkat_kelas');
         Schema::dropIfExists('semester');
