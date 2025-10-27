@@ -14,14 +14,14 @@
             <div @click="showModal = false" x-show="showModal" x-transition:enter="ease-out" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute inset-0 bg-slate-900/60 transition-opacity duration-300"></div>
             <div x-show="showModal" x-transition:enter="easy-out" x-transition:enter-start="opacity-0 [transform:translate3d(0,1rem,0)]" x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave="easy-in" x-transition:leave-start="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave-end="opacity-0 [transform:translate3d(0,1rem,0)]" class="relative flex items-center justify-center lg:w-sm w-xs rounded-xl bg-white p-6 text-center transition-all duration-300">
                 <div>
-                    <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-error text-white">
+                    {{-- <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-error text-white">
                         <i class="fa-solid fa-user-lock text-2xl"></i>
-                    </div>
-                    <h3 class="mt-4 text-xl font-extrabold text-slate-800 tracking-wide dark:text-navy-50">
+                    </div> --}}
+                    <h3 class="mt-4 text-2xl font-extrabold text-slate-800 tracking-wide dark:text-navy-50">
                         Reset Password
                     </h3>
                     <p class="text-slate-600 my-2 dark:text-navy-200 tracking-wide">
-                        Apakah Anda yakin ingin me-reset password {{ $name }} ?
+                        Anda yakin untuk me-reset password?
                     </p>
                     <div class="alert flex items-center justify-center rounded-lg border border-dashed border-gray-200 bg-gray-100/10 px-4 py-3 tracking-wide text-gray-700">
                         <p id="{{ $clipboardId }}" x-ref="passwordText" class="font-semibold font-mono">

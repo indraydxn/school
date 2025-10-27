@@ -10,13 +10,13 @@
                     {{-- <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white">
                         <i class="fa-solid fa-down-to-bracket text-2xl"></i>
                     </div> --}}
-                    <h3 class="mt-4 text-xl font-extrabold text-slate-800 tracking-wide dark:text-navy-50">
+                    <h3 class="mt-4 text-2xl font-extrabold text-slate-800 tracking-wide dark:text-navy-50">
                         Eksport Data
                     </h3>
-                    <p class="text-slate-600 dark:text-navy-200 tracking-wide">
+                    <p class="text-slate-600 my-2 dark:text-navy-200 tracking-wide">
                         Pilih format untuk mengekspor data!
                     </p>
-                    <div class="mt-6 flex justify-center space-x-3 w-[300px] h-[60px]">
+                    <div class="mt-6 flex justify-center space-x-3 lg:w-[300px] w-[250px] h-[60px]">
                         <form wire:submit="exportPdf" wire:target="exportPdf" class="inline w-full h-full">
                             <button type="submit" wire:loading.attr="disabled" class="btn h-full w-full bg-error/10 border border-error/50 font-bold text-error hover:bg-error/20 focus:bg-error/20">
                                 <span wire:loading.remove wire:target="exportPdf" class="flex items-center gap-2">

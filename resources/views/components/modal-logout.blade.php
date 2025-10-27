@@ -7,10 +7,10 @@
                     {{-- <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-warning text-white">
                         <i class="fa-solid fa-sign-out text-2xl"></i>
                     </div> --}}
-                    <h3 class="mt-4 text-xl font-extrabold text-slate-800 tracking-wide dark:text-navy-50">
+                    <h3 class="mt-4 text-2xl font-extrabold text-slate-800 tracking-wide dark:text-navy-50">
                         Keluar Akun
                     </h3>
-                    <p class="text-slate-600 dark:text-navy-200 tracking-wide">
+                    <p class="text-slate-600 my-2 dark:text-navy-200 tracking-wide">
                         Anda yakin untuk keluar dari aplikasi?
                     </p>
                     <div class="mt-6 flex justify-center space-x-3">

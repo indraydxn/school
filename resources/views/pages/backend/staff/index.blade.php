@@ -5,6 +5,20 @@
                 <div class="min-w-full inline-block align-middle">
                     <div class="overflow-hidden space-y-3">
 
+                        <label class="relative flex lg:hidden">
+                            <input type="text" placeholder="Cari..." wire:model.live="search" class="text-xs-plus tracking-wide form-input peer w-full rounded-lg bg-white border border-gray-200 px-3 py-2 pl-9 pr-9 placeholder:text-gray-400/70 focus:border-primary"/>
+                            <div class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                                <i class="fa-regular fa-magnifying-glass text-xs-plus transition-colors duration-200"></i>
+                            </div>
+                            <div wire:loading wire:target="search">
+                                <div class="absolute inset-y-0 z-20 flex h-full items-center justify-center px-4 font-semibold text-gray-400 cursor-pointer dark:text-gray-500 end-0 rounded-e-md focus:outline-hidden focus:text-primary">
+                                    <div class="transition-colors duration-200 shrink-0">
+                                        <i class="fa-duotone fa-spinner-third animate-spin text-xs-plus text-gray-400"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+
                         {{-- Table Card --}}
                         <div class="overflow-hidden card rounded-xl">
                             <div class="px-4 py-3 border-b border-gray-200 lg:gap-2 gap-1">
@@ -12,14 +26,14 @@
                                     <div class="flex items-center lg:gap-2 gap-1">
 
                                         {{-- Import --}}
-                                        {{-- <button class="lg:flex lg:items-center lg:gap-2 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
+                                        {{-- <button class="lg:flex lg:items-center lg:gap-2 font-medium text-gray-500 border border-gray-200 px-3 py-2 rounded-lg bg-white hover:bg-gray-50 disabled:opacity-25">
                                             <i class="text-xs-plus fa-regular fa-up-from-bracket"></i>
                                             <span class="text-xs-plus tracking-wider hidden lg:block">Import</span>
                                         </button> --}}
 
                                         {{-- Export --}}
                                         <div x-data="{showModal:false}" @close-modal.window="showModal = false">
-                                            <button type="button" @click="showModal = true" class="lg:flex lg:items-center lg:gap-2 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
+                                            <button type="button" @click="showModal = true" class="lg:flex lg:items-center lg:gap-2 font-medium text-gray-500 border border-gray-200 px-3 py-2 rounded-lg bg-white hover:bg-gray-50 disabled:opacity-25">
                                                 <i class="text-xs-plus fa-regular fa-down-to-bracket"></i>
                                                 <span class="text-xs-plus tracking-wider hidden lg:block">Export</span>
                                             </button>
@@ -28,7 +42,7 @@
 
                                         {{-- Print --}}
                                         <a href="{{ route('admin.user.staff.print') }}" target="_blank" rel="noopener"
-                                           class="lg:flex lg:items-center lg:gap-2 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
+                                           class="lg:flex lg:items-center lg:gap-2 font-medium text-gray-500 border border-gray-200 px-3 py-2 rounded-lg bg-white hover:bg-gray-50 disabled:opacity-25">
                                             <i class="text-xs-plus fa-regular fa-print"></i>
                                             <span class="text-xs-plus tracking-wider hidden lg:block">Print</span>
                                         </a>
@@ -37,8 +51,8 @@
                                     <div class="flex items-center lg:gap-2 gap-1">
 
                                         {{-- Cari --}}
-                                        <label class="relative flex">
-                                            <input type="text" placeholder="Cari..." wire:model.live="search" class="text-xs-plus tracking-wide form-input peer w-full rounded-lg border border-gray-200 bg-transparent px-3 py-1.5 pl-9 pr-9 placeholder:text-gray-400/70 focus:border-primary"/>
+                                        <label class="relative lg:flex hidden">
+                                            <input type="text" placeholder="Cari..." wire:model.live="search" class="text-xs-plus tracking-wide form-input peer w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 pl-9 pr-9 placeholder:text-gray-400/70 focus:border-primary"/>
                                             <div class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                                                 <i class="fa-regular fa-magnifying-glass text-xs-plus transition-colors duration-200"></i>
                                             </div>
@@ -53,7 +67,7 @@
 
                                         {{-- Tambah --}}
                                         <div x-data="{showModal:false}" @close-modal.window="showModal = false">
-                                            <button type="button" @click="showModal = true" class="lg:flex lg:items-center lg:gap-2 font-semibold text-white btn bg-primary hover:bg-primary-focus disabled:opacity-25">
+                                            <button type="button" @click="showModal = true" class="lg:flex lg:items-center lg:gap-2 font-semibold text-white px-3 py-2 rounded-lg bg-primary hover:bg-primary-focus disabled:opacity-25">
                                                 <i class="text-xs-plus fa-regular fa-plus"></i>
                                                 <span class="text-xs-plus tracking-wider hidden lg:block">Tambah</span>
                                             </button>

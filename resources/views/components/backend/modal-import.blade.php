@@ -7,10 +7,10 @@
                     {{-- <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white">
                         <i class="fa-solid fa-up-from-bracket text-2xl"></i>
                     </div> --}}
-                    <h3 class="mt-4 text-xl font-extrabold text-slate-800 tracking-wide dark:text-navy-50">
+                    <h3 class="mt-4 text-2xl font-extrabold text-slate-800 tracking-wide dark:text-navy-50">
                         Import Data
                     </h3>
-                    <p class="text-slate-600 dark:text-navy-200 tracking-wide">
+                    <p class="text-slate-600 my-2 dark:text-navy-200 tracking-wide">
                         Unggah file Excel untuk mengimpor!
                     </p>
                     <p class="text-slate-500 dark:text-navy-300">
@@ -21,7 +21,7 @@
                     <form wire:submit="import" wire:target="import" class="mt-6">
                         <div class="mb-6">
                             @if($file)
-                                <div class="bg-gray-100 border border-dashed border-gray-200 rounded-lg p-3 w-[300px] h-[60px]">
+                                <div class="bg-gray-100 border border-dashed border-gray-200 rounded-lg p-3 lg:w-[300px] w-[250px] h-[60px]">
                                     <div class="flex items-center justify-start space-x-2 truncate text-truncate">
                                         <div class="flex items-center">
                                             <button type="button" wire:click="closeModal" class="size-7 rounded-full text-xs text-gray-500 bg-gray-200 hover:bg-gray-300">
@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
                             @else
-                                <label class="btn bg-gray-100 relative border border-dashed border-gray-200 font-medium cursor-pointer w-[300px] h-[60px]"  wire:target="file" wire:loading.class="opacity-60 pointer-events-none">
+                                <label class="btn bg-gray-100 relative border border-dashed border-gray-200 font-medium cursor-pointer lg:w-[300px] w-[250px] h-[60px]"  wire:target="file" wire:loading.class="opacity-60 pointer-events-none">
                                     <input tabindex="-1" type="file" wire:target="file" wire:model="file" accept=".xlsx,.xls" class="pointer-events-none absolute inset-0 h-full w-full opacity-0" wire:loading.attr="disabled" />
                                     <div class="flex items-center space-x-2 tracking-wide">
                                         <i wire:loading.remove  wire:target="file" class="fa-solid fa-cloud-arrow-up text-base" aria-hidden="true"></i>

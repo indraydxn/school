@@ -113,7 +113,9 @@ class Edit extends Component
 
         // no_staf
         $jabatanId        = $this->jabatan_ids[0]; // Gunakan jabatan pertama untuk generate no_staf
-        $maxUrut          = Staf::whereJsonContains('jabatan_ids', $jabatanId)->whereDate('tanggal_masuk', $this->tanggal_masuk)->where('id', '!=', $this->stafId)->max(DB::raw('substr(no_staf, -3)')) ?? 0;
+        $maxUrut          = Staf::whereHas('jabatan', function($q) use ($jabatanId) {
+            $q->where('jabatan.id', $jabatanId);
+        })->where('tanggal_masuk', '=', $this->tanggal_masuk)->where('id', '!=', $this->stafId)->max(DB::raw('substr(no_staf, -3)')) ?? 0;
         $counter          = $maxUrut + 1;
         $nomorUrut        = str_pad($counter, 3, '0', STR_PAD_LEFT);
         $jabatanIdPadded  = str_pad($jabatanId, 2, '0', STR_PAD_LEFT);

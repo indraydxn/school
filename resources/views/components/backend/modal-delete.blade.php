@@ -8,13 +8,13 @@
                     {{-- <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-error text-white">
                         <i class="fa-solid fa-trash text-2xl"></i>
                     </div> --}}
-                    <h3 class="my-4 text-2xl font-extrabold text-slate-800 tracking-wide dark:text-navy-50">
+                    <h3 class="mt-4 text-2xl font-extrabold text-slate-800 tracking-wide dark:text-navy-50">
                         Hapus Data
                     </h3>
-                    <p class="text-slate-600 dark:text-navy-200 tracking-wide">
+                    <p class="text-slate-600 my-2 dark:text-navy-200 tracking-wide">
                         Anda yakin untuk menghapus data ini?
                     </p>
-                    <div class="alert flex  my-2 items-center justify-center rounded-lg border border-dashed border-gray-200 bg-gray-100/10 px-4 py-3 tracking-wide text-gray-700">
+                    <div class="alert flex items-center justify-center rounded-lg border border-dashed border-gray-200 bg-gray-100/10 px-4 py-3 tracking-wide text-gray-700">
                         <p class="font-semibold font-mono">
                             {{ $name }}
                         </p>
