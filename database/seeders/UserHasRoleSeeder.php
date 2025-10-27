@@ -12,9 +12,9 @@ class UserHasRoleSeeder extends Seeder
     {
         $users = User::whereIn('email', [
             'admin@sekolah.com',
-            'guru@sekolah.com',
-            'siswa@sekolah.com',
-            'wali@sekolah.com'
+            // 'guru@sekolah.com',
+            // 'siswa@sekolah.com',
+            // 'wali@sekolah.com'
         ])->get()->keyBy('email');
 
         $roles = Role::whereIn('name', [
@@ -26,9 +26,9 @@ class UserHasRoleSeeder extends Seeder
 
         $userRoles = [
             'admin@sekolah.com' => 'admin',
-            'guru@sekolah.com'  => 'guru',
-            'siswa@sekolah.com' => 'siswa',
-            'wali@sekolah.com'  => 'wali',
+            // 'guru@sekolah.com'  => 'guru',
+            // 'siswa@sekolah.com' => 'siswa',
+            // 'wali@sekolah.com'  => 'wali',
         ];
 
         foreach ($userRoles as $email => $roleName) {

@@ -43,28 +43,28 @@ class StafSeeder extends Seeder
             ];
         }
 
-        if ($guru && $jabatanGuru) {
-            $tanggalMasuk                = '2010-01-01';
-            $jabatanId                   = $jabatanGuru->id;
-            $jabatanCounters[$jabatanId] = ($jabatanCounters[$jabatanId] ?? 0) + 1;
-            $nomorUrut                   = str_pad($jabatanCounters[$jabatanId], 3, '0', STR_PAD_LEFT);
-            $jabatanIdPadded             = str_pad($jabatanId, 2, '0', STR_PAD_LEFT);
-            $tanggalFormatted            = date('Ymd', strtotime($tanggalMasuk));
-            $noStaf                      = $tanggalFormatted . $jabatanIdPadded . $nomorUrut;
+        // if ($guru && $jabatanGuru) {
+        //     $tanggalMasuk                = '2010-01-01';
+        //     $jabatanId                   = $jabatanGuru->id;
+        //     $jabatanCounters[$jabatanId] = ($jabatanCounters[$jabatanId] ?? 0) + 1;
+        //     $nomorUrut                   = str_pad($jabatanCounters[$jabatanId], 3, '0', STR_PAD_LEFT);
+        //     $jabatanIdPadded             = str_pad($jabatanId, 2, '0', STR_PAD_LEFT);
+        //     $tanggalFormatted            = date('Ymd', strtotime($tanggalMasuk));
+        //     $noStaf                      = $tanggalFormatted . $jabatanIdPadded . $nomorUrut;
 
-            $stafs[] = [
-                'user_id'             => $guru->id,
-                'no_staf'             => $noStaf,
-                'nip'                 => "198503031234567",
-                'nuptk'               => null,
-                'tanggal_masuk'       => $tanggalMasuk,
-                'status_kepegawaian'  => 'PNS',
-                'pendidikan_terakhir' => 'S1 Matematika',
-                'jabatan_id'          => $jabatanId,
-                'created_at'          => now(),
-                'updated_at'          => now(),
-            ];
-        }
+        //     $stafs[] = [
+        //         'user_id'             => $guru->id,
+        //         'no_staf'             => $noStaf,
+        //         'nip'                 => "198503031234567",
+        //         'nuptk'               => null,
+        //         'tanggal_masuk'       => $tanggalMasuk,
+        //         'status_kepegawaian'  => 'PNS',
+        //         'pendidikan_terakhir' => 'S1 Matematika',
+        //         'jabatan_id'          => $jabatanId,
+        //         'created_at'          => now(),
+        //         'updated_at'          => now(),
+        //     ];
+        // }
 
         Staf::insert($stafs);
     }

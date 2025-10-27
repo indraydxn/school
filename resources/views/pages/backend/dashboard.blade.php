@@ -27,7 +27,7 @@
                 <i class="fa-regular fa-chalkboard-teacher text-white text-2xl"></i>
             </div>
             <div class="ml-4">
-                <p class="text-sm font-semibold text-gray-600 tracking-wider">Total Guru</p>
+                <p class="text-sm font-semibold text-gray-600 tracking-wider">Total Guru & staff</p>
                 <p class="text-2xl font-extrabold text-gray-900">{{ $jmlGuru }}</p>
             </div>
         </div>

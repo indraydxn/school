@@ -49,7 +49,6 @@ return new class extends Migration
         Schema::create('staf', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('jabatan_id');
             $table->bigInteger('no_staf')->unique();
             $table->bigInteger('nip')->unique()->nullable();
             $table->bigInteger('nuptk')->unique()->nullable();
@@ -60,7 +59,6 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('jabatan_id')->references('id')->on('jabatan')->onDelete('cascade');
             $table->unique(['user_id', 'no_staf', 'nip', 'nuptk']);
         });
 
