@@ -17,7 +17,7 @@
                                                 <i class="text-xs-plus fa-regular fa-up-from-bracket"></i>
                                                 <span class="text-xs-plus tracking-wider hidden lg:block">Import</span>
                                             </button>
-                                             <livewire:backend.user.import/>
+                                             <livewire:backend.user.import :href="route('admin.user.template.download')"/>
                                         </div>
 
                                         {{-- Export --}}

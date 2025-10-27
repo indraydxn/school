@@ -7,37 +7,37 @@
                     <i class="fa-regular fa-times"></i>
                 </button>
                 <div class="">
-                    <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white">
+                    {{-- <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white">
                         <i class="fa-solid fa-down-to-bracket text-2xl"></i>
-                    </div>
+                    </div> --}}
                     <h3 class="mt-4 text-xl font-extrabold text-slate-800 tracking-wide dark:text-navy-50">
                         Eksport Data
                     </h3>
                     <p class="text-slate-600 dark:text-navy-200 tracking-wide">
                         Pilih format untuk mengekspor data!
                     </p>
-                    <div class="mt-6 flex justify-center space-x-3">
-                        <form wire:submit="exportPdf" wire:target="exportPdf" class="inline">
-                            <button type="submit" wire:loading.attr="disabled" class="btn h-12 bg-error/10 border border-error/50 font-bold text-error hover:bg-error/20 focus:bg-error/20">
+                    <div class="mt-6 flex justify-center space-x-3 w-[300px] h-[60px]">
+                        <form wire:submit="exportPdf" wire:target="exportPdf" class="inline w-full h-full">
+                            <button type="submit" wire:loading.attr="disabled" class="btn h-full w-full bg-error/10 border border-error/50 font-bold text-error hover:bg-error/20 focus:bg-error/20">
                                 <span wire:loading.remove wire:target="exportPdf" class="flex items-center gap-2">
-                                    <img src="{{asset('logos/pdf.svg')}}" alt="pdf" class="size-4">
+                                    <img src="{{asset('logos/pdf.svg')}}" alt="pdf" class="size-5">
                                     PDF
                                 </span>
                                 <span wire:loading wire:target="exportPdf" class="flex items-center justify-center gap-2">
                                     Memproses...
-                                    <i class="fa-duotone fa-spinner-third animate-spin text-error"></i>
+                                    {{-- <i class="fa-duotone fa-spinner-third animate-spin text-error"></i> --}}
                                 </span>
                             </button>
                         </form>
-                        <form wire:submit="exportExcel" wire:target="exportExcel" class="inline">
-                            <button type="submit" wire:loading.attr="disabled" class="btn h-12 bg-success/10 border border-success/50 font-bold text-success hover:bg-success/20 focus:bg-success/20">
+                        <form wire:submit="exportExcel" wire:target="exportExcel" class="inline w-full h-full">
+                            <button type="submit" wire:loading.attr="disabled" class="btn h-full w-full bg-success/10 border border-success/50 font-bold text-success hover:bg-success/20 focus:bg-success/20">
                                 <span wire:loading.remove wire:target="exportExcel" class="flex items-center gap-2">
-                                    <img src="{{asset('logos/excel.svg')}}" alt="excel" class="size-4">
+                                    <img src="{{asset('logos/excel.svg')}}" alt="excel" class="size-5">
                                     Excel
                                 </span>
                                 <span wire:loading wire:target="exportExcel" class="flex items-center justify-center gap-2">
                                     Memproses...
-                                    <i class="fa-duotone fa-spinner-third animate-spin text-success"></i>
+                                    {{-- <i class="fa-duotone fa-spinner-third animate-spin text-success"></i> --}}
                                 </span>
                             </button>
                         </form>

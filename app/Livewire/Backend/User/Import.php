@@ -13,6 +13,7 @@ class Import extends Component
     use WithFileUploads;
 
     public $file;
+    public $href;
     protected $listeners = ['closeModal' => 'closeModal'];
 
     public function closeModal()

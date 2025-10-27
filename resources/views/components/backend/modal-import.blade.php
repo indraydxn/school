@@ -3,22 +3,19 @@
         <div @keydown.window.escape="$wire.closeModal(); showModal = false" x-show="showModal" role="dialog" class="fixed inset-0 z-100 flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5" >
             <div wire:click="closeModal" @click="showModal = false" x-show="showModal" x-transition:enter="ease-out" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute inset-0 bg-slate-900/60 transition-opacity duration-300"></div>
             <div x-show="showModal" x-transition:enter="easy-out" x-transition:enter-start="opacity-0 [transform:translate3d(0,1rem,0)]" x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave="easy-in" x-transition:leave-start="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave-end="opacity-0 [transform:translate3d(0,1rem,0)]" class="relative flex items-center justify-center lg:w-sm w-xs rounded-xl bg-white p-6 text-center transition-all duration-300" >
-                <button wire:click="closeModal" @click="showModal = false" class="absolute top-4 right-4 size-7 rounded-full text-xs text-gray-500 hover:text-gray-700 bg-gray-100/50 hover:bg-gray-100">
-                    <i class="fa-regular fa-times"></i>
-                </button>
                 <div class="">
-                    <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white">
-                        <i class="fa-solid fa-up-to-bracket text-2xl"></i>
-                    </div>
+                    {{-- <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white">
+                        <i class="fa-solid fa-up-from-bracket text-2xl"></i>
+                    </div> --}}
                     <h3 class="mt-4 text-xl font-extrabold text-slate-800 tracking-wide dark:text-navy-50">
-                        Impor Data
+                        Import Data
                     </h3>
                     <p class="text-slate-600 dark:text-navy-200 tracking-wide">
                         Unggah file Excel untuk mengimpor!
                     </p>
-                    <p class="text-slate-500 dark:text-navy-300 mt-2">
-                        <a href="{{ route('admin.user.template.download') }}" target="_blank" class="text-primary hover:text-primary-focus tracking-wide">
-                            <i class="fa-solid fa-download mr-1"></i>Download Template Excel
+                    <p class="text-slate-500 dark:text-navy-300">
+                        <a href="{{ $href }}" target="_blank" class="text-primary hover:text-primary-focus tracking-wide font-medium">
+                            Download Template Excel
                         </a>
                     </p>
                     <form wire:submit="import" wire:target="import" class="mt-6">
