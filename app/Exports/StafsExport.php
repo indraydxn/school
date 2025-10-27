@@ -28,6 +28,12 @@ class StafsExport implements FromArray, WithTitle, WithEvents, WithColumnFormatt
                 "\u{200B}" . (string)$staf->nuptk,
                 $staf->user->email ?? '',
                 $staf->user->telepon ?? '',
+                "\u{200B}" . (string)$staf->user->nik ?? '',
+                "\u{200B}" . (string)$staf->user->no_kk ?? '',
+                $staf->user->tempat_lahir ?? '',
+                $staf->user->tanggal_lahir ? $staf->user->tanggal_lahir->format('d-m-Y') : '',
+                $staf->user->jenis_kelamin ?? '',
+                $staf->user->alamat ?? '',
                 $staf->tanggal_masuk ? $staf->tanggal_masuk->format('d-m-Y') : '',
                 $staf->status_kepegawaian,
                 $staf->pendidikan_terakhir,
@@ -47,6 +53,12 @@ class StafsExport implements FromArray, WithTitle, WithEvents, WithColumnFormatt
                 'NUPTK',
                 'Email',
                 'Telepon',
+                'NIK',
+                'No KK',
+                'Tempat Lahir',
+                'Tanggal Lahir',
+                'Jenis Kelamin',
+                'Alamat',
                 'Tanggal Masuk',
                 'Kepegawaian',
                 'Pendidikan Terakhir',
@@ -67,6 +79,8 @@ class StafsExport implements FromArray, WithTitle, WithEvents, WithColumnFormatt
             'C' => NumberFormat::FORMAT_TEXT,
             'D' => NumberFormat::FORMAT_TEXT,
             'E' => NumberFormat::FORMAT_TEXT,
+            'H' => NumberFormat::FORMAT_TEXT,
+            'I' => NumberFormat::FORMAT_TEXT,
         ];
     }
 
@@ -77,21 +91,21 @@ class StafsExport implements FromArray, WithTitle, WithEvents, WithColumnFormatt
                 $sheet = $event->sheet->getDelegate();
 
                 // Title
-                $sheet->mergeCells('A1:K1');
+                $sheet->mergeCells('A1:Q1');
                 $sheet->getRowDimension(1)->setRowHeight(28);
                 $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(16);
                 $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER)->setVertical(Alignment::VERTICAL_CENTER);
 
                 // Headings
-                $sheet->getStyle('A3:K3')->getFont()->setBold(true);
-                $sheet->getStyle('A3:K3')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER)->setVertical(Alignment::VERTICAL_CENTER);
+                $sheet->getStyle('A3:Q3')->getFont()->setBold(true);
+                $sheet->getStyle('A3:Q3')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER)->setVertical(Alignment::VERTICAL_CENTER);
 
                 // table
                 $highestRow = $sheet->getHighestRow();
-                $sheet->getStyle('A3:K' . $highestRow)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+                $sheet->getStyle('A3:Q' . $highestRow)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
 
                 // Auto-fit
-                foreach (range('A', 'K') as $column) {
+                foreach (range('A', 'Q') as $column) {
                     $sheet->getColumnDimension($column)->setAutoSize(true);
                 }
             },

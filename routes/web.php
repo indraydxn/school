@@ -5,6 +5,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\UserPrintController;
 use App\Http\Controllers\Backend\StaffPrintController;
+use App\Http\Controllers\Backend\StudentPrintController;
 
 // Root
 Route::get('/', function () {
@@ -40,7 +41,7 @@ Route::middleware('auth')->group(function () {
             // Siswa
             Route::prefix('student')->name('student.')->group(function () {
                 Route::get('/', App\Livewire\Backend\Student\Index::class)->name('index');
-                // Route::get('/print', StaffPrintController::class)->name('print');
+                Route::get('/print', StudentPrintController::class)->name('print');
                 // Route::get('/{staf}/edit', App\Livewire\Backend\Staff\Edit::class)->name('edit');
             });
 
