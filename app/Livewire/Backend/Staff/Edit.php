@@ -9,6 +9,7 @@ use Livewire\Component;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 #[Title('Edit Staff')]
 #[Layout('components.layouts.backend')]
@@ -22,12 +23,13 @@ class Edit extends Component
     public $tanggal_masuk;
     public $status_kepegawaian;
     public $pendidikan_terakhir;
-    public $jabatan_id;
+    public $jabatan_ids = [];
+    public $no_staf;
 
     public function mount($staf)
     {
         $this->stafId = $staf;
-        $staf = Staf::with('user')->findOrFail($staf);
+        $staf = Staf::with(['user', 'jabatan'])->findOrFail($staf);
 
         $this->user_id             = $staf->user_id;
         $this->nip                 = $staf->nip;
@@ -35,7 +37,8 @@ class Edit extends Component
         $this->tanggal_masuk       = $staf->tanggal_masuk ? $staf->tanggal_masuk->format('Y-m-d') : null;
         $this->status_kepegawaian  = $staf->status_kepegawaian;
         $this->pendidikan_terakhir = $staf->pendidikan_terakhir;
-        $this->jabatan_id          = $staf->jabatan_id;
+        $this->jabatan_ids         = $staf->jabatan->pluck('id')->toArray();
+        $this->no_staf             = $staf->no_staf;
     }
 
     public function update()
@@ -45,14 +48,16 @@ class Edit extends Component
             'tanggal_masuk'         => 'required|date',
             'status_kepegawaian'    => 'required|string|max:50',
             'pendidikan_terakhir'   => 'required|string|max:100',
-            'jabatan_id'            => 'required|exists:jabatan,id',
-            'nip'                   => 'nullable|string|max:50|unique:staf,nip,' . $this->stafId,
-            'nuptk'                 => 'nullable|string|max:50|unique:staf,nuptk,' . $this->stafId,
+            'jabatan_ids'            => 'required|array|min:1',
+            'jabatan_ids.*'         => 'exists:jabatan,id',
+            'nip'                   => 'nullable|max:50|unique:staf,nip,' . $this->stafId,
+            'nuptk'                 => 'nullable|max:50|unique:staf,nuptk,' . $this->stafId,
+            'no_staf'               => 'required|unique:staf,no_staf,' . $this->stafId,
         ];
 
         if ($this->status_kepegawaian == 'PNS') {
-            $rules['nip']   = 'required|string|max:50|unique:staf,nip,' . $this->stafId;
-            $rules['nuptk'] = 'required|string|max:50|unique:staf,nuptk,' . $this->stafId;
+            $rules['nip']   = 'required|max:50|unique:staf,nip,' . $this->stafId;
+            $rules['nuptk'] = 'required|max:50|unique:staf,nuptk,' . $this->stafId;
         }
 
         $validator = Validator::make([
@@ -62,7 +67,8 @@ class Edit extends Component
             'tanggal_masuk'         => $this->tanggal_masuk,
             'status_kepegawaian'    => $this->status_kepegawaian,
             'pendidikan_terakhir'   => $this->pendidikan_terakhir,
-            'jabatan_id'            => $this->jabatan_id,
+            'jabatan_ids'           => $this->jabatan_ids,
+            'no_staf'               => $this->no_staf,
         ], $rules, [
             'user_id.required'             => 'Pengguna wajib dipilih.',
             'user_id.exists'               => 'Pengguna tidak ditemukan.',
@@ -78,8 +84,12 @@ class Edit extends Component
             'status_kepegawaian.max'       => 'Status kepegawaian maksimal 50 karakter.',
             'pendidikan_terakhir.required' => 'Pendidikan terakhir wajib diisi.',
             'pendidikan_terakhir.max'      => 'Pendidikan terakhir maksimal 100 karakter.',
-            'jabatan_id.required'          => 'Jabatan wajib dipilih.',
-            'jabatan_id.exists'            => 'Jabatan tidak ditemukan.',
+            'jabatan_ids.required'          => 'Jabatan wajib dipilih.',
+            'jabatan_ids.array'             => 'Jabatan harus berupa array.',
+            'jabatan_ids.min'               => 'Minimal satu jabatan harus dipilih.',
+            'jabatan_ids.*.exists'          => 'Jabatan tidak ditemukan.',
+            'no_staf.required'             => 'No staf wajib diisi.',
+            'no_staf.unique'               => 'No staf sudah terdaftar.',
         ]);
 
         if ($validator->fails()) {
@@ -89,6 +99,27 @@ class Edit extends Component
             return;
         }
 
+        // Validasi Kepala Sekolah hanya boleh satu orang
+        $kepalaSekolahId = Jabatan::where('nama_jabatan', 'Kepala Sekolah')->value('id');
+        if ($kepalaSekolahId && in_array($kepalaSekolahId, $this->jabatan_ids)) {
+            $existingKepala = Staf::where('id', '!=', $this->stafId)->whereHas('jabatan', function($q) use ($kepalaSekolahId) {
+                $q->where('jabatan.id', $kepalaSekolahId);
+            })->exists();
+            if ($existingKepala) {
+                $this->addError('jabatan_ids', 'Jabatan Kepala Sekolah sudah dipegang oleh staf lain.');
+                return;
+            }
+        }
+
+        // no_staf
+        $jabatanId        = $this->jabatan_ids[0]; // Gunakan jabatan pertama untuk generate no_staf
+        $maxUrut          = Staf::whereJsonContains('jabatan_ids', $jabatanId)->whereDate('tanggal_masuk', $this->tanggal_masuk)->where('id', '!=', $this->stafId)->max(DB::raw('substr(no_staf, -3)')) ?? 0;
+        $counter          = $maxUrut + 1;
+        $nomorUrut        = str_pad($counter, 3, '0', STR_PAD_LEFT);
+        $jabatanIdPadded  = str_pad($jabatanId, 2, '0', STR_PAD_LEFT);
+        $tanggalFormatted = date('Ymd', strtotime($this->tanggal_masuk));
+        $this->no_staf    = $tanggalFormatted . $jabatanIdPadded . $nomorUrut;
+
         $staf = Staf::findOrFail($this->stafId);
         $staf->update([
             'user_id'               => $this->user_id,
@@ -97,8 +128,11 @@ class Edit extends Component
             'tanggal_masuk'         => $this->tanggal_masuk,
             'status_kepegawaian'    => $this->status_kepegawaian,
             'pendidikan_terakhir'   => $this->pendidikan_terakhir,
-            'jabatan_id'            => $this->jabatan_id,
+            'no_staf'               => $this->no_staf,
         ]);
+
+        // Sync jabatan
+        $staf->jabatan()->sync($this->jabatan_ids);
 
         noty()->success('Staf berhasil diperbarui!');
 

@@ -113,7 +113,17 @@
 
                                             {{-- Jabatan --}}
                                             <td class="px-6 py-2 whitespace-nowrap tracking-wider text-gray-500">
-                                                {{ $staf->jabatan->nama_jabatan ?? '-' }}
+                                                @if($staf->jabatan->count() > 0)
+                                                    <div class="flex flex-wrap gap-1">
+                                                        @foreach($staf->jabatan as $jabatan)
+                                                            <span class="badge px-2 py-1 text-xs tracking-wider border border-gray-200 capitalize">
+                                                                {{ $jabatan->nama_jabatan }}
+                                                            </span>
+                                                        @endforeach
+                                                    </div>
+                                                @else
+                                                    -
+                                                @endif
                                             </td>
 
                                             {{-- Actions --}}

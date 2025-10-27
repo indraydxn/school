@@ -20,7 +20,7 @@
                             {{-- Pilih Pengguna --}}
                             <label class="block space-y-1 col-span-12" wire:ignore>
                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Pilih Pengguna<p class="text-error">*</p></span>
-                                <select id="jabatan_id" wire:model="jabatan_id" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true})" required class="w-full">
+                                <select id="user_id" wire:model="user_id" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true})" required class="w-full tracking-wide">
                                     <option value="">- Pilih Pengguna -</option>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->nama_lengkap }} ({{ $user->email }})</option>
@@ -94,13 +94,13 @@
                             {{-- Jabatan --}}
                             <label class="block space-y-1" wire:ignore>
                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Jabatan<p class="text-error">*</p></span>
-                                <select id="jabatan_id" wire:model="jabatan_id" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true, dropdownParent: 'body'})" required class="w-full">
+                                <select id="jabatan_ids" wire:model="jabatan_ids" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true, dropdownParent: 'body'})" multiple required class="w-full tracking-wide">
                                     <option value="">- Pilih Jabatan -</option>
                                     @foreach($jabatan as $jab)
                                         <option value="{{ $jab->id }}">{{ $jab->nama_jabatan }}</option>
                                     @endforeach
                                 </select>
-                                @error('jabatan_id')<p class="text-error text-xs tracking-wide mt-1">{{ $message }}</p>@enderror
+                                @error('jabatan_ids')<p class="text-error text-xs tracking-wide mt-1">{{ $message }}</p>@enderror
                             </label>
 
                         </div>

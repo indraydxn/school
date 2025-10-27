@@ -20,7 +20,6 @@ class Staf extends Model
         'tanggal_masuk',
         'status_kepegawaian',
         'pendidikan_terakhir',
-        'jabatan_id',
     ];
 
     protected $casts = [
@@ -34,7 +33,7 @@ class Staf extends Model
 
     public function jabatan()
     {
-        return $this->belongsTo(Jabatan::class, 'jabatan_id');
+        return $this->belongsToMany(Jabatan::class, 'staf_has_jabatan', 'staf_id', 'jabatan_id');
     }
 
     public function getTahunMasukAttribute()

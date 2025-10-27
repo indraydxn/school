@@ -64,6 +64,15 @@ return new class extends Migration
             $table->unique(['user_id', 'no_staf', 'nip', 'nuptk']);
         });
 
+        Schema::create('staf_has_jabatan', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('staf_id')->constrained('staf')->onDelete('cascade');
+            $table->foreignId('jabatan_id')->constrained('jabatan')->onDelete('cascade');
+            $table->timestamps();
+
+            $table->unique(['staf_id', 'jabatan_id']);
+        });
+
         Schema::create('siswa', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
@@ -94,10 +103,11 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('jabatan');
         Schema::dropIfExists('wali_siswa');
         Schema::dropIfExists('siswa');
+        Schema::dropIfExists('staf_has_jabatan');
         Schema::dropIfExists('staf');
+        Schema::dropIfExists('jabatan');
         Schema::dropIfExists('user_has_roles');
         Schema::dropIfExists('users');
     }

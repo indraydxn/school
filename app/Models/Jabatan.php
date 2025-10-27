@@ -19,6 +19,6 @@ class Jabatan extends Model
 
     public function staf()
     {
-        return $this->hasMany(Staf::class, 'jabatan_id');
+        return $this->belongsToMany(Staf::class, 'staf_has_jabatan', 'jabatan_id', 'staf_id');
     }
 }
