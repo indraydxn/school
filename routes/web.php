@@ -37,6 +37,13 @@ Route::middleware('auth')->group(function () {
                 Route::get('/{staf}/edit', App\Livewire\Backend\Staff\Edit::class)->name('edit');
             });
 
+            // Siswa
+            Route::prefix('student')->name('student.')->group(function () {
+                Route::get('/', App\Livewire\Backend\Student\Index::class)->name('index');
+                // Route::get('/print', StaffPrintController::class)->name('print');
+                // Route::get('/{staf}/edit', App\Livewire\Backend\Staff\Edit::class)->name('edit');
+            });
+
         });
 
 

@@ -34,6 +34,7 @@ class Import extends Component
         try {
             Excel::import(new UserImport, $this->file->getRealPath());
 
+            $this->dispatch('userCreated');
             $this->dispatch('userImported');
             $this->reset('file');
 

@@ -72,8 +72,8 @@
                     <x-backend.sidebar-menu
                         menu="Siswa"
                         icon="fa-long-arrow-right"
-                        :href="route('admin.user.index')"
-                        :active="request()->routeIs('admin.dashboard')"
+                        :href="route('admin.user.student.index')"
+                        :active="request()->routeIs('admin.user.student.index')"
                     />
 
                     {{-- Wali Siswa --}}
