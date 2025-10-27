@@ -17,8 +17,34 @@
                     <div class="space-y-4 px-6 py-4 overflow-hidden overflow-y-auto scrollbar-custom">
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
+                            {{-- Pilih Pengguna --}}
+                            <label class="block space-y-1 col-span-12" wire:ignore>
+                                <span class="flex items-center gap-0.5 tracking-wide font-semibold">Pilih Pengguna<p class="text-error">*</p></span>
+                                <select id="user_id" wire:model="user_id" placeholder="- Pilih Pengguna -" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true, dropdownParent: 'body'})" required class="w-full tracking-wide">
+                                    <option value="">- Pilih Pengguna -</option>
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->nama_lengkap }} ({{ $user->email }})</option>
+                                    @endforeach
+                                </select>
+                                @error('user_id')<p class="text-error text-xs tracking-wide mt-1">{{ $message }}</p>@enderror
+                            </label>
+
                         </div>
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+                            {{-- NISN --}}
+                            <label class="block space-y-1">
+                                <span class="flex items-center gap-0.5 tracking-wide font-semibold">NISN<p class="text-error">*</p></span>
+                                <input type="number" id="nisn" wire:model="nisn" required placeholder="Masukkan NISN" autocomplete="off" class="form-input tracking-wide w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 placeholder:text-gray-400/70 hover:border-gray-400 focus:border-primary"/>
+                                @error('nisn')<p class="text-error text-xs tracking-wide mt-1">{{ $message }}</p>@enderror
+                            </label>
+
+                            {{-- Tahun Masuk --}}
+                            <label class="block space-y-1">
+                                <span class="flex items-center gap-0.5 tracking-wide font-semibold">Tahun Masuk<p class="text-error">*</p></span>
+                                <input type="number" id="tahun_masuk" wire:model="tahun_masuk" min="1900" max="{{ date('Y') }}" required placeholder="Masukkan Tahun Masuk" autocomplete="off" class="form-input tracking-wide w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 placeholder:text-gray-400/70 hover:border-gray-400 focus:border-primary"/>
+                                @error('tahun_masuk')<p class="text-error text-xs tracking-wide mt-1">{{ $message }}</p>@enderror
+                            </label>
 
                         </div>
                     </div>
