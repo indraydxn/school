@@ -1,8 +1,10 @@
 <?php
 
+use App\Exports\UserTemplateExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\UserPrintController;
 use App\Http\Controllers\Backend\StaffPrintController;
-use Illuminate\Support\Facades\Route;
 
 // Root
 Route::get('/', function () {
@@ -25,6 +27,7 @@ Route::middleware('auth')->group(function () {
         Route::prefix('user')->name('user.')->group(function () {
             Route::get('/', App\Livewire\Backend\User\Index::class)->name('index');
             Route::get('/print', UserPrintController::class)->name('print');
+            Route::get('/template/download', function () { return Excel::download(new UserTemplateExport, 'template_import_user.xlsx'); })->name('template.download');
             Route::get('/{user}/edit', App\Livewire\Backend\User\Edit::class)->name('edit');
 
             // Staff

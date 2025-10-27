@@ -60,10 +60,10 @@ class Create extends Component
             'status_kepegawaian.max'       => 'Status kepegawaian maksimal 50 karakter.',
             'pendidikan_terakhir.required' => 'Pendidikan terakhir wajib diisi.',
             'pendidikan_terakhir.max'      => 'Pendidikan terakhir maksimal 100 karakter.',
-            'jabatan_ids.required'          => 'Jabatan wajib dipilih.',
-            'jabatan_ids.array'             => 'Jabatan harus berupa array.',
-            'jabatan_ids.min'               => 'Minimal satu jabatan harus dipilih.',
-            'jabatan_ids.*.exists'          => 'Jabatan tidak ditemukan.',
+            'jabatan_ids.required'         => 'Jabatan wajib dipilih.',
+            'jabatan_ids.array'            => 'Jabatan harus berupa array.',
+            'jabatan_ids.min'              => 'Minimal satu jabatan harus dipilih.',
+            'jabatan_ids.*.exists'         => 'Jabatan tidak ditemukan.',
         ]);
 
         if ($validator->fails()) {
@@ -73,7 +73,7 @@ class Create extends Component
             return;
         }
 
-        // Validasi Kepala Sekolah hanya boleh satu orang
+        // Kepala Sekolah
         $kepalaSekolahId = Jabatan::where('nama_jabatan', 'Kepala Sekolah')->value('id');
         if ($kepalaSekolahId && in_array($kepalaSekolahId, $this->jabatan_ids)) {
             $existingKepala = Staf::whereHas('jabatan', function($q) use ($kepalaSekolahId) {
@@ -86,7 +86,7 @@ class Create extends Component
         }
 
         // no_staf
-        $jabatanId        = $this->jabatan_ids[0]; // Gunakan jabatan pertama untuk generate no_staf
+        $jabatanId        = $this->jabatan_ids[0];
         $maxUrut          = Staf::whereHas('jabatan', function($q) use ($jabatanId) {
             $q->where('jabatan.id', $jabatanId);
         })->whereDate('tanggal_masuk', $this->tanggal_masuk)->max(DB::raw('substr(no_staf, -3)')) ?? 0;

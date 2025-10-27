@@ -12,10 +12,13 @@
                                     <div class="flex items-center lg:gap-2 gap-1">
 
                                         {{-- Import --}}
-                                        <button class="lg:flex lg:items-center lg:gap-2 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
-                                            <i class="text-xs-plus fa-regular fa-up-from-bracket"></i>
-                                            <span class="text-xs-plus tracking-wider hidden lg:block">Import</span>
-                                        </button>
+                                        <div x-data="{showModal:false}" @close-modal.window="showModal = false">
+                                            <button type="button" @click="showModal = true" class="lg:flex lg:items-center lg:gap-2 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:opacity-25">
+                                                <i class="text-xs-plus fa-regular fa-up-from-bracket"></i>
+                                                <span class="text-xs-plus tracking-wider hidden lg:block">Import</span>
+                                            </button>
+                                             <livewire:backend.user.import/>
+                                        </div>
 
                                         {{-- Export --}}
                                         <div x-data="{showModal:false}" @close-modal.window="showModal = false">
