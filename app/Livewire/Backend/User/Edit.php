@@ -28,7 +28,7 @@ class Edit extends Component
     public $jenis_kelamin;
     public $alamat;
     public $status;
-    public $role;
+    public $role = [];
 
     public function mount(User $user): void
     {
@@ -43,7 +43,7 @@ class Edit extends Component
         $this->jenis_kelamin = $user->jenis_kelamin;
         $this->alamat        = $user->alamat;
         $this->status        = $user->status ? '1' : '0';
-        $this->role          = $user->getRoleNames()->first();
+        $this->role          = $user->getRoleNames()->toArray();
     }
 
     public function update(): mixed
@@ -79,7 +79,8 @@ class Edit extends Component
             'jenis_kelamin'  => 'required|in:L,P',
             'alamat'         => 'required|string',
             'status'         => 'required|boolean',
-            'role'           => 'required|exists:roles,name',
+            'role'           => 'required|array|min:1',
+            'role.*'         => 'exists:roles,name',
         ], [
             'nik.required'           => 'NIK wajib diisi.',
             'nik.integer'            => 'NIK harus berupa angka.',
@@ -102,7 +103,9 @@ class Edit extends Component
             'status.required'        => 'Status wajib dipilih.',
             'status.boolean'         => 'Status tidak valid.',
             'role.required'          => 'Role wajib dipilih.',
-            'role.exists'            => 'Role tidak ditemukan.',
+            'role.array'             => 'Role harus berupa array.',
+            'role.min'               => 'Minimal satu role harus dipilih.',
+            'role.*.exists'          => 'Role tidak ditemukan.',
         ]);
 
         if ($validator->fails()) {
@@ -126,7 +129,7 @@ class Edit extends Component
             'status'         => (bool) ((int) $this->status),
         ]);
 
-        $this->user->syncRoles([$this->role]);
+        $this->user->syncRoles($this->role);
 
         noty()->success('Pengguna berhasil diperbarui!');
 

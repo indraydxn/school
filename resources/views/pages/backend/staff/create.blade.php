@@ -94,7 +94,7 @@
                             {{-- Jabatan --}}
                             <label class="block space-y-1" wire:ignore>
                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Jabatan<p class="text-error">*</p></span>
-                                <select id="jabatan_ids" wire:model="jabatan_ids" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true, dropdownParent: 'body'})" multiple required class="w-full tracking-wide">
+                                <select id="jabatan_ids" wire:model="jabatan_ids"  placeholder="- Pilih Jabatan -" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true, dropdownParent: 'body'})" multiple required class="w-full tracking-wide">
                                     <option value="">- Pilih Jabatan -</option>
                                     @foreach($jabatan as $jab)
                                         <option value="{{ $jab->id }}">{{ $jab->nama_jabatan }}</option>

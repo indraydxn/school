@@ -27,7 +27,7 @@
                             {{-- Role --}}
                             <label class="block space-y-1" wire:ignore>
                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Role<p class="text-error">*</p></span>
-                                <select id="role" wire:model="role" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true})" required class="w-full">
+                                <select id="role" wire:model="role" placeholder="- Pilih Role -" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true})" multiple required class="w-full">
                                     <option value="">- Pilih Role -</option>
                                     @foreach($roles as $role)
                                         <option value="{{ $role->name }}">{{ Str::title($role->name) }}</option>

@@ -21,7 +21,7 @@ class Create extends Component
     public $jenis_kelamin;
     public $alamat;
     public $status;
-    public $role;
+    public $role = [];
 
     public function store()
     {
@@ -48,7 +48,8 @@ class Create extends Component
             'jenis_kelamin'  => 'required|in:L,P',
             'alamat'         => 'required|string',
             'status'         => 'required|boolean',
-            'role'           => 'required|exists:roles,name',
+            'role'           => 'required|array|min:1',
+            'role.*'         => 'exists:roles,name',
         ], [
             'nik.required'           => 'NIK wajib diisi.',
             'nik.integer'            => 'NIK harus berupa angka.',
@@ -71,7 +72,9 @@ class Create extends Component
             'status.required'        => 'Status wajib dipilih.',
             'status.boolean'         => 'Status tidak valid.',
             'role.required'          => 'Role wajib dipilih.',
-            'role.exists'            => 'Role tidak ditemukan.',
+            'role.array'             => 'Role harus berupa array.',
+            'role.min'               => 'Minimal satu role harus dipilih.',
+            'role.*.exists'          => 'Role tidak ditemukan.',
         ]);
 
         if ($validator->fails()) {

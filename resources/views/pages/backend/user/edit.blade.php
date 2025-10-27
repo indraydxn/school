@@ -8,8 +8,11 @@
                             <div class="overflow-hidden card rounded-xl">
                                 <div class="border-b border-gray-200 px-6 py-4">
                                     <div class="flex items-center justify-between gap-3">
-                                        <h4 class="tracking-wider text-base font-bold text-slate-700 dark:text-navy-100">
-                                            Edit Pengguna - {{ $nama_pengguna }}
+                                        <h4 class="tracking-wider flex items-center text-base font-bold text-slate-700 dark:text-navy-100 gap-3">
+                                            <div class="flex size-7 items-center justify-center rounded-lg bg-primary p-1 text-white dark:bg-accent-light/10 dark:text-accent-light">
+                                                <i class="fa-solid text-xs-plus fa-user-edit"></i>
+                                            </div>
+                                            Edit {{ $nama_pengguna }}
                                         </h4>
                                         <div x-data="{
                                                 showModal:false,
@@ -41,7 +44,7 @@
                                             {{-- Role --}}
                                             <label class="block space-y-1">
                                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Role<p class="text-error">*</p></span>
-                                                <select id="role" wire:model="role" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true})" required class="w-full tracking-wide">
+                                                <select id="role" wire:model="role" placeholder="- Pilih Role -" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true})" multiple required class="w-full tracking-wide">
                                                      <option value="">- Pilih Role -</option>
                                                     @foreach($roles as $role)
                                                         <option value="{{ $role->name }}">{{ $role->name }}</option>
