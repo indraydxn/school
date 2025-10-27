@@ -29,7 +29,7 @@
                                 </span>
                             </li>
                         @else
-                            @if ($page == 1 || $page == $paginator->lastPage() || ($page >= $paginator->currentPage() - 3 && $page <= $paginator->currentPage() + 3))
+                            @if ($page == 1 || $page == $paginator->lastPage() || ($page >= $paginator->currentPage() - 2 && $page <= $paginator->currentPage() + 2))
                                 <li>
                                     <button wire:click="gotoPage({{ $page }})" aria-label="{{ __('Go to page :page', ['page' => $page]) }}" class="text-gray-500 bg-white border border-gray-200 font-bold hover:bg-gray-100/50 rounded-lg size-7 text-xs flex items-center justify-center">
                                         {{ $page }}
