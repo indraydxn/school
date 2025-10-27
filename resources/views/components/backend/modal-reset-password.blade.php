@@ -18,18 +18,15 @@
                         <i class="fa-solid fa-user-lock text-2xl"></i>
                     </div>
                     <h3 class="mt-4 text-xl font-extrabold text-slate-800 tracking-wide dark:text-navy-50">
-                        Konfirmasi Reset Password
+                        Reset Password
                     </h3>
                     <p class="text-slate-600 my-2 dark:text-navy-200 tracking-wide">
                         Apakah Anda yakin ingin me-reset password {{ $name }} ?
                     </p>
-                    <div class="alert flex items-center justify-between rounded-lg border border-gray-200 bg-gray-100 px-4 py-3 tracking-wide text-gray-700">
-                        <p id="{{ $clipboardId }}" x-ref="passwordText" class="font-semibold">
+                    <div class="alert flex items-center justify-center rounded-lg border border-dashed border-gray-200 bg-gray-100/10 px-4 py-3 tracking-wide text-gray-700">
+                        <p id="{{ $clipboardId }}" x-ref="passwordText" class="font-semibold font-mono">
                             {{ $password ?? 'Tanggal lahir belum diatur.' }}
                         </p>
-                        <button type="button" class="btn h-6 shrink-0 rounded-sm bg-white/50 px-2 text-xs text-gray-500" @if(!$password) disabled @endif @click="copyPassword()">
-                            Salin
-                        </button>
                     </div>
                     <div class="mt-6 flex justify-center space-x-3">
                         <button @click="showModal = false" type="button" class="btn bg-gray-100 font-bold text-slate-800 hover:bg-gray-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">

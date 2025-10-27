@@ -19,7 +19,7 @@
                                                     });
                                                 }
                                             }">
-                                            <button type="button" @click="showModal = true" wire:loading.attr="disabled" wire:target="resetPassword" @if(!$defaultPassword) disabled @endif class="lg:flex lg:items-center lg:gap-2 px-3 py-1.5 font-medium text-gray-500 border border-gray-200 btn bg-white hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60">
+                                            <button type="button" @click="showModal = true" wire:loading.attr="disabled" wire:target="resetPassword" @if(!$defaultPassword) disabled @endif class="lg:flex lg:items-center lg:gap-2 px-3 py-1.5 font-medium text-white btn bg-error hover:bg-error-focus disabled:cursor-not-allowed disabled:opacity-60">
                                                 <i class="text-xs-plus fa-regular fa-user-lock"></i>
                                                 <span class="text-xs-plus tracking-wider hidden lg:block">Reset Password</span>
                                             </button>
@@ -41,8 +41,8 @@
                                             {{-- Role --}}
                                             <label class="block space-y-1">
                                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Role<p class="text-error">*</p></span>
-                                                <select id="role" wire:model="role" placeholder="Pilih role..." required class="form-select tracking-wide w-full rounded-lg border border-gray-200 bg-transparent capitalize px-3 py-2 placeholder:text-gray-400/70 hover:border-gray-400 focus:border-primary">
-                                                    <option value="">- Pilih Role -</option>
+                                                <select id="role" wire:model="role" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true})" required class="w-full tracking-wide">
+                                                     <option value="">- Pilih Role -</option>
                                                     @foreach($roles as $role)
                                                         <option value="{{ $role->name }}">{{ $role->name }}</option>
                                                     @endforeach

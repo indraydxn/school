@@ -62,7 +62,7 @@
                     <td style="border: 0.6px solid #555; padding: 6px 8px; font-size: 11px; vertical-align: top;">{{ $staf->tanggal_masuk ? $staf->tanggal_masuk->format('d-m-Y') : '' }}</td>
                     <td style="border: 0.6px solid #555; padding: 6px 8px; font-size: 11px; vertical-align: top;">{{ $staf->status_kepegawaian }}</td>
                     <td style="border: 0.6px solid #555; padding: 6px 8px; font-size: 11px; vertical-align: top;">{{ $staf->pendidikan_terakhir }}</td>
-                    <td style="border: 0.6px solid #555; padding: 6px 8px; font-size: 11px; vertical-align: top;">{{ $staf->jabatan->nama_jabatan ?? '' }}</td>
+                    <td style="border: 0.6px solid #555; padding: 6px 8px; font-size: 11px; vertical-align: top;">{{ $staf->jabatan->pluck('nama_jabatan')->implode(', ') ?? '' }}</td>
                 </tr>
                 @endforeach
             </tbody>

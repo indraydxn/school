@@ -31,7 +31,7 @@ class StafsExport implements FromArray, WithTitle, WithEvents, WithColumnFormatt
                 $staf->tanggal_masuk ? $staf->tanggal_masuk->format('d-m-Y') : '',
                 $staf->status_kepegawaian,
                 $staf->pendidikan_terakhir,
-                $staf->jabatan->nama_jabatan ?? '',
+                $staf->jabatan->pluck('nama_jabatan')->implode(', ') ?? '',
             ];
 
         })->toArray();
