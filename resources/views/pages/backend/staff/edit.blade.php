@@ -19,14 +19,14 @@
                                     </div>
                                 </div>
 
-                                <form wire:submit="update" wire:target='update' class="p-6">
-                                    <div class="space-y-4">
+                                <form wire:submit="update" wire:target='update'>
+                                    <div class="space-y-4 p-6">
                                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
                                             {{-- Pilih Pengguna --}}
                                             <label class="block space-y-1 col-span-12" wire:ignore>
                                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Pilih Pengguna<p class="text-error">*</p></span>
-                                                <select id="user_id" wire:model="user_id" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true})" required class="w-full">
+                                                <select id="user_id" wire:model="user_id" disabled x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true})" required class="w-full">
                                                     <option value="">- Pilih Pengguna -</option>
                                                     @foreach($users as $user)
                                                         <option value="{{ $user->id }}" {{ $user->id == $user_id ? 'selected' : '' }}>{{ $user->nama_lengkap }} ({{ $user->email }})</option>
@@ -112,7 +112,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="flex items-center justify-end gap-3 mt-6">
+                                    <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200">
                                         <a href="{{ route('admin.user.staff.index') }}" class="btn bg-gray-100 font-bold text-slate-800 hover:bg-gray-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
                                             Batal
                                         </a>

@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
                             @else
-                                <label class="btn bg-gray-100 relative border border-dashed border-gray-200 font-medium cursor-pointer lg:w-[300px] w-[250px] h-[60px]"  wire:target="file" wire:loading.class="opacity-60 pointer-events-none">
+                                <label class="btn bg-gray-100 relative border border-dashed border-gray-200 font-medium cursor-pointer lg:w-[300px] w-[250px] h-[60px]"  wire:target="file" wire:loading.class="pointer-events-none">
                                     <input tabindex="-1" type="file" wire:target="file" wire:model="file" accept=".xlsx,.xls" class="pointer-events-none absolute inset-0 h-full w-full opacity-0" wire:loading.attr="disabled" />
                                     <div class="flex items-center space-x-2 tracking-wide">
                                         <i wire:loading.remove  wire:target="file" class="fa-solid fa-cloud-arrow-up text-base" aria-hidden="true"></i>

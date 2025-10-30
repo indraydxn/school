@@ -12,7 +12,7 @@
                                             <div class="flex size-7 items-center justify-center rounded-lg bg-primary p-1 text-white dark:bg-accent-light/10 dark:text-accent-light">
                                                 <i class="fa-solid text-xs-plus fa-user-edit"></i>
                                             </div>
-                                            Edit {{ $nama_pengguna }}
+                                            Edit Pengguna - {{ $nama_pengguna }}
                                         </h4>
                                         <div x-data="{
                                                 showModal:false,
