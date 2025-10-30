@@ -36,6 +36,7 @@ class Import extends Component
 
             $this->dispatch('userCreated');
             $this->dispatch('userImported');
+            $this->dispatch('close-modal');
             $this->reset('file');
 
             noty()->success('Pengguna berhasil diimpor!');

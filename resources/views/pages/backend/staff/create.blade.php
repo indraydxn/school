@@ -20,7 +20,7 @@
                             {{-- Pilih Pengguna --}}
                             <label class="block space-y-1 col-span-12" wire:ignore>
                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Pilih Pengguna<p class="text-error">*</p></span>
-                                <select id="user_id" wire:model="user_id" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true})" required class="w-full tracking-wide">
+                                <select id="user_id" wire:model="user_id" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true, dropdownParent: 'body'})" required class="w-full tracking-wide">
                                     <option value="">- Pilih Pengguna -</option>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->nama_lengkap }} ({{ $user->email }})</option>

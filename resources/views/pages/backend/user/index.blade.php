@@ -167,10 +167,10 @@
                                         </tr>
                                         @empty
                                         <tr>
-                                            <td colspan="7" class="px-3 py-8 text-center text-gray-500">
+                                            <td colspan="7" class="px-3 py-15 text-center text-gray-500">
                                                 <div class="flex flex-col items-center gap-2">
-                                                    <i class="fa-duotone fa-folder-open text-4xl"></i>
-                                                    <span>Tidak ada data</span>
+                                                    <i class="fa-duotone fa-folder-open text-[50px]"></i>
+                                                    <span class="text-medium tracking-wide text-base">Tidak ada data</span>
                                                 </div>
                                             </td>
                                         </tr>
