@@ -85,7 +85,7 @@
                                                 <i class="text-xs-plus fa-regular fa-plus"></i>
                                                 <span class="text-xs-plus tracking-wider hidden lg:block">Tambah</span>
                                             </button>
-                                            {{-- <livewire:backend.parent.create/> --}}
+                                            <livewire:backend.parent.create/>
                                         </div>
 
                                     </div>
@@ -125,6 +125,10 @@
                                                 {{ $wali->hubungan }}
                                             </td>
 
+                                            {{-- Siswa --}}
+                                            <td class="px-6 py-2 whitespace-nowrap tracking-wider text-gray-500">
+                                                {{ $wali->student->user->nama_lengkap ?? '-' }}
+                                            </td>
                                             {{-- Pendidikan Terakhir --}}
                                             {{-- <td class="px-6 py-2 whitespace-nowrap tracking-wider text-gray-500 capitalize">
                                                 {{ $wali->pendidikan_terakhir ?? '-' }}

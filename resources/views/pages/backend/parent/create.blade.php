@@ -9,7 +9,7 @@
                             <i class="fa-solid text-xs-plus fa-user-plus"></i>
                         </div>
                         <h4 class="tracking-wider text-base font-bold text-slate-700 dark:text-navy-100">
-                            Tambah Siswa
+                            Tambah Wali Siswa
                         </h4>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
                             {{-- Pilih Pengguna --}}
-                            <label class="block space-y-1 col-span-12" wire:ignore>
+                            <label class="block space-y-1" wire:ignore>
                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Pilih Pengguna<p class="text-error">*</p></span>
                                 <select id="user_id" wire:model="user_id" placeholder="- Pilih Pengguna -" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true, dropdownParent: 'body'})" required class="w-full tracking-wide">
                                     <option value="">- Pilih Pengguna -</option>
@@ -29,28 +29,47 @@
                                 @error('user_id')<p class="text-error text-xs tracking-wide mt-1">{{ $message }}</p>@enderror
                             </label>
 
-                        </div>
-                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-
-                            {{-- NISN --}}
-                            <label class="block space-y-1">
-                                <span class="flex items-center gap-0.5 tracking-wide font-semibold">NISN<p class="text-error">*</p></span>
-                                <input type="number" id="nisn" wire:model="nisn" required placeholder="Masukkan NISN" autocomplete="off" class="form-input tracking-wide w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 placeholder:text-gray-400/70 hover:border-gray-400 focus:border-primary"/>
-                                @error('nisn')<p class="text-error text-xs tracking-wide mt-1">{{ $message }}</p>@enderror
+                            {{-- Pilih Siswa --}}
+                            <label class="block space-y-1" wire:ignore>
+                                <span class="flex items-center gap-0.5 tracking-wide font-semibold">Pilih Siswa<p class="text-error">*</p></span>
+                                <select id="student_id" wire:model="student_id" placeholder="- Pilih Siswa -" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true, dropdownParent: 'body'})" required class="w-full tracking-wide">
+                                    <option value="">- Pilih Siswa -</option>
+                                    @foreach($students as $student)
+                                        <option value="{{ $student->id }}">{{ $student->user->nama_lengkap }} ({{ $student->nis }})</option>
+                                    @endforeach
+                                </select>
+                                @error('student_id')<p class="text-error text-xs tracking-wide mt-1">{{ $message }}</p>@enderror
                             </label>
 
-                            {{-- Tahun Masuk --}}
+                        </div>
+                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+
+                            {{-- Hubungan --}}
                             <label class="block space-y-1">
-                                <span class="flex items-center gap-0.5 tracking-wide font-semibold">Tahun Masuk<p class="text-error">*</p></span>
-                                <input type="number" id="tahun_masuk" wire:model="tahun_masuk" min="1900" max="{{ date('Y') }}" required placeholder="Masukkan Tahun Masuk" autocomplete="off" class="form-input tracking-wide w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 placeholder:text-gray-400/70 hover:border-gray-400 focus:border-primary"/>
-                                @error('tahun_masuk')<p class="text-error text-xs tracking-wide mt-1">{{ $message }}</p>@enderror
+                                <span class="flex items-center gap-0.5 tracking-wide font-semibold">Hubungan<p class="text-error">*</p></span>
+                                <input type="text" id="hubungan" wire:model="hubungan" required placeholder="Masukkan Hubungan" autocomplete="off" class="form-input tracking-wide w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 placeholder:text-gray-400/70 hover:border-gray-400 focus:border-primary"/>
+                                @error('hubungan')<p class="text-error text-xs tracking-wide mt-1">{{ $message }}</p>@enderror
+                            </label>
+
+                            {{-- Pendidikan Terakhir --}}
+                            <label class="block space-y-1">
+                                <span class="flex items-center gap-0.5 tracking-wide font-semibold">Pendidikan Terakhir<p class="text-error">*</p></span>
+                                <input type="text" id="pendidikan_terakhir" wire:model="pendidikan_terakhir" required placeholder="Masukkan Pendidikan Terakhir" autocomplete="off" class="form-input tracking-wide w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 placeholder:text-gray-400/70 hover:border-gray-400 focus:border-primary"/>
+                                @error('pendidikan_terakhir')<p class="text-error text-xs tracking-wide mt-1">{{ $message }}</p>@enderror
+                            </label>
+
+                            {{-- Pekerjaan --}}
+                            <label class="block space-y-1">
+                                <span class="flex items-center gap-0.5 tracking-wide font-semibold">Pekerjaan</span>
+                                <input type="text" id="pekerjaan" wire:model="pekerjaan" placeholder="Masukkan Pekerjaan" autocomplete="off" class="form-input tracking-wide w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 placeholder:text-gray-400/70 hover:border-gray-400 focus:border-primary"/>
+                                @error('pekerjaan')<p class="text-error text-xs tracking-wide mt-1">{{ $message }}</p>@enderror
                             </label>
 
                         </div>
                     </div>
                     <div class="border-t border-gray-200 px-6 py-4">
                         <div class="flex items-center justify-end gap-3">
-                            <button @click="showModal = false, document.getElementById('user_id')._tom.clear();" type="reset" class="btn bg-gray-100 font-bold text-slate-800 hover:bg-gray-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
+                            <button @click="showModal = false; document.getElementById('user_id')._tom.clear(); document.getElementById('student_id')._tom.clear();" type="reset" class="btn bg-gray-100 font-bold text-slate-800 hover:bg-gray-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
                                 Batal
                             </button>
                             <button type="submit" wire:loading.attr="disabled" wire:target='store' type="button" class="btn bg-success font-bold text-white hover:bg-success-focus focus:bg-success-focus active:bg-success-focus/90">

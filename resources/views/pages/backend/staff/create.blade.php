@@ -20,7 +20,7 @@
                             {{-- Pilih Pengguna --}}
                             <label class="block space-y-1 col-span-12" wire:ignore>
                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Pilih Pengguna<p class="text-error">*</p></span>
-                                <select id="user_id" wire:model="user_id" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true, dropdownParent: 'body'})" required class="w-full tracking-wide">
+                                <select id="user_id" wire:model="user_id" placeholder="- Pilih Pengguna -" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true, dropdownParent: 'body'})" required class="w-full tracking-wide">
                                     <option value="">- Pilih Pengguna -</option>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->nama_lengkap }} ({{ $user->email }})</option>
@@ -94,7 +94,7 @@
                             {{-- Jabatan --}}
                             <label class="block space-y-1" wire:ignore>
                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Jabatan<p class="text-error">*</p></span>
-                                <select id="jabatan_ids" wire:model="jabatan_ids"  placeholder="- Pilih Jabatan -" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true, dropdownParent: 'body'})" multiple required class="w-full tracking-wide">
+                                <select id="jabatan_ids" wire:model="jabatan_ids" placeholder="- Pilih Jabatan -"  placeholder="- Pilih Jabatan -" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true, dropdownParent: 'body'})" multiple required class="w-full tracking-wide">
                                     <option value="">- Pilih Jabatan -</option>
                                     @foreach($jabatan as $jab)
                                         <option value="{{ $jab->id }}">{{ $jab->nama_jabatan }}</option>
@@ -107,7 +107,7 @@
                     </div>
                     <div class="border-t border-gray-200 px-6 py-4">
                         <div class="flex items-center justify-end gap-3">
-                            <button @click="showModal = false" type="reset" class="btn bg-gray-100 font-bold text-slate-800 hover:bg-gray-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
+                            <button @click="showModal = false, document.getElementById('user_id')._tom.clear(); document.getElementById('jabatan_ids')._tom.clear();" type="reset" class="btn bg-gray-100 font-bold text-slate-800 hover:bg-gray-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
                                 Batal
                             </button>
                             <button type="submit" wire:loading.attr="disabled" wire:target='store' type="button" class="btn bg-success font-bold text-white hover:bg-success-focus focus:bg-success-focus active:bg-success-focus/90">
