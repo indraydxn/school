@@ -80,8 +80,8 @@
                     <x-backend.sidebar-menu
                         menu="Wali Siswa"
                         icon="fa-long-arrow-right"
-                        :href="route('admin.user.index')"
-                        :active="request()->routeIs('admin.dashboard')"
+                        :href="route('admin.user.parent.index')"
+                        :active="request()->routeIs('admin.user.parent.index')"
                     />
 
                 </x-backend.menu-item>

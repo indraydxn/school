@@ -45,6 +45,11 @@ Route::middleware('auth')->group(function () {
                 // Route::get('/{staf}/edit', App\Livewire\Backend\Staff\Edit::class)->name('edit');
             });
 
+            // Wali Siswa
+            Route::prefix('parent')->name('parent.')->group(function () {
+                Route::get('/', App\Livewire\Backend\Parent\Index::class)->name('index');
+            });
+
         });
 
 
