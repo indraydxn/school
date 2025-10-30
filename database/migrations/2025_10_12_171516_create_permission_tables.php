@@ -28,6 +28,7 @@ return new class extends Migration
 
             $table->string('name');
             $table->string('guard_name');
+            $table->boolean('status')->default(true);
             $table->timestamps();
             $table->softDeletes();
 
@@ -41,6 +42,7 @@ return new class extends Migration
         Schema::create('modules', static function (Blueprint $table) {
             $table->id();
             $table->string('name', 120)->unique();
+            $table->boolean('status')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -48,6 +50,7 @@ return new class extends Migration
         Schema::create('actions', static function (Blueprint $table) {
             $table->id();
             $table->string('name', 120)->unique();
+            $table->boolean('status')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -58,6 +61,7 @@ return new class extends Migration
             $table->unsignedBigInteger('action_id');
             $table->string('name');
             $table->string('guard_name');
+            $table->boolean('status')->default(true);
             $table->timestamps();
             $table->softDeletes();
 

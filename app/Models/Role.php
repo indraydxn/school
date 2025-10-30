@@ -9,4 +9,10 @@ class Role extends SpatieRole
 {
     use SoftDeletes;
 
+    protected $fillable = [
+        'name',
+        'guard_name',
+        'status',
+    ];
+
 }

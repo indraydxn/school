@@ -14,6 +14,7 @@ class Module extends Model
 
     protected $fillable = [
         'name',
+        'status',
     ];
 
     public function permissions()

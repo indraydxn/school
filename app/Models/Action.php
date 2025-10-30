@@ -11,9 +11,10 @@ class Action extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'actions';
-    
+
     protected $fillable = [
         'name',
+        'status',
     ];
 
     public function permissions()

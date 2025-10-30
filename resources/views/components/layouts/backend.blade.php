@@ -87,6 +87,24 @@
                 </x-backend.menu-item>
                 {{-- / Pengguna --}}
 
+                {{-- Hak Akses --}}
+                <x-backend.menu-item
+                    title="Hak Akses"
+                    icon="fa-shield"
+                    :active="request()->routeIs('admin.role.*')"
+                >
+
+                    {{-- Role --}}
+                    <x-backend.sidebar-menu
+                        menu="Role"
+                        icon="fa-long-arrow-right"
+                        :href="route('admin.role.index')"
+                        :active="request()->routeIs('admin.role.*')"
+                    />
+
+                </x-backend.menu-item>
+
+
             </x-backend.sidebar>
 
             {{-- Navbar --}}

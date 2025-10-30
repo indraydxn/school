@@ -16,6 +16,7 @@ class Permission extends SpatiePermission
         'action_id',
         'name',
         'guard_name',
+        'status',
     ];
 
     public function module()

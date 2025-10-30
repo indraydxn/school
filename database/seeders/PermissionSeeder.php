@@ -21,6 +21,7 @@ class PermissionSeeder extends Seeder
                     'action_id'  => $action->id,
                     'name'       => $action->name . ' ' . strtolower(str_replace(' ', '-', $module->name)),
                     'guard_name' => 'web',
+                    'status'     => true,
                 ]);
             }
         }
