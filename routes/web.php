@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
             Route::prefix('student')->name('student.')->group(function () {
                 Route::get('/', App\Livewire\Backend\Student\Index::class)->name('index');
                 Route::get('/print', StudentPrintController::class)->name('print');
-                // Route::get('/{staf}/edit', App\Livewire\Backend\Staff\Edit::class)->name('edit');
+                Route::get('/{siswa}/edit', App\Livewire\Backend\Student\Edit::class)->name('edit');
             });
 
             // Wali Siswa

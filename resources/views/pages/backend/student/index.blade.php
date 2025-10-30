@@ -108,8 +108,7 @@
                                                     :view="false"
                                                     :edit="true"
                                                     :delete="true"
-                                                    {{-- urlEdit="{{ route('admin.student.edit', $s->id) }}" --}}
-                                                    urlEdit=""
+                                                    urlEdit="{{ route('admin.user.student.edit', $s->id) }}"
                                                 />
                                             </td>
 
