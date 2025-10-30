@@ -34,11 +34,11 @@ class Edit extends Component
         $this->waliId = $wali;
         $waliData = Wali::findOrFail($wali);
 
-        $this->user_id = $waliData->user_id;
-        $this->student_id = $waliData->student_id;
-        $this->hubungan = $waliData->hubungan;
+        $this->user_id             = $waliData->user_id;
+        $this->student_id          = $waliData->student_id;
+        $this->hubungan            = $waliData->hubungan;
         $this->pendidikan_terakhir = $waliData->pendidikan_terakhir;
-        $this->pekerjaan = $waliData->pekerjaan;
+        $this->pekerjaan           = $waliData->pekerjaan;
     }
 
     public function store()

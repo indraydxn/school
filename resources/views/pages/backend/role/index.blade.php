@@ -102,17 +102,17 @@
                                             <td class="px-6 py-2 whitespace-nowrap tracking-wider text-gray-500 text-center">
                                                 @switch($role->guard_name)
                                                     @case('web')
-                                                        <span class="badge px-2 py-1 text-xs tracking-wider bg-primary/10 text-primary capitalize">
+                                                        <span class="badge px-2 py-1 text-xs tracking-wider bg-primary/10 text-primary uppercase">
                                                             {{ $role->guard_name }}
                                                         </span>
                                                         @break
                                                     @case('api')
-                                                        <span class="badge px-2 py-1 text-xs tracking-wider bg-secondary/10 text-secondary capitalize">
+                                                        <span class="badge px-2 py-1 text-xs tracking-wider bg-secondary/10 text-secondary uppercase">
                                                             {{ $role->guard_name }}
                                                         </span>
                                                         @break
                                                     @default
-                                                        <span class="badge px-2 py-1 text-xs tracking-wider bg-gray-500/10 text-gray-500 capitalize">
+                                                        <span class="badge px-2 py-1 text-xs tracking-wider bg-gray-500/10 text-gray-500 uppercase">
                                                             {{ $role->guard_name }}
                                                         </span>
                                                 @endswitch
@@ -131,8 +131,7 @@
                                                     :view="false"
                                                     :edit="true"
                                                     :delete="true"
-                                                    {{-- urlEdit="{{ route('backend.role.edit', $role->id) }}" --}}
-                                                    urlEdit=""
+                                                    urlEdit="{{ route('admin.role.edit', $role->id) }}"
                                                 />
                                             </td>
 

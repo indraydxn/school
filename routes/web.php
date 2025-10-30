@@ -58,6 +58,7 @@ Route::middleware('auth')->group(function () {
         // Role
         Route::prefix('role')->name('role.')->group(function () {
             Route::get('/', App\Livewire\Backend\Role\Index::class)->name('index');
+            Route::get('/{role}/edit', App\Livewire\Backend\Role\Edit::class)->name('edit');
         });
 
     });
