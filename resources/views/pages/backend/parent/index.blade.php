@@ -51,11 +51,11 @@
                                                 <i class="text-xs-plus fa-regular fa-down-to-bracket"></i>
                                                 <span class="text-xs-plus tracking-wider hidden lg:block">Export</span>
                                             </button>
-                                            {{-- <livewire:backend.parent.export/> --}}
+                                            <livewire:backend.parent.export/>
                                         </div>
 
                                         {{-- Print --}}
-                                        <a href="" target="_blank" rel="noopener"
+                                        <a href="{{ route('admin.user.parent.print') }}" target="_blank" rel="noopener"
                                            class="lg:flex lg:items-center lg:gap-2 font-medium text-gray-500 border border-gray-200 px-3 py-2 rounded-lg bg-white hover:bg-gray-50 disabled:opacity-25">
                                             <i class="text-xs-plus fa-regular fa-print"></i>
                                             <span class="text-xs-plus tracking-wider hidden lg:block">Print</span>
@@ -147,8 +147,7 @@
                                                     :view="false"
                                                     :edit="true"
                                                     :delete="true"
-                                                    {{-- urlEdit="{{ route('admin.user.parent.edit', $wali->id) }}" --}}
-                                                    urlEdit=""
+                                                    urlEdit="{{ route('admin.user.parent.edit', $wali->id) }}"
                                                 />
                                             </td>
 

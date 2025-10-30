@@ -38,6 +38,7 @@ class Create extends Component
         ]);
 
         $this->dispatch('parentCreated');
+        $this->dispatch('close-modal');
         $this->reset();
         noty()->success('Wali siswa berhasil ditambahkan!');
         $this->showModal = false;

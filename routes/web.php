@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\UserPrintController;
 use App\Http\Controllers\Backend\StaffPrintController;
 use App\Http\Controllers\Backend\StudentPrintController;
+use App\Http\Controllers\Backend\ParentPrintController;
 
 // Root
 Route::get('/', function () {
@@ -48,6 +49,8 @@ Route::middleware('auth')->group(function () {
             // Wali Siswa
             Route::prefix('parent')->name('parent.')->group(function () {
                 Route::get('/', App\Livewire\Backend\Parent\Index::class)->name('index');
+                Route::get('/print', ParentPrintController::class)->name('print');
+                Route::get('/{wali}/edit', App\Livewire\Backend\Parent\Edit::class)->name('edit');
             });
 
         });
