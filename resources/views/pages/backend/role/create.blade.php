@@ -56,24 +56,24 @@
 
                                 </div>
                             </label>
-                            
+
                         </div>
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
                             {{-- Akses --}}
                             <label class="block space-y-1 col-span-12">
                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Akses</span>
-                                <div class="space-y-4 overflow-y-auto">
+                                <div class="grid grid-cols-1 gap-4">
                                     @php
                                         $groupedPermissions = $allPermissions->groupBy('module.name');
                                     @endphp
                                     @foreach($groupedPermissions as $moduleName => $permissions)
                                         <div class="space-y-2 border rounded-lg p-4">
                                             <div class="flex items-center justify-between">
-                                                <h5 class="text-xl font-semibold tracking-wide uppercase text-gray-700">{{ $moduleName }}</h5>
+                                                <h5 class="font-bold tracking-wider uppercase text-gray-700">{{ $moduleName }}</h5>
                                                 <label class="flex items-center gap-2 px-3 py-2 border border-gray-200 rounded-lg text-sm hover:border-primary">
                                                     <input type="checkbox" wire:click="toggleModule('{{ $moduleName }}')" {{ count(array_intersect($permissions->pluck('id')->toArray(), $this->permissions)) === $permissions->count() ? 'checked' : '' }} class="form-checkbox is-basic size-4 rounded border-gray-200 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary">
-                                                    <span class="text-xs-plus tracking-wider">Select All</span>
+                                                    <span class="tracking-wider">Pilih Semua</span>
                                                 </label>
                                             </div>
                                             <div class="grid grid-cols-3 gap-2">

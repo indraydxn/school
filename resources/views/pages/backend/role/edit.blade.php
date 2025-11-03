@@ -78,14 +78,14 @@
                                                             <div class="flex items-center justify-between">
                                                                 <span class="font-bold tracking-wider uppercase text-gray-700">{{ $moduleName }}</span>
                                                                 <label class="flex items-center gap-2 px-3 py-2 border border-gray-200 rounded-lg text-sm hover:border-primary">
-                                                                    <input type="checkbox" wire:click="toggleModule('{{ $moduleName }}')" {{ count(array_intersect($permissions->pluck('id')->toArray(), $this->permissions)) === $permissions->count() ? 'checked' : '' }} class="form-checkbox is-basic size-4 rounded border-gray-200 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary">
+                                                                    <input type="checkbox" wire:click="toggleModule('{{ $moduleName }}')" {{ count(array_intersect($permissions->pluck('id')->toArray(), $this->permissions)) === $permissions->count() ? 'checked' : '' }} class="form-checkbox size-4 rounded border-gray-200 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary">
                                                                     <span class="tracking-wider">Pilih Semua</span>
                                                                 </label>
                                                             </div>
                                                             <div class="grid grid-cols-3 gap-2">
                                                                 @foreach($permissions as $permission)
                                                                     <label class="flex items-center gap-2 px-3 py-2 border border-gray-200 rounded-lg text-sm hover:border-primary">
-                                                                        <input type="checkbox" wire:model="permissions" value="{{ $permission->id }}" class="form-checkbox is-basic size-4 rounded border-gray-200 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary">
+                                                                        <input type="checkbox" wire:model="permissions" value="{{ $permission->id }}" class="form-checkbox size-4 rounded border-gray-200 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary">
                                                                         <span class="text-xs-plus tracking-wider">{{ ucfirst($permission->action->name) }}</span>
                                                                     </label>
                                                                 @endforeach
