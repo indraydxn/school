@@ -82,6 +82,8 @@ class Edit extends Component
 
     public function toggleModule($moduleName)
     {
+        $this->permissions = $this->permissions ?? [];
+
         $modulePermissions = Permission::where('guard_name', $this->guard_name)
             ->whereHas('module', function($q) use ($moduleName) {
                 $q->where('name', $moduleName);
@@ -96,6 +98,13 @@ class Edit extends Component
             // select all
             $this->permissions = array_unique(array_merge($this->permissions, $modulePermissions));
         }
+    }
+
+    public function updatedGuardName()
+    {
+        $this->permissions = $this->permissions ?? [];
+        $validPermissions = Permission::where('guard_name', $this->guard_name)->pluck('id')->toArray();
+        $this->permissions = array_intersect($this->permissions, $validPermissions);
     }
 
     public function render()
