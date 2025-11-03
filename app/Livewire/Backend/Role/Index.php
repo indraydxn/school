@@ -36,6 +36,7 @@ class Index extends Component
         $role = Role::find($id);
         if ($role) {
             $role->delete();
+            $this->dispatch('close-modal');
             noty()->success('Role berhasil dihapus.');
         } else {
             noty()->error('Data tidak ditemukan!');

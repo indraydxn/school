@@ -37,6 +37,7 @@ class Index extends Component
         $wali = Wali::find($id);
         if ($wali) {
             $wali->delete();
+            $this->dispatch('close-modal');
             noty()->success($wali->user->nama_lengkap . ' berhasil dihapus dari wali!');
         } else {
             noty()->error('Data tidak ditemukan!');

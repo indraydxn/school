@@ -37,6 +37,7 @@ class Index extends Component
         $staf = Staf::find($id);
         if ($staf) {
             $staf->delete();
+            $this->dispatch('close-modal');
             noty()->success($staf->user->nama_lengkap . ' berhasil dihapus dari staff!');
         } else {
             noty()->error('Data tidak ditemukan!');

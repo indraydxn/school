@@ -73,17 +73,35 @@ class Edit extends Component
         ]);
 
         // Sync permissions
-        $role->syncPermissions($this->permissions);
+        $role->syncPermissions(Permission::whereIn('id', $this->permissions)->get());
 
         noty()->success('Role berhasil diperbarui!');
 
         return redirect()->route('admin.role.index');
     }
 
+    public function toggleModule($moduleName)
+    {
+        $modulePermissions = Permission::where('guard_name', $this->guard_name)
+            ->whereHas('module', function($q) use ($moduleName) {
+                $q->where('name', $moduleName);
+            })->pluck('id')->toArray();
+
+        $selectedInModule = array_intersect($this->permissions, $modulePermissions);
+
+        if (count($selectedInModule) === count($modulePermissions)) {
+            // all selected, deselect all
+            $this->permissions = array_diff($this->permissions, $modulePermissions);
+        } else {
+            // select all
+            $this->permissions = array_unique(array_merge($this->permissions, $modulePermissions));
+        }
+    }
+
     public function render()
     {
         return view('pages.backend.role.edit', [
-            'permissions' => Permission::with(['module', 'action'])->get(),
+            'allPermissions' => Permission::with(['module', 'action'])->where('guard_name', $this->guard_name)->get(),
             'role'        => Role::findOrFail($this->roleId)
         ]);
     }

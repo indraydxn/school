@@ -36,6 +36,7 @@ class Index extends Component
         $user = User::find($id);
         if ($user) {
             $user->delete();
+            $this->dispatch('close-modal');
             noty()->success($user->nama_lengkap . ' berhasil dihapus!');
         } else {
             noty()->error('Data tidak ditemukan!');
