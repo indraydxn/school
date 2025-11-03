@@ -33,7 +33,7 @@
                                             <label class="block space-y-1" wire:ignore>
                                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Guard Name<p class="text-error">*</p></span>
                                                 <select id="guard_name" wire:model="guard_name" placeholder="- Pilih Guard -" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true, dropdownParent: 'body'})" required class="w-full tracking-wide">
-                                                    <option value="web" selected>Web</option>
+                                                    <option value="web" selected>WEB</option>
                                                     <option value="api">API</option>
                                                 </select>
                                                 @error('guard_name')<p class="text-error text-xs tracking-wide mt-1">{{ $message }}</p>@enderror

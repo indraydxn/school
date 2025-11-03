@@ -90,7 +90,7 @@
                 {{-- Hak Akses --}}
                 <x-backend.menu-item
                     title="Hak Akses"
-                    icon="fa-shield"
+                    icon="shield-user"
                     :active="request()->routeIs('admin.role.*')"
                 >
 
