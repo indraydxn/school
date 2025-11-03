@@ -18,7 +18,7 @@
                                         </h4>
                                     </div>
                                 </div>
-                                <form wire:submit="update">
+                                <form wire:submit="update" wire:target="update">
                                     <div class="space-y-4 px-6 py-4">
                                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
@@ -30,7 +30,7 @@
                                             </label>
 
                                             {{-- Guard Name --}}
-                                            <label class="block space-y-1">
+                                            <label class="block space-y-1" wire:ignore>
                                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Guard Name<p class="text-error">*</p></span>
                                                 <select id="guard_name" wire:model="guard_name" placeholder="- Pilih Guard -" x-init="$el._tom = new Tom($el,{sortField: {field: 'text'}, allowEmptyOption: true, dropdownParent: 'body'})" required class="w-full tracking-wide">
                                                     <option value="web" selected>Web</option>
@@ -64,22 +64,22 @@
                                             </label>
 
                                         </div>
-                                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                        <div class="grid grid-cols-2 gap-4 sm:grid-cols-2">
 
                                             {{-- Permissions --}}
                                             <label class="block space-y-1 col-span-12">
                                                 <span class="flex items-center gap-0.5 tracking-wide font-semibold">Akses</span>
-                                                <div class="space-y-4 overflow-y-auto">
+                                                <div class="grid grid-cols-2 gap-4 sm:grid-cols-2">
                                                     @php
                                                         $groupedPermissions = $allPermissions->groupBy('module.name');
                                                     @endphp
                                                     @foreach($groupedPermissions as $moduleName => $permissions)
                                                         <div class="space-y-2 border rounded-lg p-4">
                                                             <div class="flex items-center justify-between">
-                                                                <h5 class="text-xl font-semibold tracking-wide uppercase text-gray-700">{{ $moduleName }}</h5>
+                                                                <span class="font-bold tracking-wider uppercase text-gray-700">{{ $moduleName }}</span>
                                                                 <label class="flex items-center gap-2 px-3 py-2 border border-gray-200 rounded-lg text-sm hover:border-primary">
                                                                     <input type="checkbox" wire:click="toggleModule('{{ $moduleName }}')" {{ count(array_intersect($permissions->pluck('id')->toArray(), $this->permissions)) === $permissions->count() ? 'checked' : '' }} class="form-checkbox is-basic size-4 rounded border-gray-200 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary">
-                                                                    <span class="text-xs-plus tracking-wider">Select All</span>
+                                                                    <span class="tracking-wider">Pilih Semua</span>
                                                                 </label>
                                                             </div>
                                                             <div class="grid grid-cols-3 gap-2">
@@ -103,9 +103,9 @@
                                             <a href="{{ route('admin.role.index') }}" class="btn bg-gray-100 font-bold text-slate-800 hover:bg-gray-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
                                                 Batal
                                             </a>
-                                            <button type="submit" wire:loading.attr="disabled" type="button" class="btn bg-success font-bold text-white hover:bg-success-focus focus:bg-success-focus active:bg-success-focus/90">
-                                                <span wire:loading.remove>Simpan</span>
-                                                <span wire:loading class="flex items-center justify-center gap-2">
+                                            <button type="submit" wire:loading.attr="disabled" wire:target="update" type="button" class="btn bg-success font-bold text-white hover:bg-success-focus focus:bg-success-focus active:bg-success-focus/90">
+                                                <span wire:loading.remove wire:target="update">Simpan</span>
+                                                <span wire:loading wire:target="update" class="flex items-center justify-center gap-2">
                                                     Memproses...
                                                     <i class="fa-duotone fa-spinner-third animate-spin"></i>
                                                 </span>
