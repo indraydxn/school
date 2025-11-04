@@ -31,7 +31,7 @@
                                                 <i class="text-xs-plus fa-regular fa-down-to-bracket"></i>
                                                 <span class="text-xs-plus tracking-wider hidden lg:block">Export</span>
                                             </button>
-                                            {{-- <livewire:backend.role.export/> --}}
+                                            <livewire:backend.role.export/>
                                         </div>
 
                                         {{-- Print --}}
