@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\UserPrintController;
 use App\Http\Controllers\Backend\StaffPrintController;
 use App\Http\Controllers\Backend\StudentPrintController;
 use App\Http\Controllers\Backend\ParentPrintController;
+use App\Http\Controllers\Backend\RolePrintController;
 
 // Root
 Route::get('/', function () {
@@ -58,6 +59,7 @@ Route::middleware('auth')->group(function () {
         // Role
         Route::prefix('role')->name('role.')->group(function () {
             Route::get('/', App\Livewire\Backend\Role\Index::class)->name('index');
+            Route::get('/print', RolePrintController::class)->name('print');
             Route::get('/{role}/edit', App\Livewire\Backend\Role\Edit::class)->name('edit');
         });
 
